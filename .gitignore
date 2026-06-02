@@ -1,0 +1,21 @@
+# macOS files
+.DS_Store
+**/.DS_Store
+__MACOSX/
+
+# Local user data — never publish
+continut/resurse/utilizatori.json
+continut/resurse/cereri.json
+
+# Python generated files
+__pycache__/
+*.pyc
+*.pyo
+
+# Editor settings
+.vscode/
+.idea/
+
+# Temporary files
+*.swp
+*.tmp

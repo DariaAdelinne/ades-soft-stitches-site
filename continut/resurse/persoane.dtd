@@ -1,0 +1,18 @@
+<!ELEMENT persoane (persoana+)>
+<!ELEMENT persoana (nume,prenume,varsta,adresa,email,telefon,studii)>
+<!ATTLIST persoana id NMTOKEN #REQUIRED>
+<!ELEMENT nume (#PCDATA)>
+<!ELEMENT prenume (#PCDATA)>
+<!ELEMENT varsta (#PCDATA)>
+<!ELEMENT adresa (strada,numar,localitate,judet,tara)>
+<!ELEMENT strada (#PCDATA)>
+<!ELEMENT numar (#PCDATA)>
+<!ELEMENT localitate (#PCDATA)>
+<!ELEMENT judet (#PCDATA)>
+<!ELEMENT tara (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT telefon (#PCDATA)>
+<!ELEMENT studii (liceu,universitate,facultate)>
+<!ELEMENT liceu (#PCDATA)>
+<!ELEMENT universitate (#PCDATA)>
+<!ELEMENT facultate (#PCDATA)>

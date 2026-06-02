@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ro"> <!-- Limba setată la română pentru a se potrivi cu conținutul și a îmbunătăți accesibilitatea -->
+    <head>
+        <meta charset="UTF-8"> <!-- Setarea corectă a charset-ului pentru a asigura afișarea corectă a caracterelor românești -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Asigură o bună experiență pe dispozitive mobile -->
+        <title>Ade's Soft Stitches</title>
+        <link rel="ico" type="image/ico" href="favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/stil.css">
+        
+        <script>
+            function randomInt(min, max) { /* Pentru stabilirea mărimii, poziției, culorii, rotației florilor*/
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function randomFloat(min, max) { /* Pentru stabilirea opacității florilor */
+                return Math.random() * (max - min) + min;
+            }
+
+            function pozitioneazaFloriRandom() { /* Poziționează florile în mod aleatoriu pe fundal, evitând suprapunerea și zona principală de conținut */
+                var flori = document.querySelectorAll('.flori-bg span');
+                if (!flori.length) return;
+
+                var culori = ['#e7a8bd', '#f6c8d6', '#f9d8e2', '#f3bbcd'];
+                var pozitiiOcupate = [];
+
+                var mainBox = document.querySelector('main');
+                var mainRect = mainBox ? mainBox.getBoundingClientRect() : null; /* Obține poziția și dimensiunea elementului main pentru a evita plasarea florilor peste conținut */
+
+                var vw = window.innerWidth; /* Lățimea viewport-ului pentru a stabili limitele de plasare a florilor */
+                var vh = window.innerHeight; /* Înălțimea viewport-ului pentru a stabili limitele de plasare a florilor */
+
+                var margine = 20; /* Margine minimă față de marginea ecranului și elementul main pentru a nu plasa florile prea aproape de aceste zone */
+                var paddingFloare = 20; /* Spațiu suplimentar pentru a preveni suprapunerea florilor, adăugat la dimensiunea fiecărei flori atunci când se verifică suprapunerea */
+
+                var zone = []; /* Zonele în care florile pot fi plasate, împărțind ecranul în patru secțiuni în jurul elementului main, plus o zonă generală dacă main nu este găsit */
+
+                if (mainRect) { /* Dacă elementul main există, se definesc patru zone în jurul său pentru a plasa florile, evitând astfel suprapunerea cu conținutul principal */
+                    zone = [
+                        {
+                            xMin: margine,
+                            xMax: Math.max(margine, mainRect.left - 40),
+                            yMin: margine,
+                            yMax: vh - margine
+                        },
+                        {
+                            xMin: Math.min(vw - margine, mainRect.right + 40),
+                            xMax: vw - margine,
+                            yMin: margine,
+                            yMax: vh - margine
+                        },
+                        {
+                            xMin: Math.max(margine, mainRect.left + 20),
+                            xMax: Math.min(vw - margine, mainRect.right - 20),
+                            yMin: margine,
+                            yMax: Math.max(margine, mainRect.top - 30)
+                        },
+                        {
+                            xMin: Math.max(margine, mainRect.left + 20),
+                            xMax: Math.min(vw - margine, mainRect.right - 20),
+                            yMin: Math.min(vh - margine, mainRect.bottom + 30),
+                            yMax: vh - margine
+                        }
+                    ];
+                } else {
+                    zone = [
+                        {
+                            xMin: margine,
+                            xMax: vw - margine,
+                            yMin: margine,
+                            yMax: vh - margine
+                        }
+                    ];
+                }
+
+                function seSuprapune(candidat) { /* Verifică dacă poziția candidatului pentru o floare se suprapune cu oricare dintre pozițiile deja ocupate de alte flori, luând în considerare dimensiunea și padding-ul pentru a preveni suprapunerea vizuală */
+                    for (var i = 0; i < pozitiiOcupate.length; i++) {
+                        var p = pozitiiOcupate[i];
+
+                        var overlapX = candidat.x < p.x + p.w && candidat.x + candidat.w > p.x;
+                        var overlapY = candidat.y < p.y + p.h && candidat.y + candidat.h > p.y;
+
+                        if (overlapX && overlapY) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                function alegeZona(index, total) { /* Alege zona în care va fi plasată floarea, împărțind ecranul în patru secțiuni și alocând florile în mod echilibrat între aceste secțiuni pentru a crea un aspect armonios și a evita aglomerarea într-o singură zonă */
+                    if (zone.length === 1) return zone[0];
+
+                    var sfert = Math.floor(total / 4);
+
+                    if (index < sfert) return zone[0];
+                    if (index < sfert * 2) return zone[1];
+                    if (index < sfert * 3) return zone[2];
+                    return zone[3];
+                }
+
+                flori.forEach(function (floare, index) { /* Pentru fiecare floare, se stabilesc aleatoriu dimensiunea, opacitatea, rotația și culoarea, apoi se încearcă găsirea unei poziții care să nu se suprapună cu alte flori deja plasate, respectând zonele definite pentru a evita conținutul principal și marginea ecranului. Dacă după 100 de încercări nu se găsește o poziție fără suprapunere, floarea este plasată într-o poziție aleatorie fără verificare suplimentară pentru a asigura că toate florile sunt vizibile pe ecran, chiar dacă unele pot fi suprapuse. */
+                    var size = randomInt(24, 82);
+                    var opacity = randomFloat(0.20, 0.48).toFixed(2);
+                    var rotate = randomInt(-20, 20);
+                    var color = culori[randomInt(0, culori.length - 1)];
+
+                    var zona = alegeZona(index, flori.length);
+
+                    var w = size;
+                    var h = size;
+                    var gasit = false;
+                    var x, y;
+
+                    for (var incercare = 0; incercare < 100; incercare++) { /* Se încearcă găsirea unei poziții pentru floare care să nu se suprapună cu alte flori deja plasate, generând poziții aleatorii în zona alocată și verificând suprapunerea cu pozițiile ocupate. Dacă după 100 de încercări nu se găsește o poziție fără suprapunere, se va plasa floarea într-o poziție aleatorie fără verificare suplimentară pentru a asigura că toate florile sunt vizibile pe ecran, chiar dacă unele pot fi suprapuse. */
+                        x = randomInt(zona.xMin, Math.max(zona.xMin, zona.xMax - w));
+                        y = randomInt(zona.yMin, Math.max(zona.yMin, zona.yMax - h));
+
+                        var candidat = { /* Candidatul pentru poziția unei flori, extins cu padding pentru a preveni suprapunerea vizuală, este definit prin coordonatele x și y, precum și lățimea și înălțimea care includ dimensiunea florii plus un padding suplimentar pentru a asigura un spațiu între flori și a evita aglomerarea vizuală. Acest candidat va fi verificat împotriva pozițiilor deja ocupate pentru a determina dacă poate fi plasat fără suprapunere. */
+                            x: x - paddingFloare / 2,
+                            y: y - paddingFloare / 2,
+                            w: w + paddingFloare,
+                            h: h + paddingFloare
+                        };
+
+                        if (!seSuprapune(candidat)) {
+                            pozitiiOcupate.push(candidat);
+                            gasit = true;
+                            break;
+                        }
+                    }
+
+                    if (!gasit) { /* Dacă după 100 de încercări nu se găsește o poziție fără suprapunere, se va plasa floarea într-o poziție aleatorie fără verificare suplimentară pentru a asigura că toate florile sunt vizibile pe ecran, chiar dacă unele pot fi suprapuse. Aceasta este o măsură de rezervă pentru a preveni situația în care unele flori nu ar fi afișate deloc din cauza lipsei unei poziții disponibile fără suprapunere, asigurând astfel că toate florile sunt vizibile pe ecran, chiar dacă unele pot fi suprapuse. */
+                        x = randomInt(zona.xMin, Math.max(zona.xMin, zona.xMax - w));
+                        y = randomInt(zona.yMin, Math.max(zona.yMin, zona.yMax - h));
+                    }
+
+                    floare.style.left = x + 'px';
+                    floare.style.top = y + 'px';
+                    floare.style.right = 'auto';
+                    floare.style.bottom = 'auto';
+                    floare.style.fontSize = size + 'px';
+                    floare.style.opacity = opacity;
+                    floare.style.color = color;
+                    floare.style.transform = 'rotate(' + rotate + 'deg)';
+                });
+            }
+
+            function schimbaContinut(resursa, jsFisier, jsFunctie) { /* Încarcă conținutul unei resurse HTML în elementul cu id "continut" și, opțional, încarcă un fișier JavaScript și apelează o funcție specificată după încărcarea conținutului. Funcția utilizează XMLHttpRequest pentru a obține conținutul HTML al resursei specificate și îl inserează în elementul "continut". Dacă se specifică un fișier JavaScript, acesta este încărcat dinamic și, după ce este încărcat, se verifică dacă există o funcție cu numele specificat și, dacă da, aceasta este apelată. Această funcție permite schimbarea dinamică a conținutului paginii fără a reîncărca întreaga pagină, oferind o experiență mai fluidă utilizatorului. */
+                console.log("schimbaContinut:", resursa, jsFisier, jsFunctie); /* Logare pentru a urmări resursa care se încarcă, fișierul JavaScript asociat și funcția care urmează să fie apelată, ceea ce ajută la depanare și înțelegerea fluxului de încărcare a conținutului. */
+
+                var xhr = new XMLHttpRequest(); /* Crearea unui obiect XMLHttpRequest pentru a efectua o cerere HTTP pentru a obține conținutul HTML al resursei specificate. Acest obiect permite efectuarea de cereri asincrone către server și manipularea răspunsurilor primite, ceea ce este esențial pentru încărcarea dinamică a conținutului fără a reîncărca întreaga pagină. */
+                xhr.onreadystatechange = function () {
+                    if (this.readyState === 4) { /* Verifică dacă cererea a fost finalizată (readyState 4) și apoi procesează răspunsul. Dacă statusul este 200, înseamnă că cererea a fost cu succes și conținutul HTML poate fi inserat în pagina. Dacă există un fișier JavaScript specificat, acesta va fi încărcat dinamic și, după ce este încărcat, se va verifica dacă există o funcție cu numele specificat și, dacă da, aceasta va fi apelată. Dacă statusul nu este 200, se afișează un mesaj de eroare în elementul "continut". */
+                        console.log("HTML status:", this.status, "pentru", resursa + '.html');
+
+                        
+                        if (this.status === 200) {
+                            document.getElementById('continut').innerHTML = this.responseText;
+                            
+                            if (typeof pozitioneazaFloriRandom === "function") { 
+                                pozitioneazaFloriRandom();
+                            }
+
+                            if (resursa === 'despre') { /* Dacă resursa încărcată este "despre", se apelează funcția initDesprePage pentru a inițializa funcționalitățile specifice paginii "despre", cum ar fi procesarea embed-urilor Instagram și setarea evenimentului de submit pentru formularul de cerere produs. Aceasta asigură că funcționalitățile specifice paginii "despre" sunt configurate corect după ce conținutul acestei pagini a fost încărcat în elementul "continut". */
+                                initDesprePage();
+                            }
+
+                            if (jsFisier) { /* Dacă este specificat un fișier JavaScript, se încarcă dinamic acest fișier și, după ce este încărcat, se verifică dacă există o funcție cu numele specificat și, dacă da, aceasta este apelată. Aceasta permite adăugarea de funcționalități suplimentare sau inițializarea unor comportamente specifice după ce conținutul HTML a fost încărcat, oferind astfel o flexibilitate mai mare în modul în care paginile pot interacționa cu utilizatorul și pot răspunde la acțiunile acestuia. */
+                                var scriptVechi = document.getElementById('script-dinamic');
+                                if (scriptVechi) { /* Dacă există deja un script cu id "script-dinamic", acesta este eliminat pentru a preveni încărcarea multiplă a aceluiași script sau a unor scripturi diferite care ar putea cauza conflicte sau comportamente neașteptate. Aceasta asigură că doar scriptul specificat pentru resursa curentă este încărcat și executat, menținând astfel o gestionare mai curată și mai eficientă a resurselor JavaScript în pagină. */
+                                    scriptVechi.remove();
+                                }
+
+                                var elementScript = document.createElement('script'); 
+                                elementScript.id = 'script-dinamic';
+
+                                elementScript.onload = function () { 
+                                    console.log("script incarcat:", jsFisier);
+                                    console.log("exista functia?", typeof window[jsFunctie]);
+
+                                    if (jsFunctie) { 
+                                        window[jsFunctie]();
+                                    }
+                                };
+
+                                elementScript.onerror = function () { /* Dacă există o eroare la încărcarea scriptului specificat, se va loga un mesaj de eroare în consolă pentru a ajuta la identificarea problemei. Aceasta este importantă pentru depanare, deoarece poate indica probleme precum un fișier lipsă, o cale incorectă sau probleme de rețea care împiedică încărcarea scriptului. Logarea acestei erori oferă informații valoroase pentru a rezolva problema și a asigura că funcționalitățile asociate scriptului sunt disponibile pentru utilizatori. */
+                                    console.log("EROARE la incarcarea scriptului:", jsFisier);
+                                };
+
+                                elementScript.src = 'http://localhost:8888' + jsFisier + '?v=' + new Date().getTime(); /* Setarea sursei scriptului la adresa specificată, adăugând un parametru de cache-busting (v=timestamp) pentru a forța browserul să încarce întotdeauna cea mai recentă versiune a scriptului, evitând astfel problemele legate de cache care pot apărea în timpul dezvoltării sau actualizării scripturilor. Aceasta asigură că orice modificare adusă scriptului va fi reflectată imediat pentru utilizatori fără a fi nevoie să golească manual cache-ul browserului. */
+                                document.head.appendChild(elementScript);
+                            } else {
+                                if (jsFunctie) { /* Dacă nu este specificat un fișier JavaScript, dar este specificată o funcție, se verifică dacă această funcție există și, dacă da, aceasta este apelată. Aceasta permite inițializarea unor comportamente sau funcționalități specifice după ce conținutul HTML a fost încărcat, chiar și în absența unui script extern, oferind astfel o flexibilitate mai mare în modul în care paginile pot interacționa cu utilizatorul și pot răspunde la acțiunile acestuia. */
+                                    window[jsFunctie]();
+                                }
+                            }
+                        } else { /* Dacă statusul răspunsului nu este 200, ceea ce indică o eroare la încărcarea resursei, se afișează un mesaj de eroare în elementul "continut" pentru a informa utilizatorul că resursa nu a putut fi încărcată. Aceasta este importantă pentru a oferi feedback utilizatorului și a preveni confuzia sau frustrarea care poate apărea atunci când conținutul așteptat nu este disponibil din cauza unei erori. Afișarea acestui mesaj de eroare ajută la menținerea unei experiențe mai bune pentru utilizatori, chiar și în situații în care apar probleme tehnice. */
+                            document.getElementById('continut').innerHTML =
+                                '<h2>Eroare</h2><p>Resursa nu a putut fi încărcată.</p>';
+                        }
+                    }
+                };
+
+                xhr.open('GET', resursa + '.html', true); /* Inițializează o cerere GET asincronă pentru a obține conținutul HTML al resursei specificate, unde resursa este un parametru care indică numele fișierului HTML (fără extensie) care trebuie încărcat. Aceasta permite schimbarea dinamică a conținutului paginii fără a reîncărca întreaga pagină, oferind o experiență mai fluidă utilizatorului. */
+                xhr.send();
+            }
+
+            function verificaUtilizator() { /* Verifică dacă numele de utilizator și parola introduse de utilizator se potrivesc cu unul dintre seturile de credențiale stocate în fișierul utilizatori.json. Funcția obține valorile introduse de utilizator pentru numele de utilizator și parolă, apoi utilizează XMLHttpRequest pentru a încărca fișierul utilizatori.json, care conține o listă de utilizatori și parole. După ce fișierul este încărcat, funcția parcurge lista de utilizatori și parole pentru a verifica dacă există o potrivire cu credențialele introduse de utilizator. Dacă se găsește o potrivire, se afișează un mesaj de succes; în caz contrar, se afișează un mesaj de eroare. Aceasta oferă o funcționalitate simplă de autentificare pentru a controla accesul la anumite funcționalități sau secțiuni ale site-ului sau aplicației. */
+                var utilizator = document.getElementById("utilizator").value;
+                var parola = document.getElementById("parola").value;
+                var rezultat = document.getElementById("rezultat-verificare");
+
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            var utilizatori = JSON.parse(this.responseText); /* Parsează răspunsul JSON obținut din fișierul utilizatori.json pentru a obține o listă de utilizatori și parole, care va fi utilizată pentru a verifica credențialele introduse de utilizator. Aceasta transformă textul JSON într-un obiect JavaScript care poate fi manipulat în continuare pentru a efectua verificarea autentificării. */
+                            var gasit = false;
+
+                            for (var i = 0; i < utilizatori.length; i++) { /*  Parcurge lista de utilizatori și parole obținută din fișierul utilizatori.json pentru a verifica dacă există o potrivire cu credențialele introduse de utilizator. Pentru fiecare set de credențiale din fișier, se compară numele de utilizator și parola cu cele introduse de utilizator. Dacă se găsește o potrivire, variabila "gasit" este setată la true și bucla se oprește, indicând că autentificarea a fost realizată cu succes. Aceasta este o parte esențială a procesului de autentificare, asigurând că doar utilizatorii cu credențiale valide pot accesa funcționalitățile protejate ale site-ului sau aplicației. */
+                                if (utilizatori[i].utilizator === utilizator &&
+                                    utilizatori[i].parola === parola) {
+                                    gasit = true;
+                                    break;
+                                }
+                            }
+
+                            if (gasit) { /* Dacă utilizatorul și parola introduse de utilizator se potrivesc cu unul dintre seturile de credențiale din fișierul utilizatori.json, se afișează un mesaj de succes în elementul "rezultat-verificare" pentru a informa utilizatorul că autentificarea a fost realizată cu succes. Aceasta oferă feedback pozitiv utilizatorului și confirmă că a introdus credențialele corecte, ceea ce poate fi important pentru a crea o experiență plăcută și pentru a încuraja utilizatorii să continue să interacționeze cu site-ul sau aplicația. */
+                                rezultat.innerHTML = "Utilizator și parolă corecte.";
+                            } else {
+                                rezultat.innerHTML = "Utilizator sau parolă incorecte.";
+                            }
+                        } else { /* Dacă statusul răspunsului nu este 200, ceea ce indică o eroare la încărcarea fișierului utilizatori.json, se afișează un mesaj de eroare în elementul "rezultat-verificare" pentru a informa utilizatorul că datele necesare pentru verificarea credențialelor nu au putut fi obținute. Aceasta este importantă pentru a oferi feedback utilizatorului și a preveni confuzia sau frustrarea care poate apărea atunci când încercarea de autentificare eșuează din cauza unei probleme tehnice, cum ar fi un fișier lipsă sau o problemă de rețea. Afișarea acestui mesaj de eroare ajută la menținerea unei experiențe mai bune pentru utilizatori, chiar și în situații în care apar probleme tehnice. */
+                            rezultat.innerHTML = "Eroare la încărcarea fișierului utilizatori.json.";
+                        }
+                    }
+                };
+
+                xhr.open("GET", "resurse/utilizatori.json", true); /* Inițializează o cerere GET asincronă pentru a obține conținutul fișierului utilizatori.json, care conține o listă de utilizatori și parole. Aceasta permite verificarea credențialelor introduse de utilizator împotriva datelor stocate în acest fișier, oferind astfel o funcționalitate de autentificare simplă. */
+                xhr.send();
+            }
+
+            function initDesprePage() { /* Inițializează funcționalitățile specifice paginii "despre", cum ar fi procesarea embed-urilor Instagram și setarea evenimentului de submit pentru formularul de cerere produs. Aceasta asigură că funcționalitățile specifice paginii "despre" sunt configurate corect după ce conținutul acestei pagini a fost încărcat în elementul "continut". Funcția verifică dacă obiectul instgrm și metoda Embeds sunt disponibile, iar dacă da, procesează embed-urile Instagram existente. Dacă nu sunt disponibile, se creează un element script pentru a încărca scriptul de embed Instagram și, după ce este încărcat, se procesează embed-urile Instagram. De asemenea, funcția adaugă un event listener pentru formularul de cerere produs, care va apela funcția trimiteCerereProdus atunci când formularul este trimis. */
+                if (window.instgrm && window.instgrm.Embeds) { /*  Verifică dacă obiectul instgrm și metoda Embeds sunt disponibile, ceea ce indică faptul că scriptul de embed Instagram a fost deja încărcat și este gata de utilizare. Dacă aceste obiecte sunt disponibile, se apelează metoda process pentru a procesa embed-urile Instagram existente în pagina "despre", asigurând astfel că acestea sunt afișate corect și funcționează conform așteptărilor. Aceasta este o verificare importantă pentru a evita încercarea de a procesa embed-urile Instagram înainte ca scriptul necesar să fie încărcat, ceea ce ar putea duce la erori sau la neafișarea corectă a conținutului Instagram. */
+                    window.instgrm.Embeds.process();
+                } else { /* Dacă obiectul instgrm sau metoda Embeds nu sunt disponibile, ceea ce indică faptul că scriptul de embed Instagram nu a fost încă încărcat, se creează un element script pentru a încărca scriptul de embed Instagram. După ce scriptul este încărcat, se verifică din nou dacă obiectul instgrm și metoda Embeds sunt disponibile și, dacă da, se apelează metoda process pentru a procesa embed-urile Instagram. Aceasta asigură că embed-urile Instagram vor fi procesate și afișate corect după ce scriptul necesar a fost încărcat, oferind astfel o experiență completă utilizatorului care vizitează pagina "despre". */
+                    var instaScript = document.createElement('script');
+                    instaScript.src = 'https://www.instagram.com/embed.js';
+                    instaScript.async = true;
+                    instaScript.onload = function () {
+                        if (window.instgrm && window.instgrm.Embeds) {
+                            window.instgrm.Embeds.process();
+                        }
+                    };
+                    document.head.appendChild(instaScript); /* Adaugă elementul script creat pentru a încărca scriptul de embed Instagram în secțiunea head a documentului, ceea ce va declanșa încărcarea acestui script și, după ce este încărcat, va permite procesarea embed-urilor Instagram din pagina "despre". Aceasta este o parte esențială a inițializării paginii "despre", asigurând că conținutul Instagram este afișat corect și funcționează conform așteptărilor pentru utilizatori. */
+                }
+
+                var formularCerere = document.getElementById('formular-despre'); /* Obține referința la formularul de cerere produs din pagina "despre" și adaugă un event listener pentru evenimentul de submit, care va apela funcția trimiteCerereProdus atunci când formularul este trimis. Aceasta asigură că atunci când utilizatorii completează și trimit formularul de cerere produs, funcția trimiteCerereProdus va fi apelată pentru a procesa datele introduse și a efectua acțiunile necesare, cum ar fi trimiterea datelor către server sau afișarea unui mesaj de confirmare. */
+                if (!formularCerere) {
+                    return;
+                }
+
+                formularCerere.addEventListener('submit', trimiteCerereProdus); /* Adaugă un event listener pentru evenimentul de submit al formularului de cerere produs, care va apela funcția trimiteCerereProdus atunci când formularul este trimis. Aceasta asigură că atunci când utilizatorii completează și trimit formularul de cerere produs, funcția trimiteCerereProdus va fi apelată pentru a procesa datele introduse și a efectua acțiunile necesare, cum ar fi trimiterea datelor către server sau afișarea unui mesaj de confirmare. */
+            }
+
+            function trimiteCerereProdus(event) { /* Procesează datele introduse în formularul de cerere produs și le trimite către server folosind XMLHttpRequest. Funcția obține valorile introduse de utilizator pentru nume, email, tip produs, culoare produs, dimensiune, detalii și acord de contact, apoi creează un obiect cerereNou care conține aceste date împreună cu data trimiterii. Apoi, se inițializează o cerere POST asincronă către endpoint-ul /api/cereri pentru a trimite aceste date către server. După ce cererea este finalizată, funcția verifică statusul răspunsului și afișează un mesaj de succes sau eroare în elementul "rezultat-cerere" în funcție de rezultatul cererii. Aceasta oferă o funcționalitate de trimitere a cererilor de produse personalizate către server, permițând utilizatorilor să solicite produse care nu sunt disponibile în mod implicit pe site. */
+                event.preventDefault(); /* Previne comportamentul implicit al formularului, care ar fi să reîncarce pagina atunci când este trimis. Aceasta permite funcției trimiteCerereProdus să proceseze datele introduse de utilizator și să le trimită către server folosind XMLHttpRequest fără a reîncărca întreaga pagină, oferind astfel o experiență mai fluidă și mai interactivă pentru utilizatori. */
+
+                var rezultat = document.getElementById('rezultat-cerere');
+                var formular = document.getElementById('formular-despre');
+
+                var cerereNoua = { /* Creează un obiect cerereNou care conține datele introduse de utilizator în formularul de cerere produs, împreună cu data trimiterii. Acest obiect va fi trimis către server pentru a procesa cererea de produs personalizat. Obiectul include numele și emailul clientului, tipul și culoarea produsului solicitat, dimensiunea, detaliile suplimentare, acordul de contact și data trimiterii cererii. Aceasta asigură că toate informațiile relevante despre cererea de produs sunt colectate și structurate într-un mod care poate fi ușor procesat de server. */
+                    nume: document.getElementById('nume-client').value.trim(), 
+                    email: document.getElementById('email-client').value.trim(),
+                    tip_produs: document.getElementById('tip-produs').value,
+                    culoare_produs: document.getElementById('culoare-produs').value,
+                    dimensiune: document.getElementById('dimensiune').value,
+                    detalii: document.getElementById('detalii').value.trim(),
+                    acord_contact: document.getElementById('acord-contact').checked,
+                    data_trimiterii: new Date().toISOString()
+                };
+
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () { /* Verifică dacă cererea a fost finalizată (readyState 4) și apoi procesează răspunsul. Dacă statusul este 200, înseamnă că cererea a fost cu succes și se afișează un mesaj de succes în elementul "rezultat-cerere", iar formularul este resetat pentru a permite introducerea unei noi cereri. Dacă statusul nu este 200, se afișează un mesaj de eroare în elementul "rezultat-cerere" pentru a informa utilizatorul că cererea nu a putut fi procesată. Aceasta oferă feedback utilizatorului cu privire la rezultatul acțiunii sale și asigură o experiență mai bună, chiar și în cazul în care apar probleme tehnice sau de procesare a cererii. */
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            rezultat.innerHTML = this.responseText;
+                            rezultat.style.color = 'green';
+                            formular.reset();
+                        } else {
+                            rezultat.innerHTML = this.responseText || 'Eroare la trimiterea cererii.';
+                            rezultat.style.color = 'red';
+                        }
+                    }
+                };
+
+                xhr.open('POST', '/api/cereri', true); /* Inițializează o cerere POST asincronă către endpoint-ul /api/cereri pentru a trimite datele cererii de produs personalizat către server. Aceasta permite procesarea cererii pe server și oferă o funcționalitate de trimitere a cererilor de produse personalizate, permițând utilizatorilor să solicite produse care nu sunt disponibile în mod implicit pe site. */
+                xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8'); /* Setează header-ul Content-Type al cererii la "application/json; charset=UTF-8" pentru a indica faptul că datele trimise către server sunt în format JSON și utilizează codificarea UTF-8. Aceasta este importantă pentru a asigura că serverul poate interpreta corect datele primite și poate procesa cererea în mod corespunzător, evitând astfel problemele legate de formatul datelor sau de codificare care ar putea apărea în timpul procesării cererii. */
+                xhr.send(JSON.stringify(cerereNoua)); /* Trimite cererea către server, convertind obiectul cerereNoua în format JSON folosind JSON.stringify. Aceasta asigură că datele cererii de produs personalizat sunt transmise într-un format standardizat și ușor de procesat de server, permițând astfel o gestionare eficientă a cererilor și o experiență mai bună pentru utilizatori. */
+
+                return false;
+            }
+
+            function inregistreazaUtilizator(event) { /* Procesează datele introduse în formularul de înregistrare și le trimite către server folosind XMLHttpRequest pentru a crea un nou utilizator. Funcția obține valorile introduse de utilizator pentru nume, prenume, email, parolă, confirmare parolă, culoare favorită, acordul de primire noutăți și acordul cu termenii și condițiile. Apoi, verifică dacă parola și confirmarea parolei coincid și dacă utilizatorul a acceptat termenii și condițiile. Dacă aceste verificări sunt trecute, se creează un obiect utilizatorNou care conține aceste date și se inițializează o cerere POST asincronă către endpoint-ul /api/utilizatori pentru a trimite aceste date către server. După ce cererea este finalizată, funcția verifică statusul răspunsului și afișează un mesaj de succes sau eroare în elementul "rezultat-inregistrare" în funcție de rezultatul cererii. Aceasta oferă o funcționalitate de înregistrare a utilizatorilor noi pe site, permițând astfel extinderea bazei de utilizatori și oferirea unei experiențe personalizate pentru aceștia. */
+                event.preventDefault();
+
+                var nume = document.getElementById("nume").value;
+                var prenume = document.getElementById("prenume").value;
+                var email = document.getElementById("email").value;
+                var parola = document.getElementById("parola").value;
+                var confirmareParola = document.getElementById("confirmare-parola").value;
+                var culoareFavorita = document.getElementById("culoare-favorita").value;
+                var noutati = document.getElementById("noutati").checked;
+                var conditii = document.getElementById("conditii").checked;
+                var rezultat = document.getElementById("rezultat-inregistrare");
+
+                if (parola !== confirmareParola) {
+                    rezultat.innerHTML = "Parolele nu coincid.";
+                    return false;
+                }
+
+                if (!conditii) {
+                    rezultat.innerHTML = "Trebuie să fii de acord cu termenii și condițiile.";
+                    return false;
+                }
+
+                var utilizatorNou = { /* Creează un obiect utilizatorNou care conține datele introduse de utilizator în formularul de înregistrare, care va fi trimis către server pentru a crea un nou utilizator. Acest obiect include numele, prenumele, emailul, parola, culoarea favorită și acordul de primire noutăți. Aceasta asigură că toate informațiile relevante despre noul utilizator sunt colectate și structurate într-un mod care poate fi ușor procesat de server pentru a crea contul utilizatorului și a oferi o experiență personalizată pentru acesta. */
+                    utilizator: email,
+                    parola: parola,
+                    nume: nume,
+                    prenume: prenume,
+                    email: email,
+                    culoare_favorita: culoareFavorita,
+                    noutati: noutati
+                };
+
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () { /* Verifică dacă cererea a fost finalizată (readyState 4) și apoi procesează răspunsul. Dacă statusul este 200, înseamnă că cererea a fost cu succes și se afișează un mesaj de succes în elementul "rezultat-inregistrare". Dacă statusul nu este 200, se afișează un mesaj de eroare în elementul "rezultat-inregistrare" pentru a informa utilizatorul că înregistrarea nu a putut fi procesată. Aceasta oferă feedback utilizatorului cu privire la rezultatul acțiunii sale și asigură o experiență mai bună, chiar și în cazul în care apar probleme tehnice sau de procesare a cererii. */
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            rezultat.innerHTML = this.responseText; 
+                        } else {
+                            rezultat.innerHTML = "Eroare la înregistrare.";
+                        }
+                    }
+                };
+
+                xhr.open("POST", "/api/utilizatori", true); /* Inițializează o cerere POST asincronă către endpoint-ul /api/utilizatori pentru a trimite datele noului utilizator către server și a crea un cont pentru acesta. Aceasta permite extinderea bazei de utilizatori și oferirea unei experiențe personalizate pentru aceștia, permițându-le să se înregistreze pe site și să acceseze funcționalități sau conținut care poate fi disponibil doar pentru utilizatorii înregistrați. */
+                xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8"); /* Setează header-ul Content-Type al cererii la "application/json; charset=UTF-8" pentru a indica faptul că datele trimise către server sunt în format JSON și utilizează codificarea UTF-8. Aceasta este importantă pentru a asigura că serverul poate interpreta corect datele primite și poate procesa cererea în mod corespunzător, evitând astfel problemele legate de formatul datelor sau de codificare care ar putea apărea în timpul procesării cererii. */
+                xhr.send(JSON.stringify(utilizatorNou)); /* Trimite cererea către server, convertind obiectul utilizatorNou în format JSON folosind JSON.stringify. Aceasta asigură că datele noului utilizator sunt transmise într-un format standardizat și ușor de procesat de server, permițând astfel o gestionare eficientă a înregistrărilor și o experiență mai bună pentru utilizatori. */
+
+                return false;
+            }
+        </script>
+    </head>
+
+    <script src="/js/script.js"></script>
+    <body onload="schimbaContinut('acasa')">
+        <nav> <!-- Navigația principală a site-ului, care conține link-uri pentru a schimba conținutul paginii fără a reîncărca întreaga pagină. Fiecare link are un eveniment onclick care apelează funcția schimbaContinut cu parametrii corespunzători pentru a încărca conținutul specific al fiecărei secțiuni, precum și opțional un fișier JavaScript și o funcție de inițializare asociată. Aceasta permite o navigare fluidă și interactivă între diferitele secțiuni ale site-ului, oferind o experiență mai bună utilizatorilor. -->
+            <a onclick="schimbaContinut('acasa')">Acasă</a>
+            <a onclick="schimbaContinut('despre')">Despre</a>
+            <a onclick="schimbaContinut('inregistreaza')">Înregistrează</a>
+            <a onclick="schimbaContinut('video')">Video</a>
+            <a onclick="schimbaContinut('desen')">Desen</a>
+            <a onclick="schimbaContinut('invat', null, 'initPage')">Învață</a>
+            <a onclick="schimbaContinut('persoane', '/js/persoane.js', 'incarcaPersoane')">Persoane</a>
+            <a onclick="schimbaContinut('verifica')">Verifică</a>
+            <a onclick="schimbaContinut('cumparaturi', '/js/cumparaturi.js', 'initCumparaturi')">Cumpărături</a>
+        </nav>
+
+        <header>
+            <h1>Ade's Soft Stitches</h1>
+        </header>
+
+        <main id="continut"></main> <!-- Elementul principal al paginii, care va fi populat dinamic cu conținutul specific fiecărei secțiuni atunci când utilizatorii navighează prin site. Conținutul acestui element va fi actualizat de funcția schimbaContinut în funcție de secțiunea selectată, oferind astfel o experiență interactivă și dinamică pentru utilizatori. -->
+
+        <footer>
+            <hr>
+            <p>&copy; 2026. Ade's Soft Stitches</p>
+        </footer>
+
+        <div class="flori-bg"> 
+            <span>✿</span>
+            <span>✿</span>
+            <span>✿</span>
+            <span>✿</span>
+            <span>✿</span>
+            <span>✿</span>
+            <span>✿</span>
+            <span>✿</span>
+            <span>✿</span>
+            <span>✿</span>
+            <span>✿</span>
+            <span>✿</span>
+            <span>✿</span>
+            <span>✿</span>
+        </div>
+    </body>
+</html>

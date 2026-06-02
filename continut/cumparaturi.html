@@ -1,0 +1,35 @@
+<h2>Cumpărături</h2>
+
+<p><strong>Completează ambele câmpuri. Cantitatea trebuie să fie un număr pozitiv.</strong></p>
+
+<form id="formular-cumparaturi" novalidate>
+    <label for="tip-stocare">Modalitate de salvare</label>
+    <select id="tip-stocare" name="tip-stocare">
+        <option value="localStorage">localStorage</option>
+        <option value="indexedDB">IndexedDB</option>
+    </select>
+
+    <label for="nume-produs">Nume produs</label>
+    <input type="text" id="nume-produs" name="nume-produs" placeholder="Ex: Iepure" required>
+
+    <label for="cantitate-produs">Cantitate</label>
+    <input type="number" id="cantitate-produs" name="cantitate-produs" placeholder="Ex: 10" min="1" step="1" required>
+
+    <button type="submit">Adaugă</button>
+</form>
+
+<p id="mesaj-cumparaturi"></p>
+
+<h3>Lista de cumpărături</h3>
+<table id="tabel-cumparaturi">
+    <thead>
+        <tr>
+            <th>Nr.</th>
+            <th>Nume produs</th>
+            <th>Cantitate</th>
+        </tr>
+    </thead>
+    <tbody id="corp-tabel-cumparaturi"></tbody>
+</table>
+
+<button type="button" id="sterge-lista">Șterge lista</button>

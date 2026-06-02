@@ -1,0 +1,106 @@
+
+        <div class="layout-lab">
+            <aside class="meniu-lateral">
+                <h3>Meniu secțiuni</h3>
+                <ul>
+                    <li><a href="#sectiunea1">Informații despre utilizator</a></li>
+                    <li><a href="#sectiunea2">Desen pe canvas</a></li>
+                    <li><a href="#sectiunea3">Tabel dinamic</a></li>
+                </ul>
+            </aside>
+
+            <div class="continut-lab">
+                <section id="sectiunea1" class="card-lab">
+                    <h3>Informații despre pagină și browser</h3>
+                    <div class="info-grid">
+                        <p id="date"></p>
+                        <p id="time"></p>
+                        <p id="location"></p>
+                        <p id="URL-address"></p>
+                        <p id="browser-name"></p>
+                        <p id="browser-version"></p>
+                        <p id="os-name"></p>
+                    </div>
+                </section>
+
+                <section id="sectiunea2" class="card-lab">
+                    <h3>Desenare de dreptunghiuri pe canvas</h3>
+                    <p>
+                        Alege culorile pentru umplere și contur, apoi dă două click-uri în canvas pentru a marca două colțuri opuse ale unui dreptunghi.
+                    </p>
+
+                    <div class="toolbar-canvas">
+                        <div>
+                            <label for="colorFill">Culoare umplere</label>
+                            <input type="color" id="colorFill" name="colorFill" value="#ff9aa2">
+                        </div>
+                        <div>
+                            <label for="colorStroke">Culoare contur</label>
+                            <input type="color" id="colorStroke" name="colorStroke" value="#664E4C">
+                        </div>
+                        <div>
+                            <button id="clearCanvas" type="button">Șterge canvas</button>
+                        </div>
+                    </div>
+
+                    <canvas id="my-canvas" width="700" height="400"></canvas>
+                    <p id="status">Aștept primul click...</p>
+                </section>
+
+                <section id="sectiunea3" class="card-lab">
+                    <h3>Secțiunea 3: Tabel dinamic</h3>
+                    <p>
+                        Tabelul de mai jos poate fi modificat prin inserarea unei linii sau a unei coloane la poziția dorită,
+                        folosind culorile selectate.
+                    </p>
+
+                    <table id="my-table">
+                        <tr>
+                            <th>Produs</th>
+                            <th>Categorie</th>
+                            <th>Stadiu</th>
+                        </tr>
+                        <tr>
+                            <td>Ursuleț croșetat</td>
+                            <td>Jucărie</td>
+                            <td>Finalizat</td>
+                        </tr>
+                        <tr>
+                            <td>Iepuraș pastel</td>
+                            <td>Cadou</td>
+                            <td>În lucru</td>
+                        </tr>
+                        <tr>
+                            <td>Floare decorativă</td>
+                            <td>Decor</td>
+                            <td>Planificat</td>
+                        </tr>
+                    </table>
+
+                    <div class="controale-tabel">
+                        <div class="control-box">
+                            <h4>Inserare linie</h4>
+                            <label for="rowIndex">Poziție linie</label>
+                            <input type="number" id="rowIndex" min="0" value="1">
+
+                            <label for="rowColor">Culoare linie</label>
+                            <input type="color" id="rowColor" value="#fff0b3">
+
+                            <button id="addRowBtn" type="button">Adaugă linie</button>
+                        </div>
+
+                        <div class="control-box">
+                            <h4>Inserare coloană</h4>
+                            <label for="colIndex">Poziție coloană</label>
+                            <input type="number" id="colIndex" min="0" value="1">
+
+                            <label for="colColor">Culoare coloană</label>
+                            <input type="color" id="colColor" value="#cfe8ff">
+
+                            <button id="addColBtn" type="button">Adaugă coloană</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+

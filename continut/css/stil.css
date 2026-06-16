@@ -526,6 +526,30 @@ main .eyebrow {
     margin-left: 12px;
 }
 
+.titlu-produs-mobile {
+    display: none;
+}
+
+.titlu-produs-mobile::before,
+.titlu-produs-mobile::after {
+    display: inline-block;
+    color: #e7a8bd;
+    font-family: Arial, sans-serif;
+    font-size: 0.7em;
+    line-height: 1;
+    vertical-align: 0.12em;
+}
+
+.titlu-produs-mobile::before {
+    content: "✿";
+    margin-right: 12px;
+}
+
+.titlu-produs-mobile::after {
+    content: "✿";
+    margin-left: 12px;
+}
+
 .galerie-produs {
     position: relative;
     overflow: hidden;
@@ -947,10 +971,32 @@ footer p {
         object-fit: cover;
     }
 
-    .pas-grid,
     .colectii-grid,
     .colectii-preview {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pas-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .pas-grid article {
+        padding: 10px;
+    }
+
+    .pas-grid strong {
+        width: 30px;
+        height: 30px;
+    }
+
+    .pas-grid h4 {
+        font-size: 1rem;
+    }
+
+    .pas-grid p {
+        font-size: 0.9rem;
+        line-height: 1.45;
     }
 
     .produse-grid {
@@ -966,8 +1012,13 @@ footer p {
         padding: 9px;
     }
 
-    .produs-card p {
-        font-size: 0.92rem;
+    .titlu-produs-mobile {
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .detalii-produs h2 {
+        display: none;
     }
 
     .detalii-produs dl div {
@@ -1037,6 +1088,29 @@ footer p {
 
     h3 {
         font-size: 1.12rem;
+    }
+
+    .pas-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .pas-grid article {
+        padding: 8px;
+    }
+
+    .pas-grid strong {
+        width: 28px;
+        height: 28px;
+    }
+
+    .pas-grid h4 {
+        font-size: 0.92rem;
+    }
+
+    .pas-grid p {
+        font-size: 0.8rem;
+        line-height: 1.35;
     }
 
     .colectii-grid,

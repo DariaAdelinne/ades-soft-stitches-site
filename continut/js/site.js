@@ -367,7 +367,6 @@ function cardProdusHtml(produs) {
             </button>
             <div>
                 <h4>${escapeHtml(produs.nume)}</h4>
-                <p>${escapeHtml(rezumatDimensiuni(produs))}</p>
                 <strong>${escapeHtml(produs.pret)}</strong>
             </div>
         </article>
@@ -484,6 +483,7 @@ function renderProdus(produsId) {
 
     container.innerHTML = `
         <button type="button" class="link-inapoi" data-page="produse">Înapoi la produse</button>
+        <h2 class="titlu-produs-mobile">${escapeHtml(produsCurent.nume)}</h2>
         <div class="detaliu-grid">
             <div class="galerie-produs">
                 <button type="button" class="sageata stanga" aria-label="Poza anterioară" data-gallery="prev">&#8249;</button>

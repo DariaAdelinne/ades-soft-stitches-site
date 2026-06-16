@@ -1,4 +1,5 @@
 const OWNER_EMAIL = "ades.soft.stitches@gmail.com";
+const PRODUSE_PE_PAGINA = 12;
 
 let colectii = [];
 let produse = [];
@@ -9,6 +10,7 @@ let indexGalerie = 0;
 let produsCurent = null;
 let colectieCurenta = "";
 let filtruCurent = "toate";
+let numarProduseVizibile = PRODUSE_PE_PAGINA;
 
 document.addEventListener("DOMContentLoaded", async () => {
     document.querySelectorAll("[data-page]").forEach((buton) => {
@@ -106,6 +108,7 @@ async function schimbaPagina(pagina, optiuni = {}) {
         continut.innerHTML = await raspuns.text();
         seteazaNavigatieActiva(pagina);
         initializeazaPagina(pagina, optiuni);
+        pregatesteImagini(continut);
         continut.focus({ preventScroll: true });
         window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -161,15 +164,33 @@ function escapeHtml(valoare) {
 
 function imagineOptimizata(src, latime = 1200) {
     const url = String(src || "");
-    if (!url.includes("res.cloudinary.com") || !url.includes("/image/upload/")) {
+    const marker = "/image/upload/";
+    if (!url.includes("res.cloudinary.com") || !url.includes(marker)) {
         return url;
     }
 
-    if (url.includes("/image/upload/f_auto,")) {
-        return url;
-    }
+    const [prefix, rest] = url.split(marker);
+    const parti = rest.split("/");
+    const indexVersiune = parti.findIndex((parte) => /^v\d+$/.test(parte));
+    const caleImagine = indexVersiune >= 0 ? parti.slice(indexVersiune).join("/") : rest;
 
-    return url.replace("/image/upload/", `/image/upload/f_auto,q_auto,c_limit,w_${latime}/`);
+    return `${prefix}${marker}f_auto,q_auto:eco,c_limit,w_${latime}/${caleImagine}`;
+}
+
+function pregatesteImagini(container) {
+    const imagini = Array.from(container.querySelectorAll("img"));
+    imagini.forEach((imagine, index) => {
+        const esteCardColectie = imagine.closest(".colectii-preview, .colectii-grid, .colectie-card");
+        const esteGalerieProdus = imagine.closest(".galerie-produs");
+        const latime = esteGalerieProdus ? 1200 : (esteCardColectie ? 520 : 900);
+        imagine.src = imagineOptimizata(imagine.getAttribute("src"), latime);
+        imagine.decoding = "async";
+        imagine.loading = index === 0 ? "eager" : "lazy";
+
+        if (index === 0) {
+            imagine.fetchPriority = "high";
+        }
+    });
 }
 
 function mesajCatalog() {
@@ -234,11 +255,13 @@ function afiseazaProduseColectie(colectieId) {
 
     titlu.textContent = colectie.nume;
     descriere.textContent = colectie.descriere || "";
+    numarProduseVizibile = PRODUSE_PE_PAGINA;
     actualizeazaSelectFiltre(selectFiltru);
     renderProduseFiltrate(produseColectie, colectie, listaProduse);
 
     selectFiltru.onchange = () => {
         filtruCurent = selectFiltru.value;
+        numarProduseVizibile = PRODUSE_PE_PAGINA;
         renderProduseFiltrate(produseColectie, colectie, listaProduse);
     };
 
@@ -311,22 +334,57 @@ function renderProduseFiltrate(produseColectie, colectie, listaProduse) {
             </div>
         `;
     } else {
-        listaProduse.innerHTML = produseAfisate.map((produs) => `
-            <article class="produs-card">
-                <button type="button" data-produs="${escapeHtml(produs.id)}" aria-label="Deschide ${escapeHtml(produs.nume)}">
-                    <img src="${escapeHtml(imagineOptimizata(produs.imagini[0], 520))}" alt="${escapeHtml(produs.nume)}" loading="lazy" decoding="async">
-                </button>
-                <div>
-                    <h4>${escapeHtml(produs.nume)}</h4>
-                    <p>${escapeHtml(rezumatDimensiuni(produs))}</p>
-                    <strong>${escapeHtml(produs.pret)}</strong>
-                </div>
-            </article>
-        `).join("");
+        const produseVizibile = produseAfisate.slice(0, numarProduseVizibile);
+        const maiExistaProduse = numarProduseVizibile < produseAfisate.length;
+
+        listaProduse.innerHTML = produseVizibile.map(cardProdusHtml).join("") + butonMaiMulteHtml(maiExistaProduse);
     }
 
-    listaProduse.querySelectorAll("[data-produs]").forEach((buton) => {
-        buton.addEventListener("click", () => deschideProdus(buton.dataset.produs));
+    leagaCarduriProduse(listaProduse);
+
+    const butonMaiMulte = document.getElementById("incarca-mai-multe-produse");
+    if (butonMaiMulte) {
+        butonMaiMulte.addEventListener("click", () => {
+            const start = numarProduseVizibile;
+            numarProduseVizibile += PRODUSE_PE_PAGINA;
+            const produseNoi = produseAfisate.slice(start, numarProduseVizibile);
+            const containerButon = butonMaiMulte.closest(".produse-mai-multe");
+            containerButon.insertAdjacentHTML("beforebegin", produseNoi.map(cardProdusHtml).join(""));
+            leagaCarduriProduse(listaProduse);
+
+            if (numarProduseVizibile >= produseAfisate.length) {
+                containerButon.remove();
+            }
+        });
+    }
+}
+
+function cardProdusHtml(produs) {
+    return `
+        <article class="produs-card">
+            <button type="button" data-produs="${escapeHtml(produs.id)}" aria-label="Deschide ${escapeHtml(produs.nume)}">
+                <img src="${escapeHtml(imagineOptimizata(produs.imagini[0], 520))}" alt="${escapeHtml(produs.nume)}" loading="lazy" decoding="async">
+            </button>
+            <div>
+                <h4>${escapeHtml(produs.nume)}</h4>
+                <p>${escapeHtml(rezumatDimensiuni(produs))}</p>
+                <strong>${escapeHtml(produs.pret)}</strong>
+            </div>
+        </article>
+    `;
+}
+
+function butonMaiMulteHtml(afiseaza) {
+    return afiseaza ? `
+        <div class="actiuni produse-mai-multe">
+            <button type="button" id="incarca-mai-multe-produse">Arată mai multe</button>
+        </div>
+    ` : "";
+}
+
+function leagaCarduriProduse(container) {
+    container.querySelectorAll("[data-produs]").forEach((buton) => {
+        buton.onclick = () => deschideProdus(buton.dataset.produs);
     });
 }
 
@@ -601,14 +659,30 @@ function initFormularComanda(produsId) {
 }
 
 function pozitioneazaFlori() {
-    const flori = document.querySelectorAll(".flori-bg span");
+    const fundal = document.querySelector(".flori-bg");
+    if (!fundal) return;
+
+    const totalDecoratiuni = 34;
+    while (fundal.children.length < totalDecoratiuni) {
+        fundal.appendChild(document.createElement("span"));
+    }
+
+    const simboluri = ["✦", "✧", "*", "✿"];
+    const pozitii = [
+        [5, 14], [18, 24], [31, 16], [47, 28], [63, 15], [78, 25], [92, 14],
+        [9, 42], [23, 54], [38, 46], [55, 58], [71, 45], [87, 56],
+        [4, 74], [16, 84], [29, 72], [43, 86], [58, 76], [72, 88], [90, 78],
+        [11, 108], [27, 120], [44, 112], [60, 126], [76, 114], [93, 124],
+        [7, 148], [21, 160], [36, 144], [52, 158], [67, 146], [81, 162], [95, 150], [14, 184],
+    ];
+    const flori = fundal.querySelectorAll("span");
     flori.forEach((floare, index) => {
-        const coloana = index % 7;
-        const rand = Math.floor(index / 7);
-        floare.style.left = `${5 + coloana * 14}%`;
-        floare.style.top = `${14 + rand * 68 + (index % 2) * 8}%`;
-        floare.style.fontSize = `${24 + (index % 4) * 10}px`;
-        floare.style.opacity = `${0.18 + (index % 3) * 0.08}`;
+        const [left, top] = pozitii[index % pozitii.length];
+        floare.textContent = simboluri[index % simboluri.length];
+        floare.style.left = `${left}%`;
+        floare.style.top = `${top}%`;
+        floare.style.fontSize = `${24 + (index % 5) * 7}px`;
+        floare.style.opacity = `${0.24 + (index % 4) * 0.06}`;
         floare.style.transform = `rotate(${index % 2 ? 18 : -14}deg)`;
     });
 }

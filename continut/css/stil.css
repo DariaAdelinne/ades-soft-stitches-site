@@ -100,8 +100,8 @@ nav button.activ {
 .hero-site {
     display: grid;
     place-items: center;
-    min-height: 170px;
-    padding: 24px 16px 10px;
+    min-height: 118px;
+    padding: 18px 16px 8px;
     text-align: center;
 }
 
@@ -128,6 +128,7 @@ nav button.activ {
 }
 
 .hero-site p {
+    display: none;
     max-width: 660px;
     margin: 0;
     color: var(--muted);
@@ -147,15 +148,18 @@ main {
     flex: 1 0 auto;
     width: min(1040px, calc(100% - 22px));
     margin: 14px auto 28px;
-    padding: 20px;
-    border: 1px solid rgba(230, 193, 204, 0.5);
-    border-radius: 24px;
-    background: linear-gradient(180deg, rgba(255, 248, 244, 0.97), rgba(253, 244, 236, 0.97));
-    box-shadow:
-        0 10px 24px rgba(102, 78, 76, 0.11),
-        0 0 0 4px rgba(255, 240, 245, 0.45);
-    overflow: hidden;
-    backdrop-filter: blur(2px);
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+    backdrop-filter: none;
+}
+
+main:focus,
+main:focus-visible {
+    outline: none;
 }
 
 section {
@@ -164,7 +168,9 @@ section {
     border: 2px solid var(--line);
     border-radius: 18px;
     background: linear-gradient(180deg, #fff7fb, #fff1f6);
-    box-shadow: var(--shadow-soft);
+    box-shadow:
+        0 10px 24px rgba(102, 78, 76, 0.11),
+        0 0 0 4px rgba(255, 240, 245, 0.45);
 }
 
 h2,
@@ -324,7 +330,10 @@ main .eyebrow {
 
 .colectii-grid,
 .colectii-preview {
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 820px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .colectii-preview button,
@@ -335,12 +344,21 @@ main .eyebrow {
     justify-items: center;
     width: 100%;
     min-height: 100%;
-    padding: 12px;
+    padding: 0;
     text-align: center;
-    border: 2px solid rgba(230, 193, 204, 0.55);
-    border-radius: 18px;
-    background: linear-gradient(180deg, #fffaf8, #fff6ef);
-    box-shadow: var(--shadow-soft);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.colectii-preview button:hover,
+.colectii-preview button:focus-visible,
+.colectie-card:hover,
+.colectie-card:focus-visible {
+    background: transparent;
+    box-shadow: none;
+    transform: none;
 }
 
 .colectii-preview small {
@@ -351,8 +369,9 @@ main .eyebrow {
 
 .colectii-preview img,
 .colectie-card img {
-    width: 100%;
-    aspect-ratio: 4 / 3;
+    width: min(100%, 240px);
+    aspect-ratio: 1 / 1;
+    max-height: 240px;
     object-fit: cover;
     border-radius: 14px;
     border: 3px solid #f3dd9b;
@@ -371,8 +390,8 @@ main .eyebrow {
 }
 
 .colectie-card.activ {
-    outline: 3px solid rgba(223, 127, 157, 0.45);
-    background: linear-gradient(180deg, #fff8fc, #fff2df);
+    outline: none;
+    background: transparent;
 }
 
 .colectie-toolbar {
@@ -429,7 +448,7 @@ main .eyebrow {
 }
 
 .produse-grid {
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .produs-card {
@@ -645,7 +664,7 @@ body[data-page="confirmare"] main {
     align-content: center;
     margin-top: 12px;
     margin-bottom: 36px;
-    padding: 18px;
+    padding: 0;
 }
 
 body[data-page="confirmare"] .confirmare-page {
@@ -824,6 +843,12 @@ textarea:focus {
     max-width: 560px;
 }
 
+.produse-mai-multe {
+    grid-column: 1 / -1;
+    justify-content: center;
+    margin-top: 8px;
+}
+
 .mesaj-catalog code {
     display: inline-block;
     padding: 2px 6px;
@@ -854,8 +879,10 @@ footer p {
 
 .flori-bg span {
     position: absolute;
-    color: #e7a8bd;
+    color: #df8fad;
     font-family: Arial, sans-serif;
+    font-weight: 800;
+    text-shadow: 0 2px 5px rgba(102, 78, 76, 0.12);
 }
 
 @keyframes aparitie {
@@ -886,23 +913,20 @@ footer p {
     }
 
     .hero-site {
-        min-height: 130px;
-        padding: 18px 10px 8px;
+        min-height: 92px;
+        padding: 14px 10px 6px;
     }
 
     .hero-site h1 {
-        font-size: clamp(1.75rem, 9vw, 2.8rem);
-    }
-
-    .hero-site p {
-        font-size: 0.95rem;
+        white-space: nowrap;
+        font-size: clamp(1.9rem, 7.5vw, 2.35rem);
     }
 
     main {
         width: min(100%, calc(100% - 10px));
         margin: 8px auto 18px;
-        padding: 10px;
-        border-radius: 18px;
+        padding: 0;
+        border-radius: 0;
     }
 
     section {
@@ -919,18 +943,18 @@ footer p {
     }
 
     .intro-grid img {
-        max-height: 280px;
-        object-fit: contain;
+        max-height: 320px;
+        object-fit: cover;
     }
 
     .pas-grid,
     .colectii-grid,
     .colectii-preview {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .produse-grid {
-        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 10px;
     }
 
@@ -986,17 +1010,21 @@ footer p {
     }
 
     .hero-site {
-        min-height: 118px;
+        min-height: 84px;
     }
 
     .hero-site h1::before,
     .hero-site h1::after {
-        font-size: 0.62em;
+        font-size: 0.52em;
+    }
+
+    .hero-site h1 {
+        font-size: clamp(1.65rem, 7.2vw, 2rem);
     }
 
     main {
         width: min(100%, calc(100% - 6px));
-        padding: 8px;
+        padding: 0;
     }
 
     section {
@@ -1017,9 +1045,15 @@ footer p {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .colectii-preview img,
+    .colectie-card img {
+        width: min(100%, 150px);
+        max-height: 150px;
+    }
+
     .colectii-preview button,
     .colectie-card {
-        padding: 9px;
+        padding: 0;
     }
 
     .colectii-preview span,

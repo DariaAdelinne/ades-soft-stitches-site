@@ -926,8 +926,10 @@ footer p {
     }
 
     .intro-grid img {
-        aspect-ratio: 16 / 9;
-        max-height: 380px;
+        width: min(100%, 560px);
+        aspect-ratio: 4 / 3;
+        max-height: none;
+        margin: 0 auto;
         object-fit: cover;
     }
 }
@@ -979,8 +981,8 @@ footer p {
     }
 
     .intro-grid img {
-        aspect-ratio: 16 / 9;
-        max-height: 320px;
+        aspect-ratio: 4 / 3;
+        max-height: none;
         object-fit: cover;
     }
 
@@ -1064,6 +1066,38 @@ footer p {
 
     .camp-cadou {
         padding: 12px;
+    }
+}
+
+@media (max-width: 850px) and (min-width: 421px) {
+    .intro-grid img {
+        width: min(100%, 560px);
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .pas-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .pas-grid article {
+        padding: 10px;
+    }
+
+    .pas-grid strong {
+        width: 28px;
+        height: 28px;
+    }
+
+    .pas-grid h4 {
+        font-size: 1rem;
+    }
+
+    .pas-grid p {
+        font-size: 0.9rem;
+        line-height: 1.45;
     }
 }
 

@@ -31,7 +31,7 @@ body {
     margin: 0;
     color: var(--ink);
     font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-    font-size: 18px;
+    font-size: 17px;
     background: linear-gradient(180deg, var(--peach), var(--cream));
     overflow-x: hidden;
 }
@@ -51,8 +51,8 @@ nav {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 16px;
-    padding: 18px;
+    gap: 12px;
+    padding: 12px 14px;
     background: linear-gradient(180deg, #d3e29c, var(--leaf));
     border-bottom: 2px solid var(--ink);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
@@ -62,10 +62,10 @@ nav {
 
 button,
 nav button {
-    min-height: 44px;
+    min-height: 40px;
     border: 1px solid rgba(255, 255, 255, 0.65);
     border-radius: 999px;
-    padding: 10px 18px;
+    padding: 8px 16px;
     color: var(--ink);
     background: linear-gradient(180deg, #faefc3, var(--sun));
     font: inherit;
@@ -100,15 +100,15 @@ nav button.activ {
 .hero-site {
     display: grid;
     place-items: center;
-    min-height: 210px;
-    padding: 32px 18px 14px;
+    min-height: 170px;
+    padding: 24px 16px 10px;
     text-align: center;
 }
 
 .hero-site h1 {
     max-width: 900px;
-    margin: 6px 0 12px;
-    font-size: clamp(2.2rem, 6vw, 4.8rem);
+    margin: 4px 0 10px;
+    font-size: clamp(2rem, 5vw, 4.1rem);
     line-height: 1;
     letter-spacing: 0;
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.12);
@@ -131,7 +131,7 @@ nav button.activ {
     max-width: 660px;
     margin: 0;
     color: var(--muted);
-    font-size: 1.08rem;
+    font-size: 1rem;
 }
 
 .eyebrow {
@@ -145,24 +145,24 @@ nav button.activ {
 
 main {
     flex: 1 0 auto;
-    width: min(1080px, calc(100% - 30px));
-    margin: 20px auto 36px;
-    padding: 28px;
+    width: min(1040px, calc(100% - 22px));
+    margin: 14px auto 28px;
+    padding: 20px;
     border: 1px solid rgba(230, 193, 204, 0.5);
-    border-radius: 30px;
+    border-radius: 24px;
     background: linear-gradient(180deg, rgba(255, 248, 244, 0.97), rgba(253, 244, 236, 0.97));
     box-shadow:
-        0 12px 30px rgba(102, 78, 76, 0.12),
-        0 0 0 6px rgba(255, 240, 245, 0.5);
+        0 10px 24px rgba(102, 78, 76, 0.11),
+        0 0 0 4px rgba(255, 240, 245, 0.45);
     overflow: hidden;
     backdrop-filter: blur(2px);
 }
 
 section {
-    margin: 0 0 22px;
-    padding: 22px;
+    margin: 0 0 16px;
+    padding: 18px;
     border: 2px solid var(--line);
-    border-radius: 22px;
+    border-radius: 18px;
     background: linear-gradient(180deg, #fff7fb, #fff1f6);
     box-shadow: var(--shadow-soft);
 }
@@ -176,9 +176,9 @@ p {
 
 h2 {
     text-align: center;
-    margin: 0 0 14px;
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    line-height: 1;
+    margin: 0 0 12px;
+    font-size: clamp(1.65rem, 3.3vw, 2.65rem);
+    line-height: 1.06;
     letter-spacing: 0;
 }
 
@@ -196,23 +196,23 @@ h2::after {
 
 h3 {
     display: inline-block;
-    margin: 0 0 16px;
-    padding: 10px 20px;
+    margin: 0 0 12px;
+    padding: 8px 16px;
     border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 999px;
     background: linear-gradient(135deg, #f8cddd, #f3e5a8);
     box-shadow: 0 6px 14px rgba(102, 78, 76, 0.10);
-    font-size: clamp(1.25rem, 3vw, 1.85rem);
+    font-size: clamp(1.15rem, 2.4vw, 1.65rem);
     letter-spacing: 0;
 }
 
 h4 {
-    margin: 10px 0 8px;
-    font-size: 1.18rem;
+    margin: 8px 0 6px;
+    font-size: 1.08rem;
 }
 
 p {
-    line-height: 1.75;
+    line-height: 1.62;
 }
 
 a {
@@ -258,7 +258,7 @@ main .eyebrow {
 .poveste {
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
-    gap: 28px;
+    gap: 20px;
     align-items: center;
 }
 
@@ -267,7 +267,7 @@ main .eyebrow {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
-    border-radius: 24px;
+    border-radius: 20px;
     border: 4px solid #f3dd9b;
     box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
 }
@@ -287,8 +287,8 @@ main .eyebrow {
 .actiuni {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 20px;
+    gap: 10px;
+    margin-top: 16px;
 }
 
 .pas-grid,
@@ -296,18 +296,18 @@ main .eyebrow {
 .produse-grid,
 .colectii-preview {
     display: grid;
-    gap: 16px;
+    gap: 12px;
 }
 
 .pas-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
 }
 
 .pas-grid article {
-    min-height: 170px;
-    padding: 18px;
+    min-height: 0;
+    padding: 14px;
     border: 2px solid rgba(230, 193, 204, 0.55);
-    border-radius: 20px;
+    border-radius: 16px;
     background: linear-gradient(180deg, #fffaf0, #fff3e6);
     box-shadow: var(--shadow-soft);
 }
@@ -324,7 +324,7 @@ main .eyebrow {
 
 .colectii-grid,
 .colectii-preview {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
 }
 
 .colectii-preview button,
@@ -335,10 +335,10 @@ main .eyebrow {
     justify-items: center;
     width: 100%;
     min-height: 100%;
-    padding: 14px;
+    padding: 12px;
     text-align: center;
     border: 2px solid rgba(230, 193, 204, 0.55);
-    border-radius: 22px;
+    border-radius: 18px;
     background: linear-gradient(180deg, #fffaf8, #fff6ef);
     box-shadow: var(--shadow-soft);
 }
@@ -354,7 +354,7 @@ main .eyebrow {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
-    border-radius: 18px;
+    border-radius: 14px;
     border: 3px solid #f3dd9b;
 }
 
@@ -429,13 +429,13 @@ main .eyebrow {
 }
 
 .produse-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
 }
 
 .produs-card {
     overflow: hidden;
     border: 2px solid rgba(230, 193, 204, 0.55);
-    border-radius: 22px;
+    border-radius: 18px;
     background: linear-gradient(180deg, #fffdfb, #fff8f2);
     box-shadow: var(--shadow-soft);
 }
@@ -459,7 +459,7 @@ main .eyebrow {
 }
 
 .produs-card div {
-    padding: 14px;
+    padding: 11px;
 }
 
 .status-produs {
@@ -483,7 +483,7 @@ main .eyebrow {
 .produs-card strong,
 .pret-produs {
     color: #7d2d45;
-    font-size: 1.2rem;
+    font-size: 1.08rem;
     font-weight: 900;
 }
 
@@ -870,32 +870,80 @@ footer p {
 }
 
 @media (max-width: 850px) {
+    body {
+        font-size: 16px;
+    }
+
     nav {
         flex-wrap: wrap;
+        gap: 8px;
+        padding: 8px 10px;
+    }
+
+    nav button {
+        min-height: 36px;
+        padding: 7px 12px;
     }
 
     .hero-site {
-        min-height: 210px;
-        padding-top: 28px;
+        min-height: 130px;
+        padding: 18px 10px 8px;
+    }
+
+    .hero-site h1 {
+        font-size: clamp(1.75rem, 9vw, 2.8rem);
+    }
+
+    .hero-site p {
+        font-size: 0.95rem;
     }
 
     main {
-        width: min(100%, calc(100% - 20px));
-        padding: 16px;
+        width: min(100%, calc(100% - 10px));
+        margin: 8px auto 18px;
+        padding: 10px;
+        border-radius: 18px;
     }
 
     section {
-        padding: 16px;
+        margin-bottom: 12px;
+        padding: 12px;
+        border-radius: 16px;
     }
 
     .intro-grid,
     .detaliu-grid,
-    .poveste,
+    .poveste {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .intro-grid img {
+        max-height: 280px;
+        object-fit: contain;
+    }
+
     .pas-grid,
     .colectii-grid,
-    .produse-grid,
     .colectii-preview {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+
+    .produse-grid {
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 10px;
+    }
+
+    .produs-card img {
+        aspect-ratio: 1 / 1;
+    }
+
+    .produs-card div {
+        padding: 9px;
+    }
+
+    .produs-card p {
+        font-size: 0.92rem;
     }
 
     .detalii-produs dl div {
@@ -922,7 +970,8 @@ footer p {
     }
 
     form {
-        padding: 16px;
+        padding: 12px;
+        border-radius: 18px;
     }
 
     .camp-cadou {
@@ -931,16 +980,55 @@ footer p {
 }
 
 @media (max-width: 420px) {
+    nav button {
+        padding: 6px 10px;
+        font-size: 0.95rem;
+    }
+
+    .hero-site {
+        min-height: 118px;
+    }
+
+    .hero-site h1::before,
+    .hero-site h1::after {
+        font-size: 0.62em;
+    }
+
     main {
-        padding: 12px;
+        width: min(100%, calc(100% - 6px));
+        padding: 8px;
     }
 
     section {
-        padding: 12px;
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: clamp(1.45rem, 8vw, 2rem);
+    }
+
+    h3 {
+        font-size: 1.12rem;
+    }
+
+    .colectii-grid,
+    .colectii-preview,
+    .produse-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .colectii-preview button,
+    .colectie-card {
+        padding: 9px;
+    }
+
+    .colectii-preview span,
+    .colectie-card span {
+        font-size: 1rem;
     }
 
     form {
-        padding: 12px;
+        padding: 10px;
     }
 
     .camp-cadou {

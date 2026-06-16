@@ -1,0 +1,22 @@
+{
+  "nume": "Vulpiță cu fular",
+  "pret": "95 lei",
+  "descriere": "Vulpiță cu fular, moale și cochetă.",
+  "filtre": [
+    "plușuri medii",
+    "animale cu accesorii"
+  ],
+  "specificatii": {
+    "Dimensiune": "27 cm x 18 cm x 10 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 480,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597827/01_ihqcjz.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597838/02_iiqvm3.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597849/03_ncbawu.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597861/04_hyofme.jpg"
+  ]
+}

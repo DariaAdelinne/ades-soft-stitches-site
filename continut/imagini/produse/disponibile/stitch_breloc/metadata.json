@@ -1,0 +1,22 @@
+{
+  "nume": "Stitch breloc",
+  "pret": "35 lei",
+  "descriere": "Stitch breloc, mic și simpatic, potrivit pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+  "filtre": [
+    "plușuri mici",
+    "personaje",
+    "breloc"
+  ],
+  "specificatii": {
+    "Dimensiune": "29 cm x 5 cm x 8 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 140,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597519/01_xfvwgb.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597531/02_vh9rcs.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597543/03_jm0o3c.jpg"
+  ]
+}

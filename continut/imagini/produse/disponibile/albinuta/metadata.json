@@ -1,0 +1,21 @@
+{
+  "nume": "Albinuță",
+  "pret": "25 lei",
+  "descriere": "Albinuță mică, moale și ușor de strecurat lângă un cadou.",
+  "filtre": [
+    "plușuri mici",
+    "insecte"
+  ],
+  "specificatii": {
+    "Dimensiune": "11 cm x 9 cm x 7 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 20,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595550/01_ja1hje.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595556/02_usnp7l.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595560/03_l8zy2d.jpg"
+  ]
+}

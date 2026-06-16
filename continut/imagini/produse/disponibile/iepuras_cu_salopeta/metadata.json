@@ -1,0 +1,22 @@
+{
+  "nume": "Iepuraș cu salopetă",
+  "pret": "267 lei",
+  "descriere": "Iepuraș cu salopetă verde și fundițe. Salopeta este detașabilă, fundițele nu.",
+  "filtre": [
+    "plușuri mari",
+    "animale cu accesorii",
+    "vară"
+  ],
+  "specificatii": {
+    "Dimensiune": "42 cm x 13 cm x 24 cm",
+    "Materiale": "fir catifelat 100% micropoliester + fir bumbac, umplutură fiberfill, ochișori de siguranță cu sclipici verde",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 260,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596166/IMG_0791_fzibq4.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596173/IMG_0813_wptgxj.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596182/IMG_0805_hgwwk2.jpg"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "nume": "Aye-aye",
+  "pret": "120 lei",
+  "descriere": "Lemur aye-aye cu coadă pufoasă.",
+  "filtre": [
+    "plușuri mari"
+  ],
+  "specificatii": {
+    "Dimensiune": "18 cm x 33 cm x 17 cm",
+    "Materiale": "fir catifelat 100% micropoliester + fir tip blăniță, umplutură fiberfill, ochișori de siguranță cu sclipici galbeni",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 220,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596289/01_hyz0rc.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596305/02_g4ks9i.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596297/03_esobcf.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596323/04_sw8cgs.jpg"
+  ]
+}

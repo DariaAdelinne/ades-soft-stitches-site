@@ -1,0 +1,20 @@
+{
+  "nume": "Afrogcado",
+  "pret": "95 lei",
+  "descriere": "Broscuță-avocado moale, cu sâmbure detașabil.",
+  "filtre": [
+    "plușuri medii"
+  ],
+  "specificatii": {
+    "Dimensiune": "16 cm x 16 cm x 18 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 80,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595505/01_lnbvd0.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595510/02_hvqbxw.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595515/03_d0fnn0.jpg"
+  ]
+}

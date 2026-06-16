@@ -1,0 +1,21 @@
+{
+  "nume": "Vidră cu hăinuțe",
+  "pret": "125 lei",
+  "descriere": "Vidră cu hăinuțe, gata de ieșit în oraș. Hăinuțele sunt detașabile.",
+  "filtre": [
+    "plușuri medii",
+    "animale cu accesorii"
+  ],
+  "specificatii": {
+    "Dimensiune": "25 cm x 12 cm x 19 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 60,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597772/01_c7aveh.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597784/02_wv3uax.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597797/03_q7kpot.jpg"
+  ]
+}

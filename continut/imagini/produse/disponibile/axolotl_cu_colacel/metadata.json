@@ -1,0 +1,23 @@
+{
+  "nume": "Axolotl cu colăcel",
+  "pret": "45 lei",
+  "descriere": "Axolotl roz cu colăcel galben, pregătit pentru zilele de vară.",
+  "filtre": [
+    "plușuri mici",
+    "animale marine",
+    "vară"
+  ],
+  "specificatii": {
+    "Dimensiune": "17 cm x 10 cm x 12 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 300,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595586/01_qih1ky.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595590/02_nwkctb.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595595/03_xrey7q.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595601/04_qipox3.jpg"
+  ]
+}

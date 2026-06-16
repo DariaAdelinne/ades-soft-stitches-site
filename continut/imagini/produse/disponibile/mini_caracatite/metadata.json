@@ -1,0 +1,22 @@
+{
+  "nume": "Caracatiță",
+  "pret": "10 lei",
+  "descriere": "Caracatițe mici, disponibile pe galben, roșu, portocaliu, albastru deschis sau verde. Prețul este pe bucată.",
+  "filtre": [
+    "plușuri mici",
+    "animale marine"
+  ],
+  "specificatii": {
+    "Dimensiune": "7 cm x 6 cm x 6 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 440,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596434/01_bx9gph.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596443/02_jipkcc.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596449/03_qpjsd4.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596458/04_yqlove.jpg"
+  ]
+}

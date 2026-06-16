@@ -1,0 +1,23 @@
+{
+  "nume": "Curcubeu breloc",
+  "pret": "25 lei",
+  "descriere": "Breloc curcubeu, potrivit pentru chei sau geantă.",
+  "filtre": [
+    "plușuri mici",
+    "breloc",
+    "vară"
+  ],
+  "specificatii": {
+    "Dimensiune": "11 cm x 12 cm x 2 cm",
+    "Materiale": "fir catifelat 100% micropoliester, breloc",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 400,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595873/01_gd3y5o.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595880/02_wavfnr.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595887/03_hdrosg.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595894/04_isg3zr.jpg"
+  ]
+}

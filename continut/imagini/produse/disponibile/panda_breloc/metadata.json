@@ -1,0 +1,21 @@
+{
+  "nume": "Panda breloc",
+  "pret": "35 lei",
+  "descriere": "Panda breloc cu bambus, mic și simpatic, potrivit pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+  "filtre": [
+    "plușuri mici",
+    "breloc"
+  ],
+  "specificatii": {
+    "Dimensiune": "25 cm x 6 cm x 8 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 200,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596816/01_veszmm.png",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596835/02_juvggj.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596847/03_f8xaw0.jpg"
+  ]
+}

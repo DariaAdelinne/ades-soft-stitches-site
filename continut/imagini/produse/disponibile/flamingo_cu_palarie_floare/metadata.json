@@ -1,0 +1,21 @@
+{
+  "nume": "Flamingo cu pălărie floare",
+  "pret": "50 lei",
+  "descriere": "Flamingo din gașca păsărilor cu atitudine, cu pălărie floare și cuțit. Accesoriile nu sunt detașabile.",
+  "filtre": [
+    "plușuri medii",
+    "animale cu accesorii"
+  ],
+  "specificatii": {
+    "Dimensiune": "18 cm x 14 cm x 18 cm",
+    "Materiale": "fir catifelat 100% micropoliester + fir bumbac, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 410,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595938/01_s5ytsl.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595944/02_wrak1o.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595951/03_bi79ng.jpg"
+  ]
+}

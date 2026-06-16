@@ -1,0 +1,23 @@
+{
+  "nume": "Capybara mumie",
+  "pret": "35 lei",
+  "descriere": "Capybara mumie, gata de Halloween. Bandajele nu sunt detașabile.",
+  "filtre": [
+    "plușuri mici",
+    "halloween",
+    "animale cu accesorii"
+  ],
+  "specificatii": {
+    "Dimensiune": "12 cm x 8 cm x 8 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 330,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595752/01_snykip.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595758/02_q7tl3u.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595764/03_gxqemi.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595770/04_alf3bo.jpg"
+  ]
+}

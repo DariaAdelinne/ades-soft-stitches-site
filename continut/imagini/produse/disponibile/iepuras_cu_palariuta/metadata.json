@@ -1,0 +1,23 @@
+{
+  "nume": "Iepuraș cu pălăriuță",
+  "pret": "175 lei",
+  "descriere": "Iepuraș cu pălăriuță și tort de morcovi. Pălăria este detașabilă, tortul nu.",
+  "filtre": [
+    "plușuri mari",
+    "animale cu accesorii"
+  ],
+  "specificatii": {
+    "Dimensiune": "32 cm x 18 cm x 20 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 270,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596119/01_fd3xxx.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596127/02_tzntoe.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596134/03_e8fk0g.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596142/04_r2g9wu.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596149/05_frj1un.jpg"
+  ]
+}

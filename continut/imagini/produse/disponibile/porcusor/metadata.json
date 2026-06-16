@@ -1,0 +1,20 @@
+{
+  "nume": "Purceluș",
+  "pret": "80 lei",
+  "descriere": "Purceluș mic și dolofan.",
+  "filtre": [
+    "plușuri medii"
+  ],
+  "specificatii": {
+    "Dimensiune": "14 cm x 20 cm x 11 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 50,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597132/01_blwoly.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597144/02_xsi37n.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597155/03_wso1oa.jpg"
+  ]
+}

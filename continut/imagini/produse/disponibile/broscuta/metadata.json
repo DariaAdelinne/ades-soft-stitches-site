@@ -1,0 +1,20 @@
+{
+  "nume": "Broscuță",
+  "pret": "35 lei",
+  "descriere": "Broscuță cu piciorușe și mânuțe wobbly.",
+  "filtre": [
+    "plușuri mici"
+  ],
+  "specificatii": {
+    "Dimensiune": "19 cm x 5 cm x 7 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 380,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595678/01_nri5al.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595684/02_ifppq2.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595690/03_xynfkd.jpg"
+  ]
+}

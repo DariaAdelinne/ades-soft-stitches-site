@@ -1,0 +1,21 @@
+{
+  "nume": "Hermina",
+  "pret": "50 lei",
+  "descriere": "Hermina moale, cu fundiță. Fundița este detașabilă.",
+  "filtre": [
+    "plușuri medii"
+  ],
+  "specificatii": {
+    "Dimensiune": "9 cm x 29 cm x 12 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 360,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596036/01_rtienw.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596044/02_lux9uk.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596052/03_avgvii.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596058/04_wtbbs2.jpg"
+  ]
+}

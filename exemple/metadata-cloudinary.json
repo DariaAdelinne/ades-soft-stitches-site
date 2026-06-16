@@ -1,0 +1,17 @@
+{
+  "nume": "Numele produsului",
+  "pret": "100 lei",
+  "descriere": "Descrierea produsului.",
+  "filtre": ["plușuri medii"],
+  "imagini": [
+    "https://res.cloudinary.com/contul-tau/image/upload/v1234567890/ades-soft-stitches/produs/01.jpg",
+    "https://res.cloudinary.com/contul-tau/image/upload/v1234567890/ades-soft-stitches/produs/02.jpg"
+  ],
+  "specificatii": {
+    "Dimensiune": "16 cm x 12 cm x 14 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 100,
+  "ascuns": false
+}

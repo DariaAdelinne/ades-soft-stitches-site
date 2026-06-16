@@ -1,0 +1,22 @@
+{
+  "nume": "Crab breloc",
+  "pret": "35 lei",
+  "descriere": "Crab breloc, potrivit pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+  "filtre": [
+    "plușuri mici",
+    "breloc",
+    "animale marine"
+  ],
+  "specificatii": {
+    "Dimensiune": "25 cm x 5 cm x 8 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 170,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595838/01_no6nv7.png",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595852/02_h94l2i.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595858/03_reseny.jpg"
+  ]
+}

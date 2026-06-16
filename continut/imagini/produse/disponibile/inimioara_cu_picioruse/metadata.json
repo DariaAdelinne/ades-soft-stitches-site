@@ -1,0 +1,20 @@
+{
+  "nume": "Inimioară cu piciorușe",
+  "pret": "65 lei",
+  "descriere": "Inimioară cu piciorușe, moale, potrivită pentru persoana dragă.",
+  "filtre": [
+    "plușuri medii",
+    "valentine"
+  ],
+  "specificatii": {
+    "Dimensiune": "18 cm x 10 cm x 17 cm",
+    "Materiale": "fir catifelat 100% micropoliester + fir bumbac, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 290,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596186/01_sqjtvo.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596194/02_thml2t.jpg"
+  ]
+}

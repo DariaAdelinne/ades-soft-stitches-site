@@ -1,0 +1,22 @@
+{
+  "nume": "Lovely bugs",
+  "pret": "40 lei / bucată",
+  "descriere": "Gâzulițe cu aripioare inimioare, un cadou mic și drăguț pentru cineva drag. Sunt disponibile amândouă, iar prețul este pe bucată.",
+  "filtre": [
+    "plușuri medii",
+    "valentine",
+    "insecte"
+  ],
+  "specificatii": {
+    "Dimensiune": "9 cm x 14 cm x 8 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 430,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596372/01_ly6zz6.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596380/02_ukf6mb.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596389/03_zraxcm.jpg"
+  ]
+}

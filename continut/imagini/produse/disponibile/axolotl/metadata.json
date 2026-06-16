@@ -1,0 +1,20 @@
+{
+  "nume": "Axolotl",
+  "pret": "75 lei",
+  "descriere": "Axolotl roz, cu ochișori sclipicioși.",
+  "filtre": [
+    "plușuri medii",
+    "animale marine"
+  ],
+  "specificatii": {
+    "Dimensiune": "19 cm x 18 cm x 16 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță cu sclipici roz",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 100,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595565/01_q87eg4.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595570/02_ckbhna.jpg"
+  ]
+}

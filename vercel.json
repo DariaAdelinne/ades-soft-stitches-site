@@ -1,0 +1,36 @@
+{
+  "buildCommand": "python3 scripts/genereaza_catalog.py",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://res.cloudinary.com https://*.cloudinary.com https://firebasestorage.googleapis.com https://storage.googleapis.com; connect-src 'self' https://*.firebaseio.com https://*.firebasedatabase.app; form-action https://formsubmit.co; frame-src https://formsubmit.co; base-uri 'self'; object-src 'none'; frame-ancestors 'none'"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=()"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/continut/index.html"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/continut/:path*"
+    }
+  ]
+}

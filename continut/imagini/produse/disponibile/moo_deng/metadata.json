@@ -1,0 +1,21 @@
+{
+  "nume": "Moo Deng",
+  "pret": "40 lei",
+  "descriere": "Moo Deng, micul hipopotam.",
+  "filtre": [
+    "plușuri medii",
+    "personaje"
+  ],
+  "specificatii": {
+    "Dimensiune": "11 cm x 19 cm x 10 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 450,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596682/01_lvdv6f.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596691/02_wrjx15.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596703/03_ng6nt6.jpg"
+  ]
+}

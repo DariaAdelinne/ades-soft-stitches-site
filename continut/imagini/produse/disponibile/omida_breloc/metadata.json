@@ -1,0 +1,22 @@
+{
+  "nume": "Omidă breloc",
+  "pret": "35 lei",
+  "descriere": "Omidă breloc, potrivită pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+  "filtre": [
+    "plușuri mici",
+    "breloc",
+    "insecte"
+  ],
+  "specificatii": {
+    "Dimensiune": "23 cm x 12 cm x 5 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 160,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596769/01_dumnmx.png",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596790/02_wagha3.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596803/03_ygyotd.jpg"
+  ]
+}

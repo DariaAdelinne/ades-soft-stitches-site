@@ -1,0 +1,23 @@
+{
+  "nume": "Albină cu inimioară",
+  "pret": "45 lei",
+  "descriere": "Albinuță roz cu aripioare în formă de inimioară, potrivită pentru un cadou dulce și simplu.",
+  "filtre": [
+    "plușuri medii",
+    "insecte",
+    "valentine"
+  ],
+  "specificatii": {
+    "Dimensiune": "14 cm x 14 cm x 10 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 370,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595527/01_m9uswf.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595531/02_qpdthm.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595536/03_pscwtb.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595540/04_g4ovwo.jpg"
+  ]
+}

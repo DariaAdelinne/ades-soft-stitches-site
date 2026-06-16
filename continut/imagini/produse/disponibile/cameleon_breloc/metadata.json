@@ -1,0 +1,21 @@
+{
+  "nume": "Cameleon breloc",
+  "pret": "35 lei",
+  "descriere": "Cameleon breloc, potrivit pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+  "filtre": [
+    "plușuri mici",
+    "breloc"
+  ],
+  "specificatii": {
+    "Dimensiune": "24 cm x 12 cm x 5 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 150,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595722/01_xdsb2c.png",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595733/02_hcg6gu.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595740/03_g4ihni.jpg"
+  ]
+}

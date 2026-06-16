@@ -1,0 +1,21 @@
+{
+  "nume": "Ciupercuță",
+  "pret": "40 lei",
+  "descriere": "Ciupercuță cu personalitate, mică și simpatică.",
+  "filtre": [
+    "plușuri mici"
+  ],
+  "specificatii": {
+    "Dimensiune": "11 cm x 10 cm x 10 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 320,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595795/01_nkst2n.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595801/02_rhvetu.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595808/03_ly9rfd.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595815/04_kvsqvl.jpg"
+  ]
+}

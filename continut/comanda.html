@@ -1,0 +1,58 @@
+<section class="comanda-page">
+    <div class="section-heading">
+        <p class="eyebrow">cerere personalizată</p>
+        <h2>Comandă un pluș</h2>
+        <p>
+            Poți alege un model existent sau poți încărca imagini de inspirație pentru ceva făcut
+            special pentru tine. După trimitere, îți răspund pe email cu detalii și estimare.
+        </p>
+    </div>
+
+    <form id="formular-comanda" class="formular-comanda" method="POST" enctype="multipart/form-data" target="formular-comanda-frame">
+        <input type="hidden" name="_subject" value="Comandă nouă - Ade's Soft Stitches">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+
+        <label for="nume">Nume</label>
+        <input type="text" id="nume" name="nume" required placeholder="Numele tău">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="email@exemplu.ro">
+
+        <label for="telefon">Telefon opțional</label>
+        <input type="text" id="telefon" name="telefon" placeholder="Pentru confirmări rapide">
+
+        <label for="produs-selectat">Model de pe site</label>
+        <select id="produs-selectat" name="model_ales"></select>
+
+        <div id="camp-imagini" class="camp-formular">
+            <label for="imagini">Imagini de inspirație</label>
+            <input type="file" id="imagini" name="attachment" accept="image/*" multiple>
+        </div>
+
+        <div class="camp-formular">
+            <label id="label-detalii" for="detalii">Descriere comandă</label>
+            <p id="ajutor-detalii" class="ajutor-formular"></p>
+            <textarea id="detalii" name="detalii" rows="6" required placeholder="Ex: aș vrea un axolotl roz, mărime medie, cu fundiță albastră."></textarea>
+        </div>
+
+        <div class="camp-formular camp-cadou">
+            <div class="check">
+                <input type="checkbox" id="ambalare-cadou" name="ambalare_cadou" value="Da, +5 lei">
+                <label for="ambalare-cadou">Ambalare cadou +5 lei</label>
+            </div>
+            <label id="label-detalii-cadou" for="detalii-cadou">Detalii ambalare cadou</label>
+            <p class="ajutor-formular">Poți scrie mesajul pentru cartonaș, culoarea fundiței sau alte detalii pentru ambalare.</p>
+            <textarea id="detalii-cadou" name="detalii_ambalare_cadou" rows="4" placeholder="Ex: pe cartonaș să scrie La mulți ani, iar fundița să fie roz."></textarea>
+        </div>
+
+        <div class="check">
+            <input type="checkbox" id="acord-contact" name="acord_contact" required>
+            <label for="acord-contact">Sunt de acord să fiu contactat(ă) pentru această cerere.</label>
+        </div>
+
+        <button type="submit">Trimite comandă</button>
+        <p id="mesaj-formular" class="mesaj-formular" aria-live="polite"></p>
+    </form>
+    <iframe class="formular-frame" name="formular-comanda-frame" title="Trimitere formular" hidden></iframe>
+</section>

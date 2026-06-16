@@ -1,0 +1,21 @@
+{
+  "nume": "Calamar",
+  "pret": "25 lei",
+  "descriere": "Calamar mic, moale și simpatic.",
+  "filtre": [
+    "plușuri mici",
+    "animale marine"
+  ],
+  "specificatii": {
+    "Dimensiune": "11 cm x 5 cm x 5 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 210,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596395/01_uesvkl.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781598523/02_dqudfz.png",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596416/03_yhnyk0.jpg"
+  ]
+}

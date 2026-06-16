@@ -1,0 +1,20 @@
+{
+  "nume": "Găină cu puiuț",
+  "pret": "30 lei / bucată",
+  "descriere": "Găinușă și puiuț micuț, un duo moale și simpatic. Sunt disponibile amândouă, iar prețul este pe bucată.",
+  "filtre": [
+    "plușuri mici"
+  ],
+  "specificatii": {
+    "Dimensiune": "9 cm x 7 cm x 8 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 10,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595958/01_uy9x9u.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595973/02_v063e9.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595965/03_atxhqq.jpg"
+  ]
+}

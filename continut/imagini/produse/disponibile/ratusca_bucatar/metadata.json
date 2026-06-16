@@ -1,0 +1,22 @@
+{
+  "nume": "Rățușcă bucătar",
+  "pret": "40 lei",
+  "descriere": "Rățușcă bucătar din gașca păsărilor cu atitudine, cu pălărie și cuțit. Accesoriile nu sunt detașabile.",
+  "filtre": [
+    "plușuri medii",
+    "animale cu accesorii"
+  ],
+  "specificatii": {
+    "Dimensiune": "16 cm x 13 cm x 17 cm",
+    "Materiale": "fir catifelat 100% micropoliester + fir bumbac, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 350,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597398/01_gi7fvv.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597409/02_yphvtq.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597422/03_q5ibsf.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597434/04_nazsvn.jpg"
+  ]
+}

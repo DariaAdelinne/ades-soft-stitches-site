@@ -1,0 +1,1168 @@
+{
+  "colectii": {
+    "disponibile": {
+      "id": "disponibile",
+      "nume": "Plușuri disponibile",
+      "descriere": "Modele aflate pe stoc, gata de livrare imediată.",
+      "imagine": "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595550/01_ja1hje.jpg"
+    },
+    "la-comanda": {
+      "id": "la-comanda",
+      "nume": "Plușuri disponibile la comandă",
+      "descriere": "Modele care se lucrează după cerere. Pot fi adaptate prin culori, dimensiuni sau accesorii, iar timpul de livrare depinde de complexitate.",
+      "imagine": "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595908/01_cmvqtn.jpg"
+    }
+  },
+  "produse": {
+    "gaina-si-puiut": {
+      "id": "gaina-si-puiut",
+      "colectie": "disponibile",
+      "nume": "Găină cu puiuț",
+      "pret": "30 lei / bucată",
+      "descriere": "Găinușă și puiuț micuț, un duo moale și simpatic. Sunt disponibile amândouă, iar prețul este pe bucată.",
+      "filtre": [
+        "plușuri mici"
+      ],
+      "specificatii": {
+        "Dimensiune": "9 cm x 7 cm x 8 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595958/01_uy9x9u.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595973/02_v063e9.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595965/03_atxhqq.jpg"
+      ],
+      "ordine": 10
+    },
+    "albinuta": {
+      "id": "albinuta",
+      "colectie": "disponibile",
+      "nume": "Albinuță",
+      "pret": "25 lei",
+      "descriere": "Albinuță mică, moale și ușor de strecurat lângă un cadou.",
+      "filtre": [
+        "plușuri mici",
+        "insecte"
+      ],
+      "specificatii": {
+        "Dimensiune": "11 cm x 9 cm x 7 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595550/01_ja1hje.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595556/02_usnp7l.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595560/03_l8zy2d.jpg"
+      ],
+      "ordine": 20
+    },
+    "pescarus-cu-colac": {
+      "id": "pescarus-cu-colac",
+      "colectie": "disponibile",
+      "nume": "Pescăruș cu colac",
+      "pret": "186 lei",
+      "descriere": "Pescăruș cu colac detașabil, pregătit pentru vară.",
+      "filtre": [
+        "plușuri mari",
+        "vară",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "33 cm x 23 cm x 14 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596933/01_tde2rx.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596944/02_h6rs7c.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596956/03_d7ru91.jpg"
+      ],
+      "ordine": 30
+    },
+    "elefantel-cu-rochita": {
+      "id": "elefantel-cu-rochita",
+      "colectie": "disponibile",
+      "nume": "Elefănțel cu rochiță",
+      "pret": "164 lei",
+      "descriere": "Elefănțică elegantă, cu rochiță detașabilă.",
+      "filtre": [
+        "plușuri medii",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "21 cm x 12 cm x 22 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595908/01_cmvqtn.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595915/02_fpmsjb.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595922/03_y6qbhh.jpg"
+      ],
+      "ordine": 40
+    },
+    "porcusor": {
+      "id": "porcusor",
+      "colectie": "disponibile",
+      "nume": "Purceluș",
+      "pret": "80 lei",
+      "descriere": "Purceluș mic și dolofan.",
+      "filtre": [
+        "plușuri medii"
+      ],
+      "specificatii": {
+        "Dimensiune": "14 cm x 20 cm x 11 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597132/01_blwoly.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597144/02_xsi37n.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597155/03_wso1oa.jpg"
+      ],
+      "ordine": 50
+    },
+    "vidra-cu-hainute": {
+      "id": "vidra-cu-hainute",
+      "colectie": "disponibile",
+      "nume": "Vidră cu hăinuțe",
+      "pret": "125 lei",
+      "descriere": "Vidră cu hăinuțe, gata de ieșit în oraș. Hăinuțele sunt detașabile.",
+      "filtre": [
+        "plușuri medii",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "25 cm x 12 cm x 19 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597772/01_c7aveh.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597784/02_wv3uax.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597797/03_q7kpot.jpg"
+      ],
+      "ordine": 60
+    },
+    "raton": {
+      "id": "raton",
+      "colectie": "disponibile",
+      "nume": "Raton îmbrățișător",
+      "pret": "145 lei",
+      "descriere": "Raton moale, făcut să fie luat în brațe.",
+      "filtre": [
+        "plușuri medii"
+      ],
+      "specificatii": {
+        "Dimensiune": "29 cm x 14 cm x 19 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță albi cu sclipici bej",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597282/01_tv6isi.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597293/02_u0mmck.jpg"
+      ],
+      "ordine": 70
+    },
+    "afrogcado": {
+      "id": "afrogcado",
+      "colectie": "disponibile",
+      "nume": "Afrogcado",
+      "pret": "95 lei",
+      "descriere": "Broscuță-avocado moale, cu sâmbure detașabil.",
+      "filtre": [
+        "plușuri medii"
+      ],
+      "specificatii": {
+        "Dimensiune": "16 cm x 16 cm x 18 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595505/01_lnbvd0.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595510/02_hvqbxw.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595515/03_d0fnn0.jpg"
+      ],
+      "ordine": 80
+    },
+    "testoasa-floare": {
+      "id": "testoasa-floare",
+      "colectie": "disponibile",
+      "nume": "Țestoasă floare",
+      "pret": "75 lei",
+      "descriere": "Țestoasă cu carapace floare.",
+      "filtre": [
+        "plușuri medii",
+        "animale cu accesorii",
+        "animale marine",
+        "vară"
+      ],
+      "specificatii": {
+        "Dimensiune": "8 cm x 19 cm x 14 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597554/01_ph16hj.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597578/02_c6imfg.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597567/03_nyjnye.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597602/04_qziia1.jpg"
+      ],
+      "ordine": 90
+    },
+    "axolotl": {
+      "id": "axolotl",
+      "colectie": "disponibile",
+      "nume": "Axolotl",
+      "pret": "75 lei",
+      "descriere": "Axolotl roz, cu ochișori sclipicioși.",
+      "filtre": [
+        "plușuri medii",
+        "animale marine"
+      ],
+      "specificatii": {
+        "Dimensiune": "19 cm x 18 cm x 16 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță cu sclipici roz",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595565/01_q87eg4.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595570/02_ckbhna.jpg"
+      ],
+      "ordine": 100
+    },
+    "gasca-floricica": {
+      "id": "gasca-floricica",
+      "colectie": "disponibile",
+      "nume": "Gâscă cu floricică",
+      "pret": "50 lei",
+      "descriere": "Gâscă floricică. Petalele nu sunt detașabile.",
+      "filtre": [
+        "plușuri medii",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "19 cm x 10 cm x 13 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595997/01_cklium.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596005/02_r87owg.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595997/03_ioyyfw.png"
+      ],
+      "ordine": 110
+    },
+    "vacuta-cu-salopeta": {
+      "id": "vacuta-cu-salopeta",
+      "colectie": "disponibile",
+      "nume": "Văcuță cu salopetă",
+      "pret": "80 lei",
+      "descriere": "Văcuță cu salopetă și portocale. Salopeta și geanta sunt detașabile, portocalele nu.",
+      "filtre": [
+        "plușuri medii",
+        "animale cu accesorii",
+        "vară"
+      ],
+      "specificatii": {
+        "Dimensiune": "25 cm x 12 cm x 18 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597689/01_thmrwb.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597702/02_ufq5lh.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597714/03_f1ncpo.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597727/04_ybtbgy.jpg"
+      ],
+      "ordine": 120
+    },
+    "raton-camper": {
+      "id": "raton-camper",
+      "colectie": "disponibile",
+      "nume": "Raton camper",
+      "pret": "250 lei",
+      "descriere": "Raton pregătit de aventură, cu bezea și foc de tabără. Bezeaua este detașabilă, fularul nu.",
+      "filtre": [
+        "plușuri mari",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "25 cm x 23 cm x 19 cm",
+        "Materiale": "fir catifelat 100% micropoliester + fir bumbac + sârmă pentru bățul bezelei, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597305/01_gyvp0f.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597329/02_ct3fwy.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597318/03_xgsldt.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597352/04_rt7ffk.png"
+      ],
+      "ordine": 130
+    },
+    "stitch-breloc": {
+      "id": "stitch-breloc",
+      "colectie": "disponibile",
+      "nume": "Stitch breloc",
+      "pret": "35 lei",
+      "descriere": "Stitch breloc, mic și simpatic, potrivit pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+      "filtre": [
+        "plușuri mici",
+        "personaje",
+        "breloc"
+      ],
+      "specificatii": {
+        "Dimensiune": "29 cm x 5 cm x 8 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597519/01_xfvwgb.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597531/02_vh9rcs.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597543/03_jm0o3c.jpg"
+      ],
+      "ordine": 140
+    },
+    "cameleon-breloc": {
+      "id": "cameleon-breloc",
+      "colectie": "disponibile",
+      "nume": "Cameleon breloc",
+      "pret": "35 lei",
+      "descriere": "Cameleon breloc, potrivit pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+      "filtre": [
+        "plușuri mici",
+        "breloc"
+      ],
+      "specificatii": {
+        "Dimensiune": "24 cm x 12 cm x 5 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595722/01_xdsb2c.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595733/02_hcg6gu.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595740/03_g4ihni.jpg"
+      ],
+      "ordine": 150
+    },
+    "omida-breloc": {
+      "id": "omida-breloc",
+      "colectie": "disponibile",
+      "nume": "Omidă breloc",
+      "pret": "35 lei",
+      "descriere": "Omidă breloc, potrivită pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+      "filtre": [
+        "plușuri mici",
+        "breloc",
+        "insecte"
+      ],
+      "specificatii": {
+        "Dimensiune": "23 cm x 12 cm x 5 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596769/01_dumnmx.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596790/02_wagha3.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596803/03_ygyotd.jpg"
+      ],
+      "ordine": 160
+    },
+    "crab-breloc": {
+      "id": "crab-breloc",
+      "colectie": "disponibile",
+      "nume": "Crab breloc",
+      "pret": "35 lei",
+      "descriere": "Crab breloc, potrivit pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+      "filtre": [
+        "plușuri mici",
+        "breloc",
+        "animale marine"
+      ],
+      "specificatii": {
+        "Dimensiune": "25 cm x 5 cm x 8 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595838/01_no6nv7.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595852/02_h94l2i.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595858/03_reseny.jpg"
+      ],
+      "ordine": 170
+    },
+    "liliac-breloc": {
+      "id": "liliac-breloc",
+      "colectie": "disponibile",
+      "nume": "Liliac breloc",
+      "pret": "35 lei",
+      "descriere": "Liliac breloc, potrivit pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+      "filtre": [
+        "plușuri mici",
+        "breloc",
+        "halloween"
+      ],
+      "specificatii": {
+        "Dimensiune": "25 cm x 6 cm x 13 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596331/01_nomcme.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596347/02_x7ukhi.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596355/03_ufia9k.jpg"
+      ],
+      "ordine": 180
+    },
+    "koala-breloc": {
+      "id": "koala-breloc",
+      "colectie": "disponibile",
+      "nume": "Koala breloc",
+      "pret": "35 lei",
+      "descriere": "Koala breloc, potrivit pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+      "filtre": [
+        "plușuri mici",
+        "breloc"
+      ],
+      "specificatii": {
+        "Dimensiune": "23 cm x 6 cm x 8 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596212/01_figphr.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596225/02_httm45.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596233/03_as2lu0.jpg"
+      ],
+      "ordine": 190
+    },
+    "panda-breloc": {
+      "id": "panda-breloc",
+      "colectie": "disponibile",
+      "nume": "Panda breloc",
+      "pret": "35 lei",
+      "descriere": "Panda breloc cu bambus, mic și simpatic, potrivit pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+      "filtre": [
+        "plușuri mici",
+        "breloc"
+      ],
+      "specificatii": {
+        "Dimensiune": "25 cm x 6 cm x 8 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596816/01_veszmm.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596835/02_juvggj.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596847/03_f8xaw0.jpg"
+      ],
+      "ordine": 200
+    },
+    "mini-calamar": {
+      "id": "mini-calamar",
+      "colectie": "disponibile",
+      "nume": "Calamar",
+      "pret": "25 lei",
+      "descriere": "Calamar mic, moale și simpatic.",
+      "filtre": [
+        "plușuri mici",
+        "animale marine"
+      ],
+      "specificatii": {
+        "Dimensiune": "11 cm x 5 cm x 5 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596395/01_uesvkl.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781598523/02_dqudfz.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596416/03_yhnyk0.jpg"
+      ],
+      "ordine": 210
+    },
+    "lemur-ayeaye": {
+      "id": "lemur-ayeaye",
+      "colectie": "disponibile",
+      "nume": "Aye-aye",
+      "pret": "120 lei",
+      "descriere": "Lemur aye-aye cu coadă pufoasă.",
+      "filtre": [
+        "plușuri mari"
+      ],
+      "specificatii": {
+        "Dimensiune": "18 cm x 33 cm x 17 cm",
+        "Materiale": "fir catifelat 100% micropoliester + fir tip blăniță, umplutură fiberfill, ochișori de siguranță cu sclipici galbeni",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596289/01_hyz0rc.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596305/02_g4ks9i.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596297/03_esobcf.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596323/04_sw8cgs.jpg"
+      ],
+      "ordine": 220
+    },
+    "stelute": {
+      "id": "stelute",
+      "colectie": "disponibile",
+      "nume": "Steluțe",
+      "pret": "20 lei / bucată",
+      "descriere": "Steluțe mici, drăguțe și cu mânuțe. Sunt disponibile amândouă, iar prețul este pe bucată.",
+      "filtre": [
+        "plușuri mici"
+      ],
+      "specificatii": {
+        "Dimensiune": "10 cm x 8 cm x 10 cm",
+        "Materiale": "fir catifelat 100% micropoliester + fir bumbac, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597459/01_ipkla4.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597470/02_v2jxxr.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597482/03_tvjm0f.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597495/04_qfdump.jpg"
+      ],
+      "ordine": 230
+    },
+    "balena-cu-palariuta": {
+      "id": "balena-cu-palariuta",
+      "colectie": "disponibile",
+      "nume": "Balenă cu pălăriuță",
+      "pret": "55 lei",
+      "descriere": "Balenă cu pălărie de marinar. Pălăria nu este detașabilă.",
+      "filtre": [
+        "plușuri medii",
+        "animale marine",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "10 cm x 19 cm x 18 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595608/01_hwcrri.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595618/02_zxmvhh.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595613/03_brsrbo.png",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595629/04_s74ny1.png"
+      ],
+      "ordine": 240
+    },
+    "triceratrtops": {
+      "id": "triceratrtops",
+      "colectie": "disponibile",
+      "nume": "Triceratops",
+      "pret": "187 lei",
+      "descriere": "Triceratops cu ochi din nasturi, fără umplutură în corp, potrivit pentru copii mici.",
+      "filtre": [
+        "plușuri mari",
+        "dinozauri"
+      ],
+      "specificatii": {
+        "Dimensiune": "44 cm x 13 cm x 19 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, nasturi",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597628/01_jsm5zv.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597640/02_uh0atk.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597652/03_jbsulf.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597664/04_acw4zg.jpg"
+      ],
+      "ordine": 250
+    },
+    "iepuras-cu-salopeta": {
+      "id": "iepuras-cu-salopeta",
+      "colectie": "disponibile",
+      "nume": "Iepuraș cu salopetă",
+      "pret": "267 lei",
+      "descriere": "Iepuraș cu salopetă verde și fundițe. Salopeta este detașabilă, fundițele nu.",
+      "filtre": [
+        "plușuri mari",
+        "animale cu accesorii",
+        "vară"
+      ],
+      "specificatii": {
+        "Dimensiune": "42 cm x 13 cm x 24 cm",
+        "Materiale": "fir catifelat 100% micropoliester + fir bumbac, umplutură fiberfill, ochișori de siguranță cu sclipici verde",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596166/IMG_0791_fzibq4.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596173/IMG_0813_wptgxj.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596182/IMG_0805_hgwwk2.jpg"
+      ],
+      "ordine": 260
+    },
+    "iepuras-cu-palariuta": {
+      "id": "iepuras-cu-palariuta",
+      "colectie": "disponibile",
+      "nume": "Iepuraș cu pălăriuță",
+      "pret": "175 lei",
+      "descriere": "Iepuraș cu pălăriuță și tort de morcovi. Pălăria este detașabilă, tortul nu.",
+      "filtre": [
+        "plușuri mari",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "32 cm x 18 cm x 20 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596119/01_fd3xxx.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596127/02_tzntoe.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596134/03_e8fk0g.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596142/04_r2g9wu.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596149/05_frj1un.jpg"
+      ],
+      "ordine": 270
+    },
+    "raton-2": {
+      "id": "raton-2",
+      "colectie": "disponibile",
+      "nume": "Raton",
+      "pret": "122 lei",
+      "descriere": "Raton wobbly și moale.",
+      "filtre": [
+        "plușuri mari"
+      ],
+      "specificatii": {
+        "Dimensiune": "14 cm x 37 cm x 19 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597225/01_kbh9bf.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597236/02_rvf1jz.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597248/03_ldw8qx.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597259/04_mazwx4.jpg"
+      ],
+      "ordine": 280
+    },
+    "inimioara-cu-picioruse": {
+      "id": "inimioara-cu-picioruse",
+      "colectie": "disponibile",
+      "nume": "Inimioară cu piciorușe",
+      "pret": "65 lei",
+      "descriere": "Inimioară cu piciorușe, moale, potrivită pentru persoana dragă.",
+      "filtre": [
+        "plușuri medii",
+        "valentine"
+      ],
+      "specificatii": {
+        "Dimensiune": "18 cm x 10 cm x 17 cm",
+        "Materiale": "fir catifelat 100% micropoliester + fir bumbac, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596186/01_sqjtvo.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596194/02_thml2t.jpg"
+      ],
+      "ordine": 290
+    },
+    "axolotl-cu-colacel": {
+      "id": "axolotl-cu-colacel",
+      "colectie": "disponibile",
+      "nume": "Axolotl cu colăcel",
+      "pret": "45 lei",
+      "descriere": "Axolotl roz cu colăcel galben, pregătit pentru zilele de vară.",
+      "filtre": [
+        "plușuri mici",
+        "animale marine",
+        "vară"
+      ],
+      "specificatii": {
+        "Dimensiune": "17 cm x 10 cm x 12 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595586/01_qih1ky.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595590/02_nwkctb.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595595/03_xrey7q.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595601/04_qipox3.jpg"
+      ],
+      "ordine": 300
+    },
+    "perry-ornitorincul": {
+      "id": "perry-ornitorincul",
+      "colectie": "disponibile",
+      "nume": "Perry ornitorincul",
+      "pret": "60 lei",
+      "descriere": "Perry ornitorincul, gata de misiune.",
+      "filtre": [
+        "plușuri medii",
+        "personaje"
+      ],
+      "specificatii": {
+        "Dimensiune": "16 cm x 26 cm x 13 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596869/01_am6dav.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596881/02_fpjjha.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596891/03_zve0l7.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596903/04_sznzdo.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596914/05_z3yosi.jpg"
+      ],
+      "ordine": 310
+    },
+    "ciupercuta": {
+      "id": "ciupercuta",
+      "colectie": "disponibile",
+      "nume": "Ciupercuță",
+      "pret": "40 lei",
+      "descriere": "Ciupercuță cu personalitate, mică și simpatică.",
+      "filtre": [
+        "plușuri mici"
+      ],
+      "specificatii": {
+        "Dimensiune": "11 cm x 10 cm x 10 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595795/01_nkst2n.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595801/02_rhvetu.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595808/03_ly9rfd.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595815/04_kvsqvl.jpg"
+      ],
+      "ordine": 320
+    },
+    "capybara-mumie": {
+      "id": "capybara-mumie",
+      "colectie": "disponibile",
+      "nume": "Capybara mumie",
+      "pret": "35 lei",
+      "descriere": "Capybara mumie, gata de Halloween. Bandajele nu sunt detașabile.",
+      "filtre": [
+        "plușuri mici",
+        "halloween",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "12 cm x 8 cm x 8 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595752/01_snykip.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595758/02_q7tl3u.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595764/03_gxqemi.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595770/04_alf3bo.jpg"
+      ],
+      "ordine": 330
+    },
+    "porumbel-cu-palarie": {
+      "id": "porumbel-cu-palarie",
+      "colectie": "disponibile",
+      "nume": "Porumbel cu pălărie",
+      "pret": "50 lei",
+      "descriere": "Porumbel din gașca păsărilor cu atitudine, cu pălărie tip bărcuță și cuțit. Accesoriile nu sunt detașabile.",
+      "filtre": [
+        "plușuri medii",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "16 cm x 13 cm x 17 cm",
+        "Materiale": "fir catifelat 100% micropoliester + fir bumbac, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597179/01_zqppgz.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597190/02_hcxw9p.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597203/03_rruzed.jpg"
+      ],
+      "ordine": 340
+    },
+    "ratusca-bucatar": {
+      "id": "ratusca-bucatar",
+      "colectie": "disponibile",
+      "nume": "Rățușcă bucătar",
+      "pret": "40 lei",
+      "descriere": "Rățușcă bucătar din gașca păsărilor cu atitudine, cu pălărie și cuțit. Accesoriile nu sunt detașabile.",
+      "filtre": [
+        "plușuri medii",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "16 cm x 13 cm x 17 cm",
+        "Materiale": "fir catifelat 100% micropoliester + fir bumbac, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597398/01_gi7fvv.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597409/02_yphvtq.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597422/03_q5ibsf.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597434/04_nazsvn.jpg"
+      ],
+      "ordine": 350
+    },
+    "hermina": {
+      "id": "hermina",
+      "colectie": "disponibile",
+      "nume": "Hermina",
+      "pret": "50 lei",
+      "descriere": "Hermina moale, cu fundiță. Fundița este detașabilă.",
+      "filtre": [
+        "plușuri medii"
+      ],
+      "specificatii": {
+        "Dimensiune": "9 cm x 29 cm x 12 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596036/01_rtienw.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596044/02_lux9uk.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596052/03_avgvii.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596058/04_wtbbs2.jpg"
+      ],
+      "ordine": 360
+    },
+    "albina-inimioara": {
+      "id": "albina-inimioara",
+      "colectie": "disponibile",
+      "nume": "Albină cu inimioară",
+      "pret": "45 lei",
+      "descriere": "Albinuță roz cu aripioare în formă de inimioară, potrivită pentru un cadou dulce și simplu.",
+      "filtre": [
+        "plușuri medii",
+        "insecte",
+        "valentine"
+      ],
+      "specificatii": {
+        "Dimensiune": "14 cm x 14 cm x 10 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595527/01_m9uswf.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595531/02_qpdthm.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595536/03_pscwtb.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595540/04_g4ovwo.jpg"
+      ],
+      "ordine": 370
+    },
+    "broscuta": {
+      "id": "broscuta",
+      "colectie": "disponibile",
+      "nume": "Broscuță",
+      "pret": "35 lei",
+      "descriere": "Broscuță cu piciorușe și mânuțe wobbly.",
+      "filtre": [
+        "plușuri mici"
+      ],
+      "specificatii": {
+        "Dimensiune": "19 cm x 5 cm x 7 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595678/01_nri5al.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595684/02_ifppq2.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595690/03_xynfkd.jpg"
+      ],
+      "ordine": 380
+    },
+    "broscuta-cu-inimioara": {
+      "id": "broscuta-cu-inimioara",
+      "colectie": "disponibile",
+      "nume": "Broscuță cu inimioară",
+      "pret": "40 lei",
+      "descriere": "Broscuță cu inimioară galbenă. Inimioara nu este detașabilă.",
+      "filtre": [
+        "plușuri mici",
+        "valentine"
+      ],
+      "specificatii": {
+        "Dimensiune": "14 cm x 9 cm x 9 cm",
+        "Materiale": "fir catifelat 100% micropoliester + fir 100% bumbac (inimioara), umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595702/01_enkkts.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595708/02_czgwmp.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595715/03_cyqdzq.jpg"
+      ],
+      "ordine": 390
+    },
+    "curcubeu-breloc": {
+      "id": "curcubeu-breloc",
+      "colectie": "disponibile",
+      "nume": "Curcubeu breloc",
+      "pret": "25 lei",
+      "descriere": "Breloc curcubeu, potrivit pentru chei sau geantă.",
+      "filtre": [
+        "plușuri mici",
+        "breloc",
+        "vară"
+      ],
+      "specificatii": {
+        "Dimensiune": "11 cm x 12 cm x 2 cm",
+        "Materiale": "fir catifelat 100% micropoliester, breloc",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595873/01_gd3y5o.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595880/02_wavfnr.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595887/03_hdrosg.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595894/04_isg3zr.jpg"
+      ],
+      "ordine": 400
+    },
+    "flamingo-cu-palarie-floare": {
+      "id": "flamingo-cu-palarie-floare",
+      "colectie": "disponibile",
+      "nume": "Flamingo cu pălărie floare",
+      "pret": "50 lei",
+      "descriere": "Flamingo din gașca păsărilor cu atitudine, cu pălărie floare și cuțit. Accesoriile nu sunt detașabile.",
+      "filtre": [
+        "plușuri medii",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "18 cm x 14 cm x 18 cm",
+        "Materiale": "fir catifelat 100% micropoliester + fir bumbac, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595938/01_s5ytsl.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595944/02_wrak1o.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595951/03_bi79ng.jpg"
+      ],
+      "ordine": 410
+    },
+    "lamaie-breloc": {
+      "id": "lamaie-breloc",
+      "colectie": "disponibile",
+      "nume": "Lămâie breloc",
+      "pret": "21 lei",
+      "descriere": "Breloc lămâie, fresh și potrivit pentru chei sau geantă.",
+      "filtre": [
+        "plușuri mici",
+        "breloc",
+        "vară"
+      ],
+      "specificatii": {
+        "Dimensiune": "14 cm x 7 cm x 7 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, breloc",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596258/01_n0lurs.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596265/02_h8652h.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596273/03_vqrriq.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596282/04_t80mkm.jpg"
+      ],
+      "ordine": 420
+    },
+    "lovely-bugs": {
+      "id": "lovely-bugs",
+      "colectie": "disponibile",
+      "nume": "Lovely bugs",
+      "pret": "40 lei / bucată",
+      "descriere": "Gâzulițe cu aripioare inimioare, un cadou mic și drăguț pentru cineva drag. Sunt disponibile amândouă, iar prețul este pe bucată.",
+      "filtre": [
+        "plușuri medii",
+        "valentine",
+        "insecte"
+      ],
+      "specificatii": {
+        "Dimensiune": "9 cm x 14 cm x 8 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596372/01_ly6zz6.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596380/02_ukf6mb.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596389/03_zraxcm.jpg"
+      ],
+      "ordine": 430
+    },
+    "mini-caracatite": {
+      "id": "mini-caracatite",
+      "colectie": "disponibile",
+      "nume": "Caracatiță",
+      "pret": "10 lei",
+      "descriere": "Caracatițe mici, disponibile pe galben, roșu, portocaliu, albastru deschis sau verde. Prețul este pe bucată.",
+      "filtre": [
+        "plușuri mici",
+        "animale marine"
+      ],
+      "specificatii": {
+        "Dimensiune": "7 cm x 6 cm x 6 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596434/01_bx9gph.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596443/02_jipkcc.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596449/03_qpjsd4.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596458/04_yqlove.jpg"
+      ],
+      "ordine": 440
+    },
+    "moo-deng": {
+      "id": "moo-deng",
+      "colectie": "disponibile",
+      "nume": "Moo Deng",
+      "pret": "40 lei",
+      "descriere": "Moo Deng, micul hipopotam.",
+      "filtre": [
+        "plușuri medii",
+        "personaje"
+      ],
+      "specificatii": {
+        "Dimensiune": "11 cm x 19 cm x 10 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596682/01_lvdv6f.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596691/02_wrjx15.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596703/03_ng6nt6.jpg"
+      ],
+      "ordine": 450
+    },
+    "pisica-sandwich": {
+      "id": "pisica-sandwich",
+      "colectie": "disponibile",
+      "nume": "Pisică sandwich",
+      "pret": "210 lei",
+      "descriere": "Pisică sandwich dolofană, cu pâine și ou ochi.",
+      "filtre": [
+        "plușuri mari",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "24 cm x 19 cm x 19 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597087/01_vb95th.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597098/02_vaopug.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597111/03_sakcxp.jpg"
+      ],
+      "ordine": 460
+    },
+    "vulpita-cu-fular": {
+      "id": "vulpita-cu-fular",
+      "colectie": "disponibile",
+      "nume": "Vulpiță cu fular",
+      "pret": "95 lei",
+      "descriere": "Vulpiță cu fular, moale și cochetă.",
+      "filtre": [
+        "plușuri medii",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "27 cm x 18 cm x 10 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597827/01_ihqcjz.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597838/02_iiqvm3.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597849/03_ncbawu.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597861/04_hyofme.jpg"
+      ],
+      "ordine": 480
+    },
+    "iepuras-breloc": {
+      "id": "iepuras-breloc",
+      "colectie": "disponibile",
+      "nume": "Iepuraș breloc",
+      "pret": "27 lei",
+      "descriere": "Iepuraș mic și grăsuț, potrivit pentru chei, geantă sau purtat zi de zi.",
+      "filtre": [
+        "plușuri mici",
+        "breloc"
+      ],
+      "specificatii": {
+        "Dimensiune": "10 cm x 11 cm x 10 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță, breloc",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596074/01_o8lxr1.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596081/02_arermr.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596089/03_szsqkr.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596096/04_g8bykf.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596104/05_equgin.jpg"
+      ],
+      "ordine": 490
+    },
+    "morcov-breloc": {
+      "id": "morcov-breloc",
+      "colectie": "disponibile",
+      "nume": "Morcov breloc",
+      "pret": "20 lei",
+      "descriere": "Breloc morcov, potrivit pentru chei, geantă sau purtat zi de zi.",
+      "filtre": [
+        "plușuri mici",
+        "breloc"
+      ],
+      "specificatii": {
+        "Dimensiune": "11 cm x 5 cm x 5 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, breloc",
+        "Disponibilitate": "în stoc"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596727/o1_npjlbz.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596736/02_pzkwzm.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596747/03_pnn1lj.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596757/04_oulq6r.jpg"
+      ],
+      "ordine": 490
+    },
+    "elefantel-cu-rochita-2": {
+      "id": "elefantel-cu-rochita-2",
+      "colectie": "la-comanda",
+      "nume": "Elefănțel cu rochiță",
+      "pret": "164 lei",
+      "descriere": "Elefănțică elegantă, cu rochiță detașabilă.",
+      "filtre": [
+        "plușuri medii",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "21 cm x 12 cm x 22 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "la comandă"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595908/01_cmvqtn.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595915/02_fpmsjb.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595922/03_y6qbhh.jpg"
+      ],
+      "ordine": 1040
+    },
+    "vidra-cu-hainute-2": {
+      "id": "vidra-cu-hainute-2",
+      "colectie": "la-comanda",
+      "nume": "Vidră cu hăinuțe",
+      "pret": "125 lei",
+      "descriere": "Vidră cu hăinuțe, gata de ieșit în oraș. Hăinuțele sunt detașabile.",
+      "filtre": [
+        "plușuri medii",
+        "animale cu accesorii"
+      ],
+      "specificatii": {
+        "Dimensiune": "25 cm x 12 cm x 19 cm",
+        "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+        "Disponibilitate": "la comandă"
+      },
+      "imagini": [
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597772/01_c7aveh.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597784/02_wv3uax.jpg",
+        "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597797/03_q7kpot.jpg"
+      ],
+      "ordine": 1060
+    }
+  }
+}

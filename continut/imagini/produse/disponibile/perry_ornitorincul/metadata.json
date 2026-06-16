@@ -1,0 +1,23 @@
+{
+  "nume": "Perry ornitorincul",
+  "pret": "60 lei",
+  "descriere": "Perry ornitorincul, gata de misiune.",
+  "filtre": [
+    "plușuri medii",
+    "personaje"
+  ],
+  "specificatii": {
+    "Dimensiune": "16 cm x 26 cm x 13 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 310,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596869/01_am6dav.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596881/02_fpjjha.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596891/03_zve0l7.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596903/04_sznzdo.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596914/05_z3yosi.jpg"
+  ]
+}

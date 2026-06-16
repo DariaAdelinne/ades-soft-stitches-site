@@ -1,0 +1,24 @@
+{
+  "nume": "Țestoasă floare",
+  "pret": "75 lei",
+  "descriere": "Țestoasă cu carapace floare.",
+  "filtre": [
+    "plușuri medii",
+    "animale cu accesorii",
+    "animale marine",
+    "vară"
+  ],
+  "specificatii": {
+    "Dimensiune": "8 cm x 19 cm x 14 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 90,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597554/01_ph16hj.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597578/02_c6imfg.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597567/03_nyjnye.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597602/04_qziia1.jpg"
+  ]
+}

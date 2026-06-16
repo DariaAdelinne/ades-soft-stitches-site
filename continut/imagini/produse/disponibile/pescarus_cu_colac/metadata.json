@@ -1,0 +1,22 @@
+{
+  "nume": "Pescăruș cu colac",
+  "pret": "186 lei",
+  "descriere": "Pescăruș cu colac detașabil, pregătit pentru vară.",
+  "filtre": [
+    "plușuri mari",
+    "vară",
+    "animale cu accesorii"
+  ],
+  "specificatii": {
+    "Dimensiune": "33 cm x 23 cm x 14 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 30,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596933/01_tde2rx.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596944/02_h6rs7c.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596956/03_d7ru91.jpg"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "nume": "Broscuță cu inimioară",
+  "pret": "40 lei",
+  "descriere": "Broscuță cu inimioară galbenă. Inimioara nu este detașabilă.",
+  "filtre": [
+    "plușuri mici",
+    "valentine"
+  ],
+  "specificatii": {
+    "Dimensiune": "14 cm x 9 cm x 9 cm",
+    "Materiale": "fir catifelat 100% micropoliester + fir 100% bumbac (inimioara), umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 390,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595702/01_enkkts.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595708/02_czgwmp.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595715/03_cyqdzq.jpg"
+  ]
+}

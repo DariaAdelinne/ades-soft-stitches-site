@@ -1,0 +1,15 @@
+{
+  "nume": "Numele produsului",
+  "pret": "100 lei",
+  "descriere": "Descrierea produsului.",
+  "filtre": [
+    "plușuri medii"
+  ],
+  "specificatii": {
+    "Dimensiune": "Înălțime: completează aici\nLungime: completează aici\nLățime: completează aici",
+    "Materiale": "fir chenille, umplutură fiberfill",
+    "Culoare": "completează aici"
+  },
+  "ordine": 100,
+  "ascuns": false
+}

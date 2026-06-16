@@ -1,0 +1,23 @@
+{
+  "nume": "Lămâie breloc",
+  "pret": "21 lei",
+  "descriere": "Breloc lămâie, fresh și potrivit pentru chei sau geantă.",
+  "filtre": [
+    "plușuri mici",
+    "breloc",
+    "vară"
+  ],
+  "specificatii": {
+    "Dimensiune": "14 cm x 7 cm x 7 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, breloc",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 420,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596258/01_n0lurs.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596265/02_h8652h.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596273/03_vqrriq.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596282/04_t80mkm.jpg"
+  ]
+}

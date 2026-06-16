@@ -1,145 +1,47 @@
-
+<section>
     <h2>Despre Ade's Soft Stitches</h2>
-
-    <p><b>Ade's Soft Stitches</b> este un mic atelier handmade în care creez jucării croșetate, plușuri și cadouri personalizate, realizate cu grijă și mult drag.</p>
-
-    <p>Fiecare produs este lucrat manual și poate fi adaptat în funcție de preferințe, astfel încât să devină un cadou special sau o amintire dragă.</p>
-
-    <hr> <!-- horizontal rule -->
-
-    <h3>Povestea din spatele pasiunii mele</h3>
-
     <div class="poveste">
         <div class="poveste-text">
             <p>
-                Totul a început cu pisica mea. După o operație, a rămas fără blăniță pe o mare parte din corp,
-                iar eu am vrut să o ajut să se simtă mai bine. Așa că i-am croșetat o hăinuță mică, pufoasă și confortabilă.
+                În spatele Ade’s Soft Stitches sunt eu, Adelinne, o iubitoare de lucruri făcute manual și de idei care prind viață. 
             </p>
-
             <p>
-                Acela a fost primul meu proiect, iar de atunci am început să creez din ce în ce mai multe lucruri handmade,
-                transformând această pasiune într-un mic atelier de suflet.
+                Totul a început cu pisica mea, Didi. După o operație, am vrut să îi fac ceva care să îi țină de cald și să îi fie cât mai confortabil, așa că i-am croșetat o hăinuță.
+            </p>
+            <p>
+                A fost primul lucru pe care l-am făcut cu adevărat din suflet și, fără să îmi dau seama, și începutul acestui mic atelier. De atunci, am început să creez plușuri și cadouri personalizate, inspirate de animăluțe, personaje și idei care au o poveste în spate.
+            </p>
+            <p>
+                Fiecare produs este lucrat manual, cu atenție la formă, culori și micile detalii care îl fac special. Îmi place ca fiecare creație să păstreze ceva personal și să fie mai mult decât un simplu obiect: un cadou cald, făcut cu grijă.
             </p>
         </div>
-
         <div class="poveste-img">
-            <img src="imagini/didi.jpeg" alt="Pisica mea cu hăinuță croșetată">
+            <img src="imagini/didi.jpeg" alt="Pisica mea">
         </div>
     </div>
+</section>
 
-    <hr>
-
-    <h3>Câteva dintre creațiile mele</h3>
-
-    <div class="evantai-poze">
-        <img src="imagini/porcusor.jpeg" alt="Porcușor croșetat" class="poza po1">
-        <img src="imagini/raton.jpeg" alt="Raton croșetat" class="poza po2">
-        <img src="imagini/vidra.jpeg" alt="Elefăntel croșetat" class="poza po3">
+<section>
+    <h3>Ce pot personaliza</h3>
+    <div class="tag-list">
+        <span>Culori</span>
+        <span>Dimensiune</span>
+        <span>Accesorii</span>
+        <span>Personaje</span>
+        <span>Cadouri tematice</span>
     </div>
-
     <p>
-        Mai multe modele și creații realizate de mine pot fi găsite pe paginile mele de socializare:
-        <a href="https://www.instagram.com/ades_soft_stitches/" target="_blank">Instagram</a>
-        și
-        <a href="https://www.tiktok.com/@ades_soft_stitches" target="_blank">TikTok</a>.
+        Pentru produse personalizate, prețul final depinde de complexitate, dimensiune și materiale.
+        Trimite o cerere și îți răspund cu o estimare înainte să încep lucrul.
     </p>
+</section>
 
-    <hr>
-
-    <h3>Exemple de produse realizate</h3>
-
-    <table>
-        <tr>
-            <th>Produs</th>
-            <th>Tip fir</th>
-            <th>Dimensiune</th>
-            <th>Personalizare</th>
-        </tr>
-        <tr>
-            <td>Ursuleț</td>
-            <td>Pluș moale</td>
-            <td>20 cm</td>
-            <td>Culoare + accesorii</td>
-        </tr>
-        <tr>
-            <td>Iepuraș</td>
-            <td>Pluș moale</td>
-            <td>15 cm</td>
-            <td>Nume brodat</td>
-        </tr>
-        <tr>
-            <td>Breloc animăluț</td>
-            <td>Bumbac</td>
-            <td>8 cm</td>
-            <td>Culori la alegere</td>
-        </tr>
-    </table>
-
-    <hr>
-
-    <h3>Cerere pentru un produs personalizat</h3>
-    <p>Spune-mi ce produs îți dorești, iar eu îți voi răspunde cât mai curând cu detalii despre disponibilitate și personalizare.</p>
-
-    <form id="formular-despre" method="POST" action="/api/cereri"> <!-- Formularul trimite datele prin metoda HTTP POST. -->
-        <label for="nume-client">Nume:</label>
-        <input type="text" id="nume-client" name="nume-client" required placeholder="Introduceți numele"> <!-- id = identifică elementul în pagină, pentru CSS / JS / legături cu label; name = identifică valoarea când este trimisă la server -->
-
-        <label for="email-client">Email:</label>
-        <input type="email" id="email-client" name="email-client" required placeholder="exemplu@email.com">
-
-        <label for="tip-produs">Ce îți dorești?</label>
-        <select id="tip-produs" name="tip-produs">
-            <option value="plus">Pluș</option>
-            <option value="breloc">Breloc</option>
-            <option value="baby">Cadou pentru bebeluși</option>
-            <option value="figurina">Figurină</option>
-            <option value="altceva">Altceva</option>
-        </select>
-
-        <label for="culoare-produs">Culoare preferată:</label>
-        <select id="culoare-produs" name="culoare-produs">
-            <option value="roz">Roz</option>
-            <option value="albastru">Albastru</option>
-            <option value="galben">Galben</option>
-            <option value="verde">Verde</option>
-            <option value="mov">Mov</option>
-            <option value="multicolor">Multicolor</option>
-        </select>
-
-        <label for="dimensiune">Dimensiune dorită:</label>
-        <select id="dimensiune" name="dimensiune">
-            <option value="mica">Mică</option>
-            <option value="medie">Medie</option>
-            <option value="mare">Mare</option>
-        </select>
-
-        <label for="detalii">Descrie produsul dorit:</label>
-        <textarea id="detalii" name="detalii" rows="5" placeholder="Ex: îmi doresc un ursuleț croșetat, în nuanțe de bej, cu fundiță roz"></textarea>
-
-        <div class="check">
-            <input type="checkbox" id="acord-contact" name="acord-contact" required>
-            <label for="acord-contact">Sunt de acord să fiu contactat(ă) pentru această cerere</label>
-        </div>
-
-        <button type="submit">Trimite cererea</button>
-    </form>
-
-    <p id="rezultat-cerere"></p>
-
-    <hr>
-
-    <h3>Ce poți găsi pe pagina mea</h3>
-    <ul>
-        <li>Colecții de jucării croșetate</li>
-        <li>Idei de cadouri handmade</li>
-        <li>Pași de îngrijire pentru produse</li>
-        <li>Descrieri detaliate ale produselor</li>
-        <li>Informații despre dimensiuni și materiale</li>
-    </ul>
-
-    <div class="insta-container"> 
-        <blockquote class="instagram-media" 
-            data-instgrm-permalink="https://www.instagram.com/p/DWMbkNXjJ8e/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
-            data-instgrm-version="14">
-        </blockquote>
-    </div>
+<section>
+    <h3>Urmărește atelierul</h3>
+    <p>
+        Pentru modele noi, proces de lucru și idei de cadouri, mă găsești pe
+        <a href="https://www.instagram.com/ades_soft_stitches/" target="_blank" rel="noreferrer">Instagram</a>
+        și
+        <a href="https://www.tiktok.com/@ades_soft_stitche?_r=1&_t=ZN-976RGriWxZG" target="_blank" rel="noreferrer">TikTok</a>.
+    </p>
+</section>

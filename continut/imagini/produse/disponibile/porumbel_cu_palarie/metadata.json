@@ -1,0 +1,21 @@
+{
+  "nume": "Porumbel cu pălărie",
+  "pret": "50 lei",
+  "descriere": "Porumbel din gașca păsărilor cu atitudine, cu pălărie tip bărcuță și cuțit. Accesoriile nu sunt detașabile.",
+  "filtre": [
+    "plușuri medii",
+    "animale cu accesorii"
+  ],
+  "specificatii": {
+    "Dimensiune": "16 cm x 13 cm x 17 cm",
+    "Materiale": "fir catifelat 100% micropoliester + fir bumbac, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 340,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597179/01_zqppgz.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597190/02_hcxw9p.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597203/03_rruzed.jpg"
+  ]
+}

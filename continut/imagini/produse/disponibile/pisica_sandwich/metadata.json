@@ -1,0 +1,21 @@
+{
+  "nume": "Pisică sandwich",
+  "pret": "210 lei",
+  "descriere": "Pisică sandwich dolofană, cu pâine și ou ochi.",
+  "filtre": [
+    "plușuri mari",
+    "animale cu accesorii"
+  ],
+  "specificatii": {
+    "Dimensiune": "24 cm x 19 cm x 19 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 460,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597087/01_vb95th.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597098/02_vaopug.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597111/03_sakcxp.jpg"
+  ]
+}

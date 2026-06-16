@@ -1,0 +1,22 @@
+{
+  "nume": "Liliac breloc",
+  "pret": "35 lei",
+  "descriere": "Liliac breloc, potrivit pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+  "filtre": [
+    "plușuri mici",
+    "breloc",
+    "halloween"
+  ],
+  "specificatii": {
+    "Dimensiune": "25 cm x 6 cm x 13 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 180,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596331/01_nomcme.png",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596347/02_x7ukhi.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596355/03_ufia9k.jpg"
+  ]
+}

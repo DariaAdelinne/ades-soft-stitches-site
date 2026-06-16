@@ -1,0 +1,23 @@
+{
+  "nume": "Balenă cu pălăriuță",
+  "pret": "55 lei",
+  "descriere": "Balenă cu pălărie de marinar. Pălăria nu este detașabilă.",
+  "filtre": [
+    "plușuri medii",
+    "animale marine",
+    "animale cu accesorii"
+  ],
+  "specificatii": {
+    "Dimensiune": "10 cm x 19 cm x 18 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 240,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595608/01_hwcrri.png",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595618/02_zxmvhh.png",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595613/03_brsrbo.png",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595629/04_s74ny1.png"
+  ]
+}

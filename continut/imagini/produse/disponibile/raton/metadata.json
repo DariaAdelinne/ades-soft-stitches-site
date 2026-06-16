@@ -1,0 +1,21 @@
+{
+  "nume": "Raton",
+  "pret": "122 lei",
+  "descriere": "Raton wobbly și moale.",
+  "filtre": [
+    "plușuri mari"
+  ],
+  "specificatii": {
+    "Dimensiune": "14 cm x 37 cm x 19 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 280,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597225/01_kbh9bf.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597236/02_rvf1jz.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597248/03_ldw8qx.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597259/04_mazwx4.jpg"
+  ]
+}

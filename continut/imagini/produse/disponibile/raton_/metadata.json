@@ -1,0 +1,19 @@
+{
+  "nume": "Raton îmbrățișător",
+  "pret": "145 lei",
+  "descriere": "Raton moale, făcut să fie luat în brațe.",
+  "filtre": [
+    "plușuri medii"
+  ],
+  "specificatii": {
+    "Dimensiune": "29 cm x 14 cm x 19 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță albi cu sclipici bej",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 70,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597282/01_tv6isi.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597293/02_u0mmck.jpg"
+  ]
+}

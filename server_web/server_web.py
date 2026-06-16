@@ -2,9 +2,12 @@ import socket
 import os
 import threading
 import gzip
-import json
+import subprocess
+import sys
+from urllib.parse import unquote
 
 director_continut = os.path.join(os.path.dirname(__file__), '..', 'continut')  # Stabilește de unde sunt servite fișierele
+director_proiect = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 tipuri_continut = {
     '.html': 'text/html; charset=utf-8',
@@ -21,10 +24,36 @@ tipuri_continut = {
 }
 
 
+def genereaza_catalog_la_pornire():
+    script = os.path.join(director_proiect, 'scripts', 'genereaza_catalog.py')
+    if not os.path.exists(script):
+        print("AVERTISMENT: Nu am găsit generatorul catalogului.")
+        return
+
+    try:
+        rezultat = subprocess.run(
+            [sys.executable, script],
+            cwd=director_proiect,
+            text=True,
+            capture_output=True,
+            check=False
+        )
+        if rezultat.stdout:
+            print(rezultat.stdout.strip())
+        if rezultat.returncode != 0:
+            print("AVERTISMENT: Catalogul produselor nu a putut fi generat.")
+            if rezultat.stderr:
+                print(rezultat.stderr.strip())
+    except Exception as e:
+        print(f"AVERTISMENT: Eroare la generarea catalogului: {e}")
+
+
 def trimite_raspuns_text(clientsocket, cod, mesaj, content_type='text/plain; charset=utf-8'): # Funcție care trimite un răspuns HTTP text către client, construind antetul corespunzător cu codul de stare, lungimea conținutului și tipul de conținut specificat, și apoi trimițând acest antet împreună cu mesajul text către client pentru a oferi feedback despre starea operațiunii solicitate și pentru a îmbunătăți experiența utilizatorului prin furnizarea de informații clare și relevante în răspunsul HTTP
     header = f"HTTP/1.1 {cod}\r\n"
     header += f"Content-Length: {len(mesaj.encode('utf-8'))}\r\n"
     header += f"Content-Type: {content_type}\r\n"
+    header += "X-Content-Type-Options: nosniff\r\n"
+    header += "Referrer-Policy: strict-origin-when-cross-origin\r\n"
     header += "Connection: close\r\n\r\n"
     clientsocket.sendall(header.encode('utf-8') + mesaj.encode('utf-8'))
 
@@ -70,10 +99,7 @@ def proceseaza_cererea(clientsocket, address): # Funcție care procesează o cer
         parti = data.split(separator, 1) # Împarte datele primite în două părți: antetul (header) și corpul (body) cererii, folosind secvența de sfârșit a antetului ca separator, oferind feedback despre starea operațiunii de procesare a cererii pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul procesării datelor pentru a informa utilizatorul despre problemele întâmpinate la primirea cererii
 
         header_bytes = parti[0]
-        body_bytes = parti[1] if len(parti) > 1 else b''
-
         cerere = header_bytes.decode('utf-8', errors='ignore')
-        body = body_bytes.decode('utf-8', errors='ignore')
 
         prima_linie = cerere.split('\r\n')[0]
         elemente = prima_linie.split(' ')
@@ -83,92 +109,27 @@ def proceseaza_cererea(clientsocket, address): # Funcție care procesează o cer
             return
 
         metoda = elemente[0]
-        numeResursa = elemente[1].split('?')[0]
+        numeResursa = unquote(elemente[1].split('?')[0])
 
         print(f"Cerere pentru: {numeResursa}")
 
-        if metoda == 'POST' and numeResursa == '/api/utilizatori': # Verifică dacă cererea este de tip POST și dacă resursa solicitată este /api/utilizatori, ceea ce indică o cerere de înregistrare a unui nou utilizator, și dacă da, încearcă să proceseze această cerere pentru a adăuga un nou utilizator în sistem, oferind feedback despre starea operațiunii de procesare a cererii pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul procesării datelor pentru a informa utilizatorul despre problemele întâmpinate la primirea cererii
-            print("BODY PRIMIT:", body)
-
-            try:
-                utilizator_nou = json.loads(body)
-
-                cale_json = os.path.join(director_continut, 'resurse', 'utilizatori.json')
-
-
-                if os.path.exists(cale_json): # Verifică dacă fișierul utilizatori.json există deja, dacă da, încearcă să îl deschidă și să citească conținutul pentru a obține lista curentă de utilizatori, oferind feedback despre starea operațiunii de citire a datelor pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul citirii datelor pentru a informa utilizatorul despre problemele întâmpinate la accesarea datelor din fișier
-                    with open(cale_json, 'r', encoding='utf-8') as f:
-                        continut = f.read().strip()
-                        if continut:
-                            utilizatori = json.loads(continut)
-                        else:
-                            utilizatori = []
-                else:
-                    utilizatori = []
-
-                exista_deja = False
-                for u in utilizatori: # Verifică dacă utilizatorul pe care încearcă să îl adauge există deja în lista de utilizatori, comparând numele de utilizator (utilizator) al fiecărui utilizator existent cu numele de utilizator al noului utilizator, și dacă găsește o potrivire, setează o variabilă pentru a indica că utilizatorul există deja și întrerupe bucla, oferind feedback despre starea operațiunii de verificare a existenței utilizatorului pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul verificării datelor pentru a informa utilizatorul despre problemele întâmpinate la accesarea datelor din fișier
-                    if u.get('utilizator') == utilizator_nou.get('utilizator'):
-                        exista_deja = True
-                        break
-
-                if exista_deja: # Dacă utilizatorul există deja, trimite un răspuns către client pentru a informa că nu se poate înregistra un utilizator cu același nume de utilizator, oferind feedback despre starea operațiunii de verificare a existenței utilizatorului pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul verificării datelor pentru a informa utilizatorul despre problemele întâmpinate la accesarea datelor din fișier
-                    trimite_raspuns_text(clientsocket, "200 OK", "Utilizatorul există deja.")
-                    return
-
-                utilizatori.append(utilizator_nou)
-
-                with open(cale_json, 'w', encoding='utf-8') as f: # Deschide fișierul utilizatori.json pentru a scrie și actualizează conținutul acestuia cu lista actualizată de utilizatori, oferind feedback despre starea operațiunii de scriere a datelor pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul scrierii datelor pentru a informa utilizatorul despre problemele întâmpinate la accesarea datelor din fișier
-                    json.dump(utilizatori, f, ensure_ascii=False, indent=4)
-
-                trimite_raspuns_text(clientsocket, "200 OK", "Înregistrare realizată cu succes.")
-                return
-
-            except Exception as e: # Dacă apare o eroare în timpul procesării cererii, cum ar fi o eroare de decodare JSON sau o problemă la accesarea fișierului, prinde această excepție și trimite un răspuns de eroare către client pentru a informa că datele furnizate sunt invalide sau că a apărut o problemă la procesarea cererii, oferind feedback despre starea operațiunii de procesare a cererii pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul procesării datelor pentru a informa utilizatorul despre problemele întâmpinate la primirea cererii
-                print("Eroare la procesarea JSON:", e)
-                trimite_raspuns_text(clientsocket, "400 Bad Request", "Date JSON invalide.")
-                return
-
-        if metoda == 'POST' and numeResursa == '/api/cereri': # Verifică dacă cererea este de tip POST și dacă resursa solicitată este /api/cereri, ceea ce indică o cerere de trimitere a unei noi cereri de contact sau suport, și dacă da, încearcă să proceseze această cerere pentru a adăuga o nouă cerere în sistem, oferind feedback despre starea operațiunii de procesare a cererii pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul procesării datelor pentru a informa utilizatorul despre problemele întâmpinate la primirea cererii
-            print("BODY PRIMIT CERERE:", body)
-
-            try: # Încearcă să decodeze corpul cererii ca JSON pentru a obține datele cererii, apoi verifică dacă fișierul cereri.json există și citește conținutul acestuia pentru a obține lista curentă de cereri, adaugă noua cerere la această listă și apoi scrie înapoi lista actualizată în fișierul cereri.json, oferind feedback despre starea operațiunii de procesare a cererii pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul procesării datelor pentru a informa utilizatorul despre problemele întâmpinate la primirea cererii
-                cerere_noua = json.loads(body)
-
-                cale_json = os.path.join(director_continut, 'resurse', 'cereri.json')
-
-                if os.path.exists(cale_json): # Verifică dacă fișierul cereri.json există deja, dacă da, încearcă să îl deschidă și să citească conținutul pentru a obține lista curentă de cereri, oferind feedback despre starea operațiunii de citire a datelor pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul citirii datelor pentru a informa utilizatorul despre problemele întâmpinate la accesarea datelor din fișier
-                    with open(cale_json, 'r', encoding='utf-8') as f:
-                        continut = f.read().strip()
-                        if continut:
-                            cereri = json.loads(continut)
-                        else:
-                            cereri = []
-                else:
-                    cereri = []
-
-                cereri.append(cerere_noua)
-
-                with open(cale_json, 'w', encoding='utf-8') as f: # Deschide fișierul cereri.json pentru a scrie și actualizează conținutul acestuia cu lista actualizată de cereri, oferind feedback despre starea operațiunii de scriere a datelor pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul scrierii datelor pentru a informa utilizatorul despre problemele întâmpinate la accesarea datelor din fișier
-                    json.dump(cereri, f, ensure_ascii=False, indent=4)
-
-                trimite_raspuns_text(clientsocket, "200 OK", "Cererea a fost trimisă cu succes. Te voi contacta cât mai curând.")
-                return
-
-            except Exception as e: # Dacă apare o eroare în timpul procesării cererii, cum ar fi o eroare de decodare JSON sau o problemă la accesarea fișierului, prinde această excepție și trimite un răspuns de eroare către client pentru a informa că datele furnizate sunt invalide sau că a apărut o problemă la procesarea cererii, oferind feedback despre starea operațiunii de procesare a cererii pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul procesării datelor pentru a informa utilizatorul despre problemele întâmpinate la primirea cererii
-                print("Eroare la procesarea cererii:", e)
-                trimite_raspuns_text(clientsocket, "400 Bad Request", "Datele cererii sunt invalide.")
-                return
-
-        if metoda == 'POST': # Dacă cererea este de tip POST, dar resursa solicitată nu este recunoscută ca o resursă validă pentru POST, trimite un răspuns de eroare către client pentru a informa că resursa specificată nu există sau nu poate fi procesată cu metoda POST, oferind feedback despre starea operațiunii de procesare a cererii pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul procesării datelor pentru a informa utilizatorul despre problemele întâmpinate la primirea cererii
-            trimite_raspuns_text(clientsocket, "404 Not Found", "Resursa POST nu există.")
+        if metoda == 'POST':
+            trimite_raspuns_text(clientsocket, "405 Method Not Allowed", "Serverul local servește doar fișiere statice.")
             return
 
         if numeResursa == '/': # Dacă resursa solicitată este '/', setează numele resursei la '/index.html' pentru a servi pagina principală a site-ului, oferind feedback despre starea operațiunii de procesare a cererii pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul procesării datelor pentru a informa utilizatorul despre problemele întâmpinate la primirea cererii
             numeResursa = '/index.html'
 
-        cale_fisier = os.path.join(director_continut, numeResursa.lstrip('/'))
+        cale_fisier = os.path.abspath(os.path.join(director_continut, numeResursa.lstrip('/')))
         print(f"Cale completa: {cale_fisier}")
+
+        if not cale_fisier.startswith(os.path.abspath(director_continut) + os.sep):
+            trimite_raspuns_text(clientsocket, "403 Forbidden", "Acces interzis.")
+            return
+
+        if os.path.basename(cale_fisier).startswith('.'):
+            trimite_raspuns_text(clientsocket, "404 Not Found", "Fișierul nu există.")
+            return
 
         if os.path.exists(cale_fisier) and os.path.isfile(cale_fisier): # Verifică dacă fișierul solicitat există și este un fișier valid, și dacă da, încearcă să îl deschidă și să îl servească către client, oferind feedback despre starea operațiunii de procesare a cererii pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul procesării datelor pentru a informa utilizatorul despre problemele întâmpinate la primirea cererii
             _, extensie = os.path.splitext(cale_fisier)
@@ -190,6 +151,8 @@ def proceseaza_cererea(clientsocket, address): # Funcție care procesează o cer
 
             # Construiește antetul HTTP pentru răspuns, incluzând codul de stare 200 OK, lungimea conținutului (care poate fi dimensiunea originală sau dimensiunea comprimată în funcție de suportul gzip), tipul de conținut corespunzător extensiei fișierului, orice antet suplimentar necesar pentru codificarea gzip, și alte antete standard precum Server și Connection, apoi trimite acest antet împreună cu conținutul fișierului către client pentru a servi fișierul solicitat și pentru a oferi feedback despre starea operațiunii de procesare a cererii pentru a îmbunătăți experiența utilizatorului și gestionând eventualele erori care pot apărea în timpul procesării datelor pentru a informa utilizatorul despre problemele întâmpinate la primirea cererii
             header = "HTTP/1.1 200 OK\r\n"
+            header += "X-Content-Type-Options: nosniff\r\n"
+            header += "Referrer-Policy: strict-origin-when-cross-origin\r\n"
             header += f"Content-Length: {len(continut_final)}\r\n"
             header += f"Content-Type: {content_type}\r\n"
             header += extra_header
@@ -217,6 +180,7 @@ def proceseaza_cererea(clientsocket, address): # Funcție care procesează o cer
         clientsocket.close()
 
 # Configurarea și pornirea serverului
+genereaza_catalog_la_pornire()
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 serversocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 serversocket.bind(('', 8888))

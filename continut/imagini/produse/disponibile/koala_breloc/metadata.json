@@ -1,0 +1,21 @@
+{
+  "nume": "Koala breloc",
+  "pret": "35 lei",
+  "descriere": "Koala breloc, potrivit pentru chei, geantă sau oglinda retrovizoare a mașinii.",
+  "filtre": [
+    "plușuri mici",
+    "breloc"
+  ],
+  "specificatii": {
+    "Dimensiune": "23 cm x 6 cm x 8 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 190,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596212/01_figphr.png",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596225/02_httm45.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596233/03_as2lu0.jpg"
+  ]
+}

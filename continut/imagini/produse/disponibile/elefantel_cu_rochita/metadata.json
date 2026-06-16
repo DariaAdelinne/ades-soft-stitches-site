@@ -1,0 +1,21 @@
+{
+  "nume": "Elefănțel cu rochiță",
+  "pret": "164 lei",
+  "descriere": "Elefănțică elegantă, cu rochiță detașabilă.",
+  "filtre": [
+    "plușuri medii",
+    "animale cu accesorii"
+  ],
+  "specificatii": {
+    "Dimensiune": "21 cm x 12 cm x 22 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 40,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595908/01_cmvqtn.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595915/02_fpmsjb.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781595922/03_y6qbhh.jpg"
+  ]
+}

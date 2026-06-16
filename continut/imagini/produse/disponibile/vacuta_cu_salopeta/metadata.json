@@ -1,0 +1,23 @@
+{
+  "nume": "Văcuță cu salopetă",
+  "pret": "80 lei",
+  "descriere": "Văcuță cu salopetă și portocale. Salopeta și geanta sunt detașabile, portocalele nu.",
+  "filtre": [
+    "plușuri medii",
+    "animale cu accesorii",
+    "vară"
+  ],
+  "specificatii": {
+    "Dimensiune": "25 cm x 12 cm x 18 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 120,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597689/01_thmrwb.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597702/02_ufq5lh.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597714/03_f1ncpo.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597727/04_ybtbgy.jpg"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "nume": "Raton camper",
+  "pret": "250 lei",
+  "descriere": "Raton pregătit de aventură, cu bezea și foc de tabără. Bezeaua este detașabilă, fularul nu.",
+  "filtre": [
+    "plușuri mari",
+    "animale cu accesorii"
+  ],
+  "specificatii": {
+    "Dimensiune": "25 cm x 23 cm x 19 cm",
+    "Materiale": "fir catifelat 100% micropoliester + fir bumbac + sârmă pentru bățul bezelei, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 130,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597305/01_gyvp0f.png",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597329/02_ct3fwy.png",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597318/03_xgsldt.png",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597352/04_rt7ffk.png"
+  ]
+}

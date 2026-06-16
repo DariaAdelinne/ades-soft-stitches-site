@@ -1,0 +1,22 @@
+{
+  "nume": "Triceratops",
+  "pret": "187 lei",
+  "descriere": "Triceratops cu ochi din nasturi, fără umplutură în corp, potrivit pentru copii mici.",
+  "filtre": [
+    "plușuri mari",
+    "dinozauri"
+  ],
+  "specificatii": {
+    "Dimensiune": "44 cm x 13 cm x 19 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, nasturi",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 250,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597628/01_jsm5zv.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597640/02_uh0atk.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597652/03_jbsulf.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597664/04_acw4zg.jpg"
+  ]
+}

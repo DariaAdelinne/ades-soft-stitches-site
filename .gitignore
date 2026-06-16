@@ -9,12 +9,17 @@ continut/resurse/cereri.json
 
 # Python generated files
 __pycache__/
+**/__pycache__/
 *.pyc
 *.pyo
 
 # Editor settings
 .vscode/
 .idea/
+
+# Generated archives and local captures
+*.zip
+screenshots/
 
 # Temporary files
 *.swp

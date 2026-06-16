@@ -1,0 +1,21 @@
+{
+  "nume": "Steluțe",
+  "pret": "20 lei / bucată",
+  "descriere": "Steluțe mici, drăguțe și cu mânuțe. Sunt disponibile amândouă, iar prețul este pe bucată.",
+  "filtre": [
+    "plușuri mici"
+  ],
+  "specificatii": {
+    "Dimensiune": "10 cm x 8 cm x 10 cm",
+    "Materiale": "fir catifelat 100% micropoliester + fir bumbac, umplutură fiberfill, ochișori de siguranță",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 230,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597459/01_ipkla4.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597470/02_v2jxxr.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597482/03_tvjm0f.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781597495/04_qfdump.jpg"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "nume": "Morcov breloc",
+  "pret": "20 lei",
+  "descriere": "Breloc morcov, potrivit pentru chei, geantă sau purtat zi de zi.",
+  "filtre": [
+    "plușuri mici",
+    "breloc"
+  ],
+  "specificatii": {
+    "Dimensiune": "11 cm x 5 cm x 5 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, breloc",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 490,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596727/o1_npjlbz.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596736/02_pzkwzm.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596747/03_pnn1lj.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596757/04_oulq6r.jpg"
+  ]
+}

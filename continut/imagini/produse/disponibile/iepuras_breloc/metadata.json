@@ -1,0 +1,23 @@
+{
+  "nume": "Iepuraș breloc",
+  "pret": "27 lei",
+  "descriere": "Iepuraș mic și grăsuț, potrivit pentru chei, geantă sau purtat zi de zi.",
+  "filtre": [
+    "plușuri mici",
+    "breloc"
+  ],
+  "specificatii": {
+    "Dimensiune": "10 cm x 11 cm x 10 cm",
+    "Materiale": "fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță, breloc",
+    "Disponibilitate": "în stoc"
+  },
+  "ordine": 490,
+  "ascuns": false,
+  "imagini": [
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596074/01_o8lxr1.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596081/02_arermr.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596089/03_szsqkr.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596096/04_g8bykf.jpg",
+    "https://res.cloudinary.com/dygpmsrl7/image/upload/v1781596104/05_equgin.jpg"
+  ]
+}

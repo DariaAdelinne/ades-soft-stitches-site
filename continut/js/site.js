@@ -1,5 +1,4 @@
 const OWNER_EMAIL = "ades.soft.stitches@gmail.com";
-const PRODUSE_PE_PAGINA = 12;
 
 let colectii = [];
 let produse = [];
@@ -7,10 +6,12 @@ let catalogIncarcat = false;
 let eroareCatalog = "";
 let paginaCurenta = "";
 let indexGalerie = 0;
+let schimbareGalerieSolicitata = 0;
 let produsCurent = null;
 let colectieCurenta = "";
 let filtruCurent = "toate";
-let numarProduseVizibile = PRODUSE_PE_PAGINA;
+let previzualizareProdusCurent = null;
+const cacheImaginiGalerie = new Map();
 
 document.addEventListener("DOMContentLoaded", async () => {
     document.querySelectorAll("[data-page]").forEach((buton) => {
@@ -177,12 +178,97 @@ function imagineOptimizata(src, latime = 1200) {
     return `${prefix}${marker}f_auto,q_auto:eco,c_limit,w_${latime}/${caleImagine}`;
 }
 
+function latimeImagineGalerie() {
+    return window.innerWidth <= 600 ? 720 : 1000;
+}
+
+function preincarcaImagineGalerie(src, prioritate = "auto") {
+    if (!src) return null;
+    if (cacheImaginiGalerie.has(src)) {
+        const imagineExistenta = cacheImaginiGalerie.get(src);
+        if (prioritate === "high") imagineExistenta.fetchPriority = "high";
+        return imagineExistenta;
+    }
+
+    const imagine = new Image();
+    imagine.decoding = "async";
+    imagine.fetchPriority = prioritate;
+    imagine.src = src;
+    cacheImaginiGalerie.set(src, imagine);
+
+    if (typeof imagine.decode === "function") {
+        imagine.decode().catch(() => {});
+    }
+
+    return imagine;
+}
+
+function preincarcaGaleriaProdusului() {
+    if (!produsCurent || produsCurent.imagini.length < 2) return;
+
+    const latime = latimeImagineGalerie();
+    const total = produsCurent.imagini.length;
+    const ordine = [
+        (indexGalerie + 1) % total,
+        (indexGalerie - 1 + total) % total,
+        ...produsCurent.imagini.map((_, index) => index),
+    ];
+
+    [...new Set(ordine)].forEach((index, pozitie) => {
+        const prioritate = pozitie < 2 ? "high" : "low";
+        preincarcaImagineGalerie(imagineOptimizata(produsCurent.imagini[index], latime), prioritate);
+    });
+}
+
+function incarcaImaginePrincipalaGalerie() {
+    afiseazaImagineGalerieCandEsteGata(indexGalerie);
+}
+
+function afiseazaImagineGalerieCandEsteGata(indexSolicitat) {
+    if (!produsCurent) return;
+
+    const solicitare = ++schimbareGalerieSolicitata;
+    const url = imagineOptimizata(produsCurent.imagini[indexSolicitat], latimeImagineGalerie());
+    const imaginePregatita = preincarcaImagineGalerie(url, "high");
+    if (!imaginePregatita) return;
+
+    const aplicaImaginea = async () => {
+        if (typeof imaginePregatita.decode === "function") {
+            try {
+                await imaginePregatita.decode();
+            } catch {
+                if (!imaginePregatita.complete || !imaginePregatita.naturalWidth) return;
+            }
+        }
+
+        if (solicitare !== schimbareGalerieSolicitata || !produsCurent || indexGalerie !== indexSolicitat) return;
+        const poza = document.getElementById("poza-produs");
+        if (!poza) return;
+
+        poza.src = url;
+        poza.alt = `${produsCurent.nume} - poza ${indexSolicitat + 1}`;
+    };
+
+    if (imaginePregatita.complete && imaginePregatita.naturalWidth > 0) {
+        void aplicaImaginea();
+    } else {
+        imaginePregatita.addEventListener("load", () => void aplicaImaginea(), { once: true });
+    }
+}
+
 function pregatesteImagini(container) {
     const imagini = Array.from(container.querySelectorAll("img"));
     imagini.forEach((imagine, index) => {
         const esteCardColectie = imagine.closest(".colectii-preview, .colectii-grid, .colectie-card");
+        const esteCardProdus = imagine.closest(".produs-card");
         const esteGalerieProdus = imagine.closest(".galerie-produs");
-        const latime = esteGalerieProdus ? 1200 : (esteCardColectie ? 520 : 900);
+
+        if (esteGalerieProdus) {
+            imagine.decoding = "async";
+            return;
+        }
+
+        const latime = esteCardColectie || esteCardProdus ? 520 : 900;
         imagine.src = imagineOptimizata(imagine.getAttribute("src"), latime);
         imagine.decoding = "async";
         imagine.loading = index === 0 ? "eager" : "lazy";
@@ -255,13 +341,11 @@ function afiseazaProduseColectie(colectieId) {
 
     titlu.textContent = colectie.nume;
     descriere.textContent = colectie.descriere || "";
-    numarProduseVizibile = PRODUSE_PE_PAGINA;
     actualizeazaSelectFiltre(selectFiltru);
     renderProduseFiltrate(produseColectie, colectie, listaProduse);
 
     selectFiltru.onchange = () => {
         filtruCurent = selectFiltru.value;
-        numarProduseVizibile = PRODUSE_PE_PAGINA;
         renderProduseFiltrate(produseColectie, colectie, listaProduse);
     };
 
@@ -334,35 +418,18 @@ function renderProduseFiltrate(produseColectie, colectie, listaProduse) {
             </div>
         `;
     } else {
-        const produseVizibile = produseAfisate.slice(0, numarProduseVizibile);
-        const maiExistaProduse = numarProduseVizibile < produseAfisate.length;
-
-        listaProduse.innerHTML = produseVizibile.map(cardProdusHtml).join("") + butonMaiMulteHtml(maiExistaProduse);
+        listaProduse.innerHTML = produseAfisate.map(cardProdusHtml).join("");
     }
 
     leagaCarduriProduse(listaProduse);
-
-    const butonMaiMulte = document.getElementById("incarca-mai-multe-produse");
-    if (butonMaiMulte) {
-        butonMaiMulte.addEventListener("click", () => {
-            const start = numarProduseVizibile;
-            numarProduseVizibile += PRODUSE_PE_PAGINA;
-            const produseNoi = produseAfisate.slice(start, numarProduseVizibile);
-            const containerButon = butonMaiMulte.closest(".produse-mai-multe");
-            containerButon.insertAdjacentHTML("beforebegin", produseNoi.map(cardProdusHtml).join(""));
-            leagaCarduriProduse(listaProduse);
-
-            if (numarProduseVizibile >= produseAfisate.length) {
-                containerButon.remove();
-            }
-        });
-    }
+    activeazaPreincarcareProduse(listaProduse);
 }
 
 function cardProdusHtml(produs) {
+    const imagineDetaliu = imagineOptimizata(produs.imagini[0], latimeImagineGalerie());
     return `
         <article class="produs-card">
-            <button type="button" data-produs="${escapeHtml(produs.id)}" aria-label="Deschide ${escapeHtml(produs.nume)}">
+            <button type="button" data-produs="${escapeHtml(produs.id)}" data-preload-imagine="${escapeHtml(imagineDetaliu)}" aria-label="Deschide ${escapeHtml(produs.nume)}">
                 <img src="${escapeHtml(imagineOptimizata(produs.imagini[0], 520))}" alt="${escapeHtml(produs.nume)}" loading="lazy" decoding="async">
             </button>
             <div>
@@ -373,18 +440,32 @@ function cardProdusHtml(produs) {
     `;
 }
 
-function butonMaiMulteHtml(afiseaza) {
-    return afiseaza ? `
-        <div class="actiuni produse-mai-multe">
-            <button type="button" id="incarca-mai-multe-produse">Arată mai multe</button>
-        </div>
-    ` : "";
-}
-
 function leagaCarduriProduse(container) {
     container.querySelectorAll("[data-produs]").forEach((buton) => {
-        buton.onclick = () => deschideProdus(buton.dataset.produs);
+        buton.onclick = () => {
+            const imagine = buton.querySelector("img");
+            deschideProdus(buton.dataset.produs, imagine?.currentSrc || imagine?.src || "");
+        };
     });
+}
+
+function activeazaPreincarcareProduse(container) {
+    const butoane = container.querySelectorAll("[data-preload-imagine]");
+
+    if (!("IntersectionObserver" in window)) {
+        butoane.forEach((buton) => preincarcaImagineGalerie(buton.dataset.preloadImagine));
+        return;
+    }
+
+    const observator = new IntersectionObserver((intrari) => {
+        intrari.forEach((intrare) => {
+            if (!intrare.isIntersecting) return;
+            preincarcaImagineGalerie(intrare.target.dataset.preloadImagine);
+            observator.unobserve(intrare.target);
+        });
+    }, { rootMargin: "450px 0px" });
+
+    butoane.forEach((buton) => observator.observe(buton));
 }
 
 function normalizareFiltru(filtru) {
@@ -443,7 +524,11 @@ function pretNumeric(produs) {
     return potrivire ? Number(potrivire[0]) : Number.POSITIVE_INFINITY;
 }
 
-function deschideProdus(produsId) {
+function deschideProdus(produsId, imaginePrevizualizare = "") {
+    previzualizareProdusCurent = {
+        produsId,
+        src: imaginePrevizualizare,
+    };
     history.pushState({}, "", `index.html?pagina=produs&produs=${encodeURIComponent(produsId)}`);
     schimbaPagina("produs", { produsId, updateUrl: false });
 }
@@ -471,6 +556,9 @@ function renderProdus(produsId) {
     }
 
     indexGalerie = 0;
+    const imagineInitiala = previzualizareProdusCurent?.produsId === produsCurent.id && previzualizareProdusCurent.src
+        ? previzualizareProdusCurent.src
+        : imagineOptimizata(produsCurent.imagini[0], 520);
     const dimensiuneHtml = liniiDimensiune(produsCurent)
         .map((linie) => `<span>${escapeHtml(linie)}</span>`)
         .join("");
@@ -487,7 +575,7 @@ function renderProdus(produsId) {
         <div class="detaliu-grid">
             <div class="galerie-produs">
                 <button type="button" class="sageata stanga" aria-label="Poza anterioară" data-gallery="prev">&#8249;</button>
-                <img id="poza-produs" src="${escapeHtml(imagineOptimizata(produsCurent.imagini[0], 1200))}" alt="${escapeHtml(produsCurent.nume)}" decoding="async">
+                <img id="poza-produs" src="${escapeHtml(imagineInitiala)}" alt="${escapeHtml(produsCurent.nume)}" loading="eager" decoding="async" fetchpriority="high">
                 <button type="button" class="sageata dreapta" aria-label="Poza următoare" data-gallery="next">&#8250;</button>
                 <div id="puncte-galerie" class="puncte-galerie"></div>
             </div>
@@ -516,16 +604,18 @@ function renderProdus(produsId) {
     });
 
     initSwipeGalerie();
-    actualizeazaGalerie();
+    actualizeazaGalerie({ pastreazaImagine: true });
+    incarcaImaginePrincipalaGalerie();
 }
 
-function actualizeazaGalerie() {
+function actualizeazaGalerie(optiuni = {}) {
     const poza = document.getElementById("poza-produs");
     const puncte = document.getElementById("puncte-galerie");
     if (!poza || !puncte || !produsCurent) return;
 
-    poza.src = imagineOptimizata(produsCurent.imagini[indexGalerie], 1200);
-    poza.alt = `${produsCurent.nume} - poza ${indexGalerie + 1}`;
+    if (!optiuni.pastreazaImagine) {
+        afiseazaImagineGalerieCandEsteGata(indexGalerie);
+    }
     puncte.innerHTML = produsCurent.imagini.map((_, index) => `
         <button type="button" class="${index === indexGalerie ? "activ" : ""}" aria-label="Arată poza ${index + 1}" data-dot="${index}"></button>
     `).join("");
@@ -536,6 +626,8 @@ function actualizeazaGalerie() {
             actualizeazaGalerie();
         });
     });
+
+    preincarcaGaleriaProdusului();
 }
 
 function schimbaPoza(directie) {

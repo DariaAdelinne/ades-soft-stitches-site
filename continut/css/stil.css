@@ -867,12 +867,6 @@ textarea:focus {
     max-width: 560px;
 }
 
-.produse-mai-multe {
-    grid-column: 1 / -1;
-    justify-content: center;
-    margin-top: 8px;
-}
-
 .mesaj-catalog code {
     display: inline-block;
     padding: 2px 6px;

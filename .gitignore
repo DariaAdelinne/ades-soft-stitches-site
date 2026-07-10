@@ -24,3 +24,14 @@ screenshots/
 # Temporary files
 *.swp
 *.tmp
+
+# Firebase Functions local secrets and dependencies
+node_modules/
+functions/node_modules/
+.env
+.env.*
+functions/.secret.local
+.vercel/
+firebase-debug.log
+firebase-debug.*.log
+*.local

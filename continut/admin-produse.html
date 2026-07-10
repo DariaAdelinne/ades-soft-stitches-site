@@ -1,0 +1,79 @@
+<section class="admin-produse-page">
+    <div class="section-heading">
+        <h2>Admin produse</h2>
+        <p>Adaugă, editează, ascunde sau șterge produse fără să modifici fișierele site-ului.</p>
+    </div>
+
+    <form id="formular-admin-produse-token" class="formular-admin-review">
+        <label for="admin-produse-token">Token admin produse</label>
+        <input type="password" id="admin-produse-token" autocomplete="current-password" required placeholder="Tokenul PRODUCT_ADMIN_TOKEN">
+        <div class="actiuni">
+            <button type="submit">Încarcă produsele</button>
+            <button type="button" id="uita-token-produse" class="btn-secundar">Uit tokenul</button>
+        </div>
+        <p id="mesaj-admin-produse" class="mesaj-formular" aria-live="polite"></p>
+    </form>
+
+    <div class="admin-produse-layout">
+        <section class="admin-produse-panel">
+            <div class="admin-produse-header">
+                <h3>Catalog</h3>
+                <button type="button" id="produs-nou">Produs nou</button>
+            </div>
+            <div id="admin-produse-lista" class="admin-produse-lista" aria-live="polite"></div>
+        </section>
+
+        <form id="formular-admin-produs" class="formular-admin-produs">
+            <h3>Detalii produs</h3>
+            <input type="hidden" id="admin-produs-id">
+            <input type="hidden" id="admin-produs-public-ids">
+
+            <label for="admin-produs-nume">Nume</label>
+            <input type="text" id="admin-produs-nume" required maxlength="140">
+
+            <label for="admin-produs-pret">Preț</label>
+            <input type="text" id="admin-produs-pret" required maxlength="80" placeholder="Ex: 45 lei">
+
+            <label for="admin-produs-colectie">Colecție</label>
+            <select id="admin-produs-colectie" required>
+                <option value="disponibile">Plușuri disponibile</option>
+                <option value="la-comanda">Plușuri disponibile la comandă</option>
+            </select>
+
+            <label for="admin-produs-ordine">Ordine</label>
+            <input type="number" id="admin-produs-ordine" value="9999" step="1">
+
+            <label for="admin-produs-descriere">Descriere</label>
+            <textarea id="admin-produs-descriere" rows="4" required maxlength="1200"></textarea>
+
+            <label for="admin-produs-filtre">Filtre, câte unul pe linie</label>
+            <textarea id="admin-produs-filtre" rows="4" placeholder="plușuri mici&#10;breloc&#10;vară"></textarea>
+
+            <label for="admin-produs-dimensiune">Dimensiune</label>
+            <input type="text" id="admin-produs-dimensiune" placeholder="Ex: 12 cm x 8 cm x 10 cm">
+
+            <label for="admin-produs-materiale">Materiale</label>
+            <textarea id="admin-produs-materiale" rows="3" placeholder="fir catifelat 100% micropoliester, umplutură fiberfill, ochișori de siguranță"></textarea>
+
+            <label for="admin-produs-disponibilitate">Disponibilitate</label>
+            <input type="text" id="admin-produs-disponibilitate" value="în stoc">
+
+            <label for="admin-produs-imagini">Imagini Cloudinary, câte una pe linie</label>
+            <textarea id="admin-produs-imagini" rows="5" required placeholder="https://res.cloudinary.com/..."></textarea>
+
+            <label for="admin-produs-upload">Încarcă imagini noi, maxim 6 per produs</label>
+            <input type="file" id="admin-produs-upload" accept="image/jpeg,image/png,image/webp" multiple>
+            <div id="admin-produs-preview" class="admin-produs-preview" aria-live="polite"></div>
+
+            <div class="check">
+                <input type="checkbox" id="admin-produs-ascuns">
+                <label for="admin-produs-ascuns">Ascunde produsul din site-ul public</label>
+            </div>
+
+            <div class="actiuni">
+                <button type="submit">Salvează</button>
+                <button type="button" class="btn-secundar" id="produs-anuleaza">Anulează / produs nou</button>
+            </div>
+        </form>
+    </div>
+</section>

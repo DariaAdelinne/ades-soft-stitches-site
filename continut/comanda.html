@@ -8,10 +8,11 @@
         </p>
     </div>
 
-    <form id="formular-comanda" class="formular-comanda" method="POST" enctype="multipart/form-data" target="formular-comanda-frame">
-        <input type="hidden" name="_subject" value="Comandă nouă - Ade's Soft Stitches">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
+    <form id="formular-comanda" class="formular-comanda" method="POST" enctype="multipart/form-data">
+        <div class="camp-capcana" aria-hidden="true">
+            <label for="website">Nu completa acest câmp</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
 
         <label for="nume">Nume</label>
         <input type="text" id="nume" name="nume" required placeholder="Numele tău">
@@ -36,16 +37,6 @@
             <textarea id="detalii" name="detalii" rows="6" required placeholder="Ex: aș vrea un axolotl roz, mărime medie, cu fundiță albastră."></textarea>
         </div>
 
-        <div class="camp-formular camp-cadou">
-            <div class="check">
-                <input type="checkbox" id="ambalare-cadou" name="ambalare_cadou" value="Da, +5 lei">
-                <label for="ambalare-cadou">Ambalare cadou +5 lei</label>
-            </div>
-            <label id="label-detalii-cadou" for="detalii-cadou">Detalii ambalare cadou</label>
-            <p class="ajutor-formular">Poți scrie mesajul pentru cartonaș, culoarea fundiței sau alte detalii pentru ambalare.</p>
-            <textarea id="detalii-cadou" name="detalii_ambalare_cadou" rows="4" placeholder="Ex: pe cartonaș să scrie La mulți ani, iar fundița să fie roz."></textarea>
-        </div>
-
         <div class="check">
             <input type="checkbox" id="acord-contact" name="acord_contact" required>
             <label for="acord-contact">Sunt de acord să fiu contactat(ă) pentru această cerere.</label>
@@ -54,5 +45,4 @@
         <button type="submit">Trimite comandă</button>
         <p id="mesaj-formular" class="mesaj-formular" aria-live="polite"></p>
     </form>
-    <iframe class="formular-frame" name="formular-comanda-frame" title="Trimitere formular" hidden></iframe>
 </section>

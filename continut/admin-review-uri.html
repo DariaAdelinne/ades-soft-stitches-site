@@ -1,0 +1,24 @@
+<section class="review-admin-page">
+    <div class="section-heading">
+        <h2>Admin review-uri</h2>
+        <p>Review-urile noi sunt în pending și apar public doar după aprobare.</p>
+    </div>
+
+    <form id="formular-admin-review" class="formular-admin-review">
+        <label for="admin-review-token">Token admin</label>
+        <input type="password" id="admin-review-token" name="token" autocomplete="current-password" required placeholder="Tokenul setat în Firebase Secret Manager">
+        <div class="actiuni">
+            <button type="submit">Încarcă review-urile</button>
+            <button type="button" id="uita-token-review" class="btn-secundar">Uit tokenul</button>
+        </div>
+        <p id="mesaj-admin-review" class="mesaj-formular" aria-live="polite"></p>
+    </form>
+
+    <div class="admin-filtre-review" role="group" aria-label="Filtre admin review-uri">
+        <button type="button" data-admin-status="pending">Pending</button>
+        <button type="button" data-admin-status="approved">Aprobate</button>
+        <button type="button" data-admin-status="rejected">Respinse</button>
+    </div>
+
+    <div id="admin-reviewuri-lista" class="admin-review-lista" aria-live="polite"></div>
+</section>

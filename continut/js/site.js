@@ -1,4 +1,24 @@
-const OWNER_EMAIL = "ades.soft.stitches@gmail.com";
+const FORMULAR_ENDPOINT = "https://europe-west1-ades-soft-stitches.cloudfunctions.net/trimiteComanda";
+const REVIEW_ENDPOINT = "https://europe-west1-ades-soft-stitches.cloudfunctions.net/trimiteReview";
+const REVIEW_UPLOAD_SIGNATURE_ENDPOINT = "https://europe-west1-ades-soft-stitches.cloudfunctions.net/semneazaUploadReview";
+const REVIEW_PUBLIC_ENDPOINT = "https://europe-west1-ades-soft-stitches.cloudfunctions.net/reviewuriPublice";
+const REVIEW_LIKE_ENDPOINT = "https://europe-west1-ades-soft-stitches.cloudfunctions.net/apreciazaReview";
+const REVIEW_ADMIN_ENDPOINT = "https://europe-west1-ades-soft-stitches.cloudfunctions.net/adminReviewuri";
+const PRODUCT_ADMIN_ENDPOINT = "https://europe-west1-ades-soft-stitches.cloudfunctions.net/adminProduse";
+const PRODUCT_UPLOAD_SIGNATURE_ENDPOINT = "https://europe-west1-ades-soft-stitches.cloudfunctions.net/semneazaUploadProdus";
+
+function logFetchError(context, endpoint, error, extra = {}) {
+    console.error(`[Ade's Soft Stitches] ${context} a eșuat. Verifică endpointul, CORS/preflight și conexiunea.`, {
+        endpoint,
+        origin: window.location.origin,
+        error,
+        ...extra,
+    });
+}
+
+function esteEroareRetea(error) {
+    return error instanceof TypeError || /load failed|failed to fetch|network/i.test(String(error?.message || ""));
+}
 
 let colectii = [];
 let produse = [];
@@ -12,6 +32,13 @@ let colectieCurenta = "";
 let filtruCurent = "toate";
 let previzualizareProdusCurent = null;
 const cacheImaginiGalerie = new Map();
+const REVIEW_CACHE_KEY = "reviewuriAprobateCache";
+const REVIEW_CACHE_TTL = 5 * 60 * 1000;
+let reviewuriAprobateCache = null;
+let reviewuriAprobateCacheTimestamp = 0;
+let reviewuriAprobatePromise = null;
+const reviewCardNodeCache = new Map();
+let adminProduseCatalog = { colectii: [], produse: [] };
 
 document.addEventListener("DOMContentLoaded", async () => {
     document.querySelectorAll("[data-page]").forEach((buton) => {
@@ -61,9 +88,16 @@ function normalizeazaCatalog(catalog) {
         return { colectii: [], produse: [] };
     }
 
+    const colectiiNormalizate = Array.isArray(catalog.colectii)
+        ? catalog.colectii
+        : Object.entries(catalog.colectii || {}).map(([id, colectie]) => ({ id, ...colectie }));
+    const produseNormalizate = Array.isArray(catalog.produse)
+        ? catalog.produse
+        : Object.entries(catalog.produse || {}).map(([id, produs]) => ({ id, ...produs }));
+
     return {
-        colectii: Array.isArray(catalog.colectii) ? catalog.colectii : Object.values(catalog.colectii || {}),
-        produse: Array.isArray(catalog.produse) ? catalog.produse : Object.values(catalog.produse || {}),
+        colectii: colectiiNormalizate,
+        produse: produseNormalizate.filter((produs) => !produs.ascuns && produs.status !== "hidden"),
     };
 }
 
@@ -127,6 +161,19 @@ function initializeazaPagina(pagina, optiuni) {
 
     if (pagina === "produse") {
         renderColectii(optiuni.colectieId);
+    }
+
+    if (pagina === "review-uri") {
+        initFormularReview();
+        initReviewuriPublice("reviewuri-lista", 12, true);
+    }
+
+    if (pagina === "admin-review-uri") {
+        initAdminReviewuri();
+    }
+
+    if (pagina === "admin-produse") {
+        initAdminProduse();
     }
 
     if (pagina === "produs") {
@@ -430,9 +477,11 @@ function cardProdusHtml(produs) {
     return `
         <article class="produs-card">
             <button type="button" data-produs="${escapeHtml(produs.id)}" data-preload-imagine="${escapeHtml(imagineDetaliu)}" aria-label="Deschide ${escapeHtml(produs.nume)}">
-                <img src="${escapeHtml(imagineOptimizata(produs.imagini[0], 520))}" alt="${escapeHtml(produs.nume)}" loading="lazy" decoding="async">
+                <span class="produs-imagine">
+                    <img src="${escapeHtml(imagineOptimizata(produs.imagini[0], 520))}" alt="${escapeHtml(produs.nume)}" loading="lazy" decoding="async">
+                </span>
             </button>
-            <div>
+            <div class="produs-card-body">
                 <h4>${escapeHtml(produs.nume)}</h4>
                 <strong>${escapeHtml(produs.pret)}</strong>
             </div>
@@ -662,8 +711,6 @@ function initFormularComanda(produsId) {
     const labelDetalii = document.getElementById("label-detalii");
     const ajutorDetalii = document.getElementById("ajutor-detalii");
     const detalii = document.getElementById("detalii");
-    const ambalareCadou = document.getElementById("ambalare-cadou");
-    const detaliiCadou = document.getElementById("detalii-cadou");
     if (!formular || !select || !mesaj) return;
 
     if (!catalogIncarcat || !produse.length) {
@@ -712,28 +759,8 @@ function initFormularComanda(produsId) {
         mesaj.textContent = eroareCatalog;
     }
 
-    if (ambalareCadou && detaliiCadou) {
-        const actualizeazaCadou = () => {
-            detaliiCadou.disabled = !ambalareCadou.checked;
-            detaliiCadou.required = ambalareCadou.checked;
-            if (!ambalareCadou.checked) {
-                detaliiCadou.value = "";
-            }
-        };
-
-        ambalareCadou.addEventListener("change", actualizeazaCadou);
-        actualizeazaCadou();
-    }
-
-    formular.action = `https://formsubmit.co/${OWNER_EMAIL}`;
-    formular.target = "formular-comanda-frame";
-    formular.addEventListener("submit", (event) => {
-
-        if (OWNER_EMAIL.includes("adauga-emailul")) {
-            event.preventDefault();
-            mesaj.textContent = "Formularul este gata, dar trebuie setată adresa ta de email în continut/js/site.js.";
-            return;
-        }
+    formular.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
         const butonSubmit = formular.querySelector('button[type="submit"]');
         const textInitialButon = butonSubmit ? butonSubmit.textContent : "";
@@ -744,10 +771,1067 @@ function initFormularComanda(produsId) {
         }
 
         mesaj.textContent = "";
-        window.setTimeout(() => {
+
+        try {
+            const raspuns = await fetch(FORMULAR_ENDPOINT, {
+                method: "POST",
+                body: new FormData(formular),
+            });
+            const rezultat = await raspuns.json().catch(() => ({}));
+
+            if (!raspuns.ok || !rezultat.ok) {
+                if (raspuns.status === 413) {
+                    throw new Error("Imaginile sunt prea mari. Încearcă maximum 5 imagini, de cel mult 5 MB fiecare.");
+                }
+                if (raspuns.status === 429) {
+                    throw new Error("Au fost trimise prea multe cereri. Te rog să încerci din nou peste câteva minute.");
+                }
+                throw new Error("Cererea nu a putut fi trimisă. Te rog să încerci din nou.");
+            }
+
+            if (rezultat.emailStatus === "failed") {
+                console.warn("[Ade's Soft Stitches] Comanda a fost salvată, dar emailul nu a putut fi trimis. Verifică logurile Firebase Functions.", rezultat);
+            }
             schimbaPagina("confirmare");
-        }, 700);
+        } catch (error) {
+            logFetchError("Trimiterea formularului de comandă", FORMULAR_ENDPOINT, error);
+            mesaj.textContent = error.message || "A apărut o problemă la trimitere. Te rog să încerci din nou.";
+            if (butonSubmit) {
+                butonSubmit.disabled = false;
+                butonSubmit.textContent = textInitialButon;
+            }
+        }
     });
+}
+
+function steleHtml(rating) {
+    const valoare = Math.max(1, Math.min(Number(rating) || 5, 5));
+    return Array.from({ length: 5 }, (_, index) => `<span aria-hidden="true">${index < valoare ? "★" : "☆"}</span>`).join("");
+}
+
+function renderReviewCard(review) {
+    const produs = review.productName ? `<p class="review-produs">Produs: ${escapeHtml(review.productName)}</p>` : "";
+    const mesaj = String(review.message || "");
+    const poza = review.imageUrl ? `
+        <div class="review-media">
+            <img class="review-poza" src="${escapeHtml(imagineOptimizata(review.imageUrl, 520))}" alt="Poză atașată la review de ${escapeHtml(review.displayName)}" loading="lazy" decoding="async">
+        </div>
+    ` : "";
+    const apreciat = reviewApreciat(review.id);
+    const likesCount = Number(review.likesCount) || 0;
+
+    return `
+        <article class="review-card ${review.imageUrl ? "review-card-cu-poza" : ""}">
+            <div class="review-card-body">
+                <div class="review-stele" aria-label="${escapeHtml(review.rating)} din 5 stele">${steleHtml(review.rating)}</div>
+                <h4>${escapeHtml(review.displayName)}</h4>
+                ${produs}
+                <p class="review-mesaj">${escapeHtml(mesaj)}</p>
+                <div class="review-footer">
+                    <button type="button" class="review-like" data-review-like="${escapeHtml(review.id)}" ${apreciat ? "disabled" : ""}>
+                        <span aria-hidden="true">${apreciat ? "♥" : "♡"}</span>
+                        <span>${likesCount}</span>
+                    </button>
+                </div>
+            </div>
+            ${poza}
+        </article>
+    `;
+}
+
+function semnaturaReviewCard(review) {
+    return JSON.stringify({
+        id: review.id,
+        displayName: review.displayName,
+        rating: review.rating,
+        message: review.message,
+        productName: review.productName,
+        imageUrl: review.imageUrl,
+        likesCount: review.likesCount,
+    });
+}
+
+function aplicaStareLikePeCard(card, review) {
+    const buton = card.querySelector("[data-review-like]");
+    if (!buton) return;
+    const apreciat = reviewApreciat(review.id);
+    const spans = buton.querySelectorAll("span");
+    buton.disabled = apreciat;
+    if (spans[0]) spans[0].textContent = apreciat ? "♥" : "♡";
+    if (spans[1]) spans[1].textContent = String(Number(review.likesCount) || 0);
+}
+
+function reviewCardNode(review) {
+    const reviewId = String(review.id || "");
+    const semnatura = semnaturaReviewCard(review);
+    const cached = reviewCardNodeCache.get(reviewId);
+
+    if (cached?.semnatura === semnatura) {
+        aplicaStareLikePeCard(cached.node, review);
+        return cached.node;
+    }
+
+    const template = document.createElement("template");
+    template.innerHTML = renderReviewCard(review).trim();
+    const node = template.content.firstElementChild;
+    reviewCardNodeCache.set(reviewId, { node, semnatura });
+    aplicaStareLikePeCard(node, review);
+    return node;
+}
+
+function reviewApreciat(id) {
+    const reviewId = String(id || "");
+    try {
+        const aprecieri = JSON.parse(localStorage.getItem("reviewLikes") || "[]");
+        return Array.isArray(aprecieri) && aprecieri.map(String).includes(reviewId);
+    } catch {
+        return false;
+    }
+}
+
+function marcheazaReviewApreciat(id) {
+    const reviewId = String(id || "");
+    try {
+        const aprecieri = JSON.parse(localStorage.getItem("reviewLikes") || "[]");
+        const lista = Array.isArray(aprecieri) ? aprecieri.map(String) : [];
+        if (reviewId && !lista.includes(reviewId)) lista.push(reviewId);
+        localStorage.setItem("reviewLikes", JSON.stringify(lista));
+    } catch {
+        localStorage.setItem("reviewLikes", JSON.stringify(reviewId ? [reviewId] : []));
+    }
+}
+
+function normalizeazaReviewPublic(review) {
+    return {
+        id: String(review.id || ""),
+        displayName: review.displayName || "Client Ade's Soft Stitches",
+        rating: Math.max(1, Math.min(Number(review.rating) || 5, 5)),
+        message: review.message || "",
+        productName: review.productName || "",
+        imageUrl: review.imageUrl || "",
+        likesCount: Number(review.likesCount) || 0,
+        createdAt: Number(review.createdAt) || 0,
+    };
+}
+
+function citesteReviewuriDinSession() {
+    try {
+        const cache = JSON.parse(sessionStorage.getItem(REVIEW_CACHE_KEY) || "null");
+        if (!cache || !Array.isArray(cache.reviews) || !Number.isFinite(cache.timestamp)) return null;
+        return {
+            reviews: cache.reviews.map(normalizeazaReviewPublic).filter((review) => review.id),
+            timestamp: cache.timestamp,
+        };
+    } catch {
+        return null;
+    }
+}
+
+function salveazaReviewuriInSession(reviews, timestamp = Date.now()) {
+    try {
+        sessionStorage.setItem(REVIEW_CACHE_KEY, JSON.stringify({ reviews, timestamp }));
+    } catch (error) {
+        console.warn("[Ade's Soft Stitches] Cache-ul review-urilor nu a putut fi salvat în sessionStorage.", error);
+    }
+}
+
+function seteazaReviewuriCache(reviews, timestamp = Date.now()) {
+    reviewuriAprobateCache = reviews.map(normalizeazaReviewPublic).filter((review) => review.id);
+    reviewuriAprobateCacheTimestamp = timestamp;
+    salveazaReviewuriInSession(reviewuriAprobateCache, timestamp);
+    const reviewIds = new Set(reviewuriAprobateCache.map((review) => review.id));
+    reviewCardNodeCache.forEach((_, id) => {
+        if (!reviewIds.has(id)) reviewCardNodeCache.delete(id);
+    });
+}
+
+function reviewuriCacheDisponibil() {
+    if (reviewuriAprobateCache) {
+        return {
+            reviews: reviewuriAprobateCache,
+            timestamp: reviewuriAprobateCacheTimestamp,
+        };
+    }
+
+    const cacheSession = citesteReviewuriDinSession();
+    if (cacheSession) {
+        reviewuriAprobateCache = cacheSession.reviews;
+        reviewuriAprobateCacheTimestamp = cacheSession.timestamp;
+        return cacheSession;
+    }
+
+    return null;
+}
+
+function sorteazaReviewuriPublice(reviews, sortare) {
+    return [...reviews].sort((a, b) => {
+        if (sortare === "images") {
+            const diferentaImagini = Number(Boolean(b.imageUrl)) - Number(Boolean(a.imageUrl));
+            if (diferentaImagini !== 0) return diferentaImagini;
+        }
+        if (sortare === "likes") {
+            const diferentaLikes = (Number(b.likesCount) || 0) - (Number(a.likesCount) || 0);
+            if (diferentaLikes !== 0) return diferentaLikes;
+        }
+        return (Number(b.createdAt) || 0) - (Number(a.createdAt) || 0);
+    });
+}
+
+function renderReviewuriPublice(container, limita, sortare) {
+    const reviews = sorteazaReviewuriPublice(reviewuriAprobateCache || [], sortare).slice(0, limita);
+    activeazaLikeReviewuri(container);
+
+    if (!reviews.length) {
+        container.innerHTML = `<div class="mesaj-catalog"><p>Încă nu sunt review-uri publicate.</p></div>`;
+        return;
+    }
+
+    container.replaceChildren(...reviews.map(reviewCardNode));
+}
+
+async function incarcaReviewuriAprobate(limita) {
+    if (reviewuriAprobatePromise) return reviewuriAprobatePromise;
+
+    reviewuriAprobatePromise = (async () => {
+        const url = `${REVIEW_PUBLIC_ENDPOINT}?limit=${encodeURIComponent(limita)}&sort=recent&t=${Date.now()}`;
+        const raspuns = await fetch(url, { cache: "no-store" });
+        const rezultat = await raspuns.json().catch(() => ({}));
+
+        if (!raspuns.ok || !rezultat.ok) {
+            throw new Error("review-load-failed");
+        }
+
+        const reviewuri = Array.isArray(rezultat.reviews) ? rezultat.reviews : [];
+        seteazaReviewuriCache(reviewuri);
+        return reviewuriAprobateCache;
+    })();
+
+    try {
+        return await reviewuriAprobatePromise;
+    } finally {
+        reviewuriAprobatePromise = null;
+    }
+}
+
+async function initReviewuriPublice(containerId, limita, cuSortare = false) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const selectSortare = cuSortare ? document.getElementById("sortare-reviewuri") : null;
+
+    if (selectSortare && !selectSortare.dataset.initializat) {
+        selectSortare.dataset.initializat = "true";
+        selectSortare.addEventListener("change", () => {
+            renderReviewuriPublice(container, limita, selectSortare.value || "recent");
+        });
+    }
+
+    const sortare = selectSortare?.value || "recent";
+    const cache = reviewuriCacheDisponibil();
+    const cacheValid = cache && Date.now() - cache.timestamp < REVIEW_CACHE_TTL;
+
+    if (cache?.reviews?.length) {
+        renderReviewuriPublice(container, limita, sortare);
+        if (cacheValid) {
+            incarcaReviewuriAprobate(limita)
+                .then(() => renderReviewuriPublice(container, limita, selectSortare?.value || sortare))
+                .catch((error) => logFetchError("Actualizarea review-urilor publice", REVIEW_PUBLIC_ENDPOINT, error, { limita, sortare }));
+            return;
+        }
+    } else {
+        container.innerHTML = `<div class="mesaj-catalog"><p>Se încarcă review-urile...</p></div>`;
+    }
+
+    try {
+        await incarcaReviewuriAprobate(limita);
+        renderReviewuriPublice(container, limita, selectSortare?.value || sortare);
+    } catch (error) {
+        logFetchError("Încărcarea review-urilor publice", REVIEW_PUBLIC_ENDPOINT, error, { limita, sortare });
+        if (!cache?.reviews?.length) {
+            container.innerHTML = `<div class="mesaj-catalog"><p>Review-urile nu pot fi încărcate momentan.</p></div>`;
+        }
+    }
+}
+
+function actualizeazaLikeReviewInCache(id, likesCount) {
+    const reviewId = String(id || "");
+    const valoare = Number(likesCount) || 0;
+    if (!reviewId) return;
+
+    if (reviewuriAprobateCache) {
+        reviewuriAprobateCache = reviewuriAprobateCache.map((review) => (
+            review.id === reviewId ? { ...review, likesCount: valoare } : review
+        ));
+        reviewuriAprobateCacheTimestamp = Date.now();
+        salveazaReviewuriInSession(reviewuriAprobateCache, reviewuriAprobateCacheTimestamp);
+    }
+}
+
+function actualizeazaButoaneLike(id, likesCount) {
+    const reviewId = String(id || "");
+    document.querySelectorAll("[data-review-like]").forEach((buton) => {
+        if (String(buton.dataset.reviewLike || "") !== reviewId) return;
+        buton.disabled = true;
+        const spans = buton.querySelectorAll("span");
+        if (spans[0]) spans[0].textContent = "♥";
+        if (spans[1]) spans[1].textContent = String(Number(likesCount) || 1);
+    });
+}
+
+function activeazaLikeReviewuri(container) {
+    if (container.dataset.likeInitializat) return;
+    container.dataset.likeInitializat = "true";
+    container.addEventListener("click", (event) => {
+        const buton = event.target.closest("[data-review-like]");
+        if (!buton || !container.contains(buton)) return;
+        apreciazaReview(buton);
+    });
+}
+
+async function apreciazaReview(buton) {
+    const id = String(buton.dataset.reviewLike || "");
+    if (!id || reviewApreciat(id)) return;
+
+    buton.disabled = true;
+
+    try {
+        const raspuns = await fetch(REVIEW_LIKE_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id }),
+        });
+        const rezultat = await raspuns.json().catch(() => ({}));
+
+        if (!raspuns.ok || !rezultat.ok) {
+            throw new Error("Like-ul nu a putut fi salvat.");
+        }
+
+        marcheazaReviewApreciat(id);
+        const likesCount = Number(rezultat.likesCount) || 1;
+        actualizeazaLikeReviewInCache(id, likesCount);
+        actualizeazaButoaneLike(id, likesCount);
+    } catch (error) {
+        buton.disabled = false;
+        logFetchError("Aprecierea review-ului", REVIEW_LIKE_ENDPOINT, error, { id });
+    }
+}
+
+function comprimaImagineReview(fisier) {
+    return new Promise((resolve, reject) => {
+        if (!fisier) {
+            resolve(null);
+            return;
+        }
+
+        if (!["image/jpeg", "image/png", "image/webp"].includes(fisier.type)) {
+            reject(new Error("Poza trebuie să fie jpg, png sau webp."));
+            return;
+        }
+
+        if (fisier.size > 5 * 1024 * 1024) {
+            reject(new Error("Poza trebuie să aibă maximum 5 MB."));
+            return;
+        }
+
+        const imagine = new Image();
+        const url = URL.createObjectURL(fisier);
+
+        imagine.onload = () => {
+            URL.revokeObjectURL(url);
+            const maxLatura = 1200;
+            const scala = Math.min(1, maxLatura / Math.max(imagine.width, imagine.height));
+            const canvas = document.createElement("canvas");
+            canvas.width = Math.max(1, Math.round(imagine.width * scala));
+            canvas.height = Math.max(1, Math.round(imagine.height * scala));
+
+            const context = canvas.getContext("2d");
+            context.drawImage(imagine, 0, 0, canvas.width, canvas.height);
+
+            const calitati = [0.78, 0.68, 0.58];
+            const incearcaCompresie = (index = 0) => {
+                canvas.toBlob((blob) => {
+                    if (!blob) {
+                        reject(new Error("Poza nu a putut fi pregătită."));
+                        return;
+                    }
+
+                    if (blob.size > 1024 * 1024 && index < calitati.length - 1) {
+                        incearcaCompresie(index + 1);
+                        return;
+                    }
+
+                    resolve(new File([blob], "review.webp", { type: blob.type || "image/webp" }));
+                }, "image/webp", calitati[index]);
+            };
+
+            incearcaCompresie();
+        };
+
+        imagine.onerror = () => {
+            URL.revokeObjectURL(url);
+            reject(new Error("Poza nu poate fi citită."));
+        };
+
+        imagine.src = url;
+    });
+}
+
+async function uploadImagineReviewCloudinary(fisier) {
+    if (!fisier) return null;
+
+    let semnaturaRaspuns;
+    try {
+        semnaturaRaspuns = await fetch(REVIEW_UPLOAD_SIGNATURE_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contentType: fisier.type,
+                fileSize: fisier.size,
+            }),
+        });
+    } catch (error) {
+        logFetchError("Pregătirea uploadului Cloudinary pentru review", REVIEW_UPLOAD_SIGNATURE_ENDPOINT, error);
+        throw new Error("Uploadul pozei nu este disponibil momentan. Verifică dacă funcțiile Firebase au fost deploy-uite și dacă secretele Cloudinary sunt setate.");
+    }
+
+    const semnatura = await semnaturaRaspuns.json().catch(() => ({}));
+
+    if (!semnaturaRaspuns.ok || !semnatura.ok) {
+        logFetchError("Pregătirea uploadului Cloudinary pentru review", REVIEW_UPLOAD_SIGNATURE_ENDPOINT, new Error(semnatura.error || "cloudinary-signature-failed"), {
+            status: semnaturaRaspuns.status,
+        });
+        if (semnaturaRaspuns.status === 429) {
+            throw new Error("Ai încercat să încarci mai multe poze într-un timp scurt. Te rog încearcă din nou puțin mai târziu.");
+        }
+        throw new Error("Poza nu a putut fi pregătită pentru încărcare.");
+    }
+    if (!semnatura.cloudName || !semnatura.apiKey || !semnatura.timestamp || !semnatura.signature || !semnatura.folder) {
+        console.error("[Ade's Soft Stitches] Semnătura Cloudinary este incompletă.", {
+            hasCloudName: Boolean(semnatura.cloudName),
+            hasApiKey: Boolean(semnatura.apiKey),
+            hasTimestamp: Boolean(semnatura.timestamp),
+            hasSignature: Boolean(semnatura.signature),
+            hasFolder: Boolean(semnatura.folder),
+        });
+        throw new Error("Poza nu a putut fi pregătită pentru încărcare.");
+    }
+
+    const uploadData = new FormData();
+    uploadData.append("file", fisier);
+    uploadData.append("api_key", String(semnatura.apiKey));
+    uploadData.append("timestamp", String(semnatura.timestamp));
+    uploadData.append("signature", String(semnatura.signature));
+    uploadData.append("folder", String(semnatura.folder));
+
+    const cloudinaryEndpoint = `https://api.cloudinary.com/v1_1/${semnatura.cloudName}/image/upload`;
+    let cloudinaryRaspuns;
+    try {
+        cloudinaryRaspuns = await fetch(cloudinaryEndpoint, {
+            method: "POST",
+            body: uploadData,
+        });
+    } catch (error) {
+        console.error("[Ade's Soft Stitches] Conexiunea cu Cloudinary a eșuat.", {
+            endpoint: cloudinaryEndpoint,
+            error,
+        });
+        throw new Error("Poza nu a putut fi încărcată. Te rog încearcă din nou.");
+    }
+
+    const raspunsText = await cloudinaryRaspuns.text().catch(() => "");
+    let rezultat = {};
+    try {
+        rezultat = raspunsText ? JSON.parse(raspunsText) : {};
+    } catch {
+        rezultat = {};
+    }
+
+    if (!cloudinaryRaspuns.ok || !rezultat.secure_url || !rezultat.public_id) {
+        console.error("[Ade's Soft Stitches] Uploadul pozei review-ului în Cloudinary a eșuat.", {
+            endpoint: cloudinaryEndpoint,
+            status: cloudinaryRaspuns.status,
+            statusText: cloudinaryRaspuns.statusText,
+            error: rezultat.error,
+            response: rezultat.error ? rezultat : raspunsText,
+            signedFields: ["folder", "timestamp"],
+            sentFolder: semnatura.folder,
+        });
+        throw new Error("Poza nu a putut fi încărcată. Te rog încearcă din nou.");
+    }
+
+    return {
+        imageUrl: rezultat.secure_url,
+        imagePublicId: rezultat.public_id,
+        imageProvider: "cloudinary",
+    };
+}
+
+function initFormularReview() {
+    const formular = document.getElementById("formular-review");
+    const mesaj = document.getElementById("mesaj-review");
+    const inputPoza = document.getElementById("review-poza");
+    const mesajReview = document.getElementById("review-mesaj");
+    const counter = document.querySelector("[data-review-counter]");
+    if (!formular || !mesaj) return;
+
+    const actualizeazaCounter = () => {
+        if (!mesajReview || !counter) return;
+        counter.textContent = `${mesajReview.value.length}/350`;
+    };
+    mesajReview?.addEventListener("input", actualizeazaCounter);
+    actualizeazaCounter();
+
+    formular.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const butonSubmit = formular.querySelector('button[type="submit"]');
+        const textInitialButon = butonSubmit ? butonSubmit.textContent : "";
+
+        if (butonSubmit) {
+            butonSubmit.disabled = true;
+            butonSubmit.textContent = "Se trimite...";
+        }
+        mesaj.textContent = "";
+
+        try {
+            if (mesajReview && mesajReview.value.trim().length > 350) {
+                throw new Error("Review-ul poate avea maximum 350 de caractere.");
+            }
+            const formData = new FormData(formular);
+            const pozaComprimata = await comprimaImagineReview(inputPoza?.files?.[0]);
+            formData.delete("review_image");
+            if (pozaComprimata) {
+                const pozaCloudinary = await uploadImagineReviewCloudinary(pozaComprimata);
+                formData.append("imageUrl", pozaCloudinary.imageUrl);
+                formData.append("imagePublicId", pozaCloudinary.imagePublicId);
+                formData.append("imageProvider", pozaCloudinary.imageProvider);
+            }
+
+            const raspuns = await fetch(REVIEW_ENDPOINT, {
+                method: "POST",
+                body: formData,
+            });
+            const rezultat = await raspuns.json().catch(() => ({}));
+
+            if (!raspuns.ok || !rezultat.ok) {
+                if (raspuns.status === 413) {
+                    throw new Error("Poza este prea mare sau nu are formatul potrivit.");
+                }
+                if (raspuns.status === 429) {
+                    throw new Error("Ai trimis mai multe review-uri într-un timp scurt. Te rog încearcă din nou puțin mai târziu.");
+                }
+                if (raspuns.status === 400 && rezultat.error === "invalid-review") {
+                    throw new Error("Review-ul trebuie să aibă între 10 și 350 de caractere, un email valid, rating și acordul de publicare.");
+                }
+                throw new Error("Ups, review-ul nu a putut fi trimis momentan. Te rog încearcă din nou în câteva momente.");
+            }
+
+            if (rezultat.emailStatus === "failed") {
+                console.warn("[Ade's Soft Stitches] Review-ul a fost salvat, dar notificarea email nu a putut fi trimisă. Verifică logurile Firebase Functions.", rezultat);
+            }
+
+            formular.reset();
+            actualizeazaCounter();
+            mesaj.textContent = "Mulțumesc mult pentru review! 💕 Mesajul tău a fost trimis și va apărea pe site după ce îl verific. Îți mulțumesc că susții creațiile Ade’s Soft Stitches. 🧶✨";
+        } catch (error) {
+            logFetchError("Trimiterea formularului de review", REVIEW_ENDPOINT, error);
+            mesaj.textContent = esteEroareRetea(error)
+                ? "Conexiunea cu serverul nu a reușit. Verifică dacă funcțiile Firebase sunt deploy-uite și încearcă din nou."
+                : error.message || "Ups, review-ul nu a putut fi trimis momentan. Te rog încearcă din nou în câteva momente.";
+        } finally {
+            if (butonSubmit) {
+                butonSubmit.disabled = false;
+                butonSubmit.textContent = textInitialButon;
+            }
+        }
+    });
+}
+
+function tokenAdminReview() {
+    return sessionStorage.getItem("reviewAdminToken") || "";
+}
+
+function seteazaTokenAdminReview(token) {
+    if (token) {
+        sessionStorage.setItem("reviewAdminToken", token);
+    } else {
+        sessionStorage.removeItem("reviewAdminToken");
+    }
+}
+
+function adminReviewData(review) {
+    const produs = review.productName ? `<p><strong>Produs:</strong> ${escapeHtml(review.productName)}</p>` : "";
+    const poza = review.imageUrl ? `<img src="${escapeHtml(review.imageUrl)}" alt="Poză review" loading="lazy" decoding="async">` : "";
+    return `
+        <article class="admin-review-card" data-review-id="${escapeHtml(review.id)}">
+            ${poza}
+            <div>
+                <div class="review-stele">${steleHtml(review.rating)}</div>
+                <h4>${escapeHtml(review.displayName || review.name || "Review")}</h4>
+                ${produs}
+                <p>${escapeHtml(review.message)}</p>
+                <div class="actiuni admin-review-actiuni">
+                    <button type="button" data-review-action="approve">Aprobă</button>
+                    <button type="button" data-review-action="reject" class="btn-secundar">Respinge</button>
+                    <button type="button" data-review-action="delete" class="btn-secundar">Șterge</button>
+                </div>
+            </div>
+        </article>
+    `;
+}
+
+async function incarcaAdminReviewuri(status = "pending") {
+    const lista = document.getElementById("admin-reviewuri-lista");
+    const mesaj = document.getElementById("mesaj-admin-review");
+    const token = tokenAdminReview();
+    if (!lista || !mesaj || !token) return;
+
+    lista.innerHTML = `<div class="mesaj-catalog"><p>Se încarcă review-urile...</p></div>`;
+
+    try {
+        const raspuns = await fetch(`${REVIEW_ADMIN_ENDPOINT}?status=${encodeURIComponent(status)}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        const rezultat = await raspuns.json().catch(() => ({}));
+
+        if (!raspuns.ok || !rezultat.ok) {
+            throw new Error(raspuns.status === 401 ? "Tokenul admin nu este corect." : "Review-urile nu au putut fi încărcate.");
+        }
+
+        const reviewuri = Array.isArray(rezultat.reviews) ? rezultat.reviews : [];
+        lista.innerHTML = reviewuri.length
+            ? reviewuri.map(adminReviewData).join("")
+            : `<div class="mesaj-catalog"><p>Nu există review-uri în această categorie.</p></div>`;
+
+        lista.querySelectorAll("[data-review-action]").forEach((buton) => {
+            buton.addEventListener("click", () => adminReviewAction(buton.closest("[data-review-id]")?.dataset.reviewId, buton.dataset.reviewAction, status));
+        });
+        mesaj.textContent = "";
+    } catch (error) {
+        logFetchError("Încărcarea review-urilor în admin", REVIEW_ADMIN_ENDPOINT, error, { status });
+        lista.innerHTML = "";
+        mesaj.textContent = error.message || "Review-urile nu au putut fi încărcate.";
+    }
+}
+
+async function adminReviewAction(id, action, statusCurent) {
+    const mesaj = document.getElementById("mesaj-admin-review");
+    const token = tokenAdminReview();
+    if (!id || !token || !mesaj) return;
+
+    if (action === "delete" && !confirm("Sigur vrei să ștergi acest review?")) return;
+
+    try {
+        const raspuns = await fetch(REVIEW_ADMIN_ENDPOINT, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id, action }),
+        });
+        const rezultat = await raspuns.json().catch(() => ({}));
+
+        if (!raspuns.ok || !rezultat.ok) {
+            throw new Error("Acțiunea nu a putut fi salvată.");
+        }
+
+        await incarcaAdminReviewuri(statusCurent);
+    } catch (error) {
+        logFetchError("Acțiunea admin pentru review", REVIEW_ADMIN_ENDPOINT, error, { id, action });
+        mesaj.textContent = error.message || "Acțiunea nu a putut fi salvată.";
+    }
+}
+
+function initAdminReviewuri() {
+    const formular = document.getElementById("formular-admin-review");
+    const input = document.getElementById("admin-review-token");
+    const uitaToken = document.getElementById("uita-token-review");
+    let statusCurent = "pending";
+    if (!formular || !input) return;
+
+    input.value = tokenAdminReview();
+
+    formular.addEventListener("submit", (event) => {
+        event.preventDefault();
+        seteazaTokenAdminReview(input.value.trim());
+        incarcaAdminReviewuri(statusCurent);
+    });
+
+    uitaToken?.addEventListener("click", () => {
+        input.value = "";
+        seteazaTokenAdminReview("");
+        document.getElementById("admin-reviewuri-lista").innerHTML = "";
+    });
+
+    document.querySelectorAll("[data-admin-status]").forEach((buton) => {
+        buton.addEventListener("click", () => {
+            statusCurent = buton.dataset.adminStatus;
+            document.querySelectorAll("[data-admin-status]").forEach((item) => item.classList.toggle("activ", item === buton));
+            incarcaAdminReviewuri(statusCurent);
+        });
+    });
+
+    document.querySelector('[data-admin-status="pending"]')?.classList.add("activ");
+    if (input.value) incarcaAdminReviewuri(statusCurent);
+}
+
+function tokenAdminProduse() {
+    return sessionStorage.getItem("productAdminToken") || "";
+}
+
+function seteazaTokenAdminProduse(token) {
+    if (token) {
+        sessionStorage.setItem("productAdminToken", token);
+    } else {
+        sessionStorage.removeItem("productAdminToken");
+    }
+}
+
+function adminAuthProduse() {
+    return { Authorization: `Bearer ${tokenAdminProduse()}` };
+}
+
+function normalizeazaCatalogAdmin(catalog) {
+    if (!catalog || typeof catalog !== "object") return { colectii: [], produse: [] };
+    const colectiiAdmin = Array.isArray(catalog.colectii)
+        ? catalog.colectii
+        : Object.entries(catalog.colectii || {}).map(([id, colectie]) => ({ id, ...colectie }));
+    const produseAdmin = Array.isArray(catalog.produse)
+        ? catalog.produse
+        : Object.entries(catalog.produse || {}).map(([id, produs]) => ({ id, ...produs }));
+    return {
+        colectii: sorteazaColectii(colectiiAdmin),
+        produse: sorteazaProduse(produseAdmin),
+    };
+}
+
+function textLinii(valoare) {
+    return Array.isArray(valoare) ? valoare.filter(Boolean).join("\n") : String(valoare || "");
+}
+
+function valoriDinTextarea(text) {
+    return String(text || "")
+        .split(/\r?\n/)
+        .map((linie) => linie.trim())
+        .filter(Boolean);
+}
+
+function completeazaSelectColectii() {
+    const select = document.getElementById("admin-produs-colectie");
+    if (!select) return;
+    const colectiiAdmin = adminProduseCatalog.colectii.length
+        ? adminProduseCatalog.colectii
+        : [
+            { id: "disponibile", nume: "Plușuri disponibile" },
+            { id: "la-comanda", nume: "Plușuri disponibile la comandă" },
+        ];
+    select.innerHTML = colectiiAdmin.map((colectie) => `
+        <option value="${escapeHtml(colectie.id)}">${escapeHtml(colectie.nume || colectie.id)}</option>
+    `).join("");
+}
+
+function renderAdminProduseLista() {
+    const lista = document.getElementById("admin-produse-lista");
+    if (!lista) return;
+
+    if (!adminProduseCatalog.produse.length) {
+        lista.innerHTML = `<div class="mesaj-catalog"><p>Nu există produse în catalog.</p></div>`;
+        return;
+    }
+
+    lista.innerHTML = adminProduseCatalog.produse.map((produs) => `
+        <article class="admin-produs-card ${produs.ascuns || produs.status === "hidden" ? "produs-ascuns" : ""}">
+            <img src="${escapeHtml(imagineOptimizata(produs.imagini?.[0] || "", 260))}" alt="${escapeHtml(produs.nume)}" loading="lazy" decoding="async">
+            <div>
+                <h4>${escapeHtml(produs.nume)}</h4>
+                <p>${escapeHtml(produs.pret || "Fără preț")} · ${escapeHtml(produs.colectie || "fără colecție")}</p>
+                <p>Ordine: ${escapeHtml(produs.ordine ?? "")} ${produs.ascuns || produs.status === "hidden" ? "· ascuns" : ""}</p>
+                <div class="actiuni admin-review-actiuni">
+                    <button type="button" data-edit-product="${escapeHtml(produs.id)}">Editează</button>
+                    <button type="button" class="btn-secundar" data-toggle-product="${escapeHtml(produs.id)}">${produs.ascuns || produs.status === "hidden" ? "Publică" : "Ascunde"}</button>
+                    <button type="button" class="btn-secundar" data-delete-product="${escapeHtml(produs.id)}">Șterge</button>
+                </div>
+            </div>
+        </article>
+    `).join("");
+
+    lista.querySelectorAll("[data-edit-product]").forEach((buton) => {
+        buton.addEventListener("click", () => editeazaProdusAdmin(buton.dataset.editProduct));
+    });
+    lista.querySelectorAll("[data-toggle-product]").forEach((buton) => {
+        buton.addEventListener("click", () => toggleProdusAdmin(buton.dataset.toggleProduct));
+    });
+    lista.querySelectorAll("[data-delete-product]").forEach((buton) => {
+        buton.addEventListener("click", () => stergeProdusAdmin(buton.dataset.deleteProduct));
+    });
+}
+
+function resetFormProdusAdmin() {
+    const formular = document.getElementById("formular-admin-produs");
+    if (!formular) return;
+    formular.reset();
+    document.getElementById("admin-produs-id").value = "";
+    document.getElementById("admin-produs-public-ids").value = "";
+    document.getElementById("admin-produs-ordine").value = "9999";
+    document.getElementById("admin-produs-disponibilitate").value = "în stoc";
+    document.getElementById("admin-produs-ascuns").checked = false;
+    completeazaSelectColectii();
+    actualizeazaPreviewImaginiAdmin();
+}
+
+function editeazaProdusAdmin(id) {
+    const produs = adminProduseCatalog.produse.find((item) => item.id === id);
+    if (!produs) return;
+    completeazaSelectColectii();
+    document.getElementById("admin-produs-id").value = produs.id || "";
+    document.getElementById("admin-produs-nume").value = produs.nume || "";
+    document.getElementById("admin-produs-pret").value = produs.pret || "";
+    document.getElementById("admin-produs-colectie").value = produs.colectie || "disponibile";
+    document.getElementById("admin-produs-ordine").value = produs.ordine ?? 9999;
+    document.getElementById("admin-produs-descriere").value = produs.descriere || "";
+    document.getElementById("admin-produs-filtre").value = textLinii(produs.filtre);
+    document.getElementById("admin-produs-dimensiune").value = produs.specificatii?.Dimensiune || "";
+    document.getElementById("admin-produs-materiale").value = produs.specificatii?.Materiale || "";
+    document.getElementById("admin-produs-disponibilitate").value = produs.specificatii?.Disponibilitate || "";
+    document.getElementById("admin-produs-imagini").value = textLinii(produs.imagini);
+    document.getElementById("admin-produs-public-ids").value = textLinii(produs.imagePublicIds);
+    document.getElementById("admin-produs-ascuns").checked = Boolean(produs.ascuns || produs.status === "hidden");
+    actualizeazaPreviewImaginiAdmin();
+    document.getElementById("formular-admin-produs").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function actualizeazaPreviewImaginiAdmin() {
+    const preview = document.getElementById("admin-produs-preview");
+    const textarea = document.getElementById("admin-produs-imagini");
+    if (!preview || !textarea) return;
+    const imagini = valoriDinTextarea(textarea.value);
+    preview.innerHTML = imagini.length
+        ? imagini.map((url) => `<img src="${escapeHtml(imagineOptimizata(url, 180))}" alt="Preview imagine produs" loading="lazy">`).join("")
+        : `<p>Nu există imagini încă.</p>`;
+}
+
+async function uploadImagineProdusCloudinary(fisier) {
+    const token = tokenAdminProduse();
+    const semnaturaRaspuns = await fetch(PRODUCT_UPLOAD_SIGNATURE_ENDPOINT, {
+        method: "POST",
+        headers: {
+            ...adminAuthProduse(),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            contentType: fisier.type,
+            fileSize: fisier.size,
+        }),
+    });
+    const semnatura = await semnaturaRaspuns.json().catch(() => ({}));
+    if (!token || !semnaturaRaspuns.ok || !semnatura.ok) {
+        throw new Error("Uploadul imaginii nu a putut fi pregătit. Verifică tokenul admin și funcțiile Firebase.");
+    }
+
+    const uploadData = new FormData();
+    uploadData.append("file", fisier);
+    uploadData.append("api_key", String(semnatura.apiKey));
+    uploadData.append("timestamp", String(semnatura.timestamp));
+    uploadData.append("signature", String(semnatura.signature));
+    uploadData.append("folder", String(semnatura.folder));
+
+    const endpoint = `https://api.cloudinary.com/v1_1/${semnatura.cloudName}/image/upload`;
+    const raspuns = await fetch(endpoint, { method: "POST", body: uploadData });
+    const rezultat = await raspuns.json().catch(() => ({}));
+    if (!raspuns.ok || !rezultat.secure_url || !rezultat.public_id) {
+        console.error("[Ade's Soft Stitches] Uploadul imaginii produsului a eșuat.", {
+            status: raspuns.status,
+            response: rezultat,
+        });
+        throw new Error("Imaginea produsului nu a putut fi încărcată.");
+    }
+    return { url: rezultat.secure_url, publicId: rezultat.public_id };
+}
+
+async function incarcaImaginiProdusAdmin() {
+    const input = document.getElementById("admin-produs-upload");
+    const textarea = document.getElementById("admin-produs-imagini");
+    const publicIds = document.getElementById("admin-produs-public-ids");
+    const fisiere = [...(input?.files || [])].slice(0, 6);
+    if (!fisiere.length || !textarea || !publicIds) return;
+
+    const imaginiExistente = valoriDinTextarea(textarea.value);
+    const idsExistente = valoriDinTextarea(publicIds.value);
+    if (imaginiExistente.length + fisiere.length > 6) {
+        throw new Error("Poți avea maximum 6 imagini per produs.");
+    }
+
+    const rezultate = [];
+    for (const fisier of fisiere) {
+        const comprimat = await comprimaImagineReview(fisier);
+        rezultate.push(await uploadImagineProdusCloudinary(comprimat));
+    }
+
+    textarea.value = [...imaginiExistente, ...rezultate.map((item) => item.url)].join("\n");
+    publicIds.value = [...idsExistente, ...rezultate.map((item) => item.publicId)].join("\n");
+    input.value = "";
+    actualizeazaPreviewImaginiAdmin();
+}
+
+function produsDinFormAdmin() {
+    const id = document.getElementById("admin-produs-id").value.trim();
+    const nume = document.getElementById("admin-produs-nume").value.trim();
+    return {
+        id,
+        nume,
+        pret: document.getElementById("admin-produs-pret").value.trim(),
+        colectie: document.getElementById("admin-produs-colectie").value,
+        ordine: Number(document.getElementById("admin-produs-ordine").value) || 9999,
+        descriere: document.getElementById("admin-produs-descriere").value.trim(),
+        filtre: valoriDinTextarea(document.getElementById("admin-produs-filtre").value),
+        specificatii: {
+            Dimensiune: document.getElementById("admin-produs-dimensiune").value.trim(),
+            Materiale: document.getElementById("admin-produs-materiale").value.trim(),
+            Disponibilitate: document.getElementById("admin-produs-disponibilitate").value.trim(),
+        },
+        imagini: valoriDinTextarea(document.getElementById("admin-produs-imagini").value),
+        imagePublicIds: valoriDinTextarea(document.getElementById("admin-produs-public-ids").value),
+        ascuns: document.getElementById("admin-produs-ascuns").checked,
+    };
+}
+
+async function incarcaAdminProduse() {
+    const mesaj = document.getElementById("mesaj-admin-produse");
+    const lista = document.getElementById("admin-produse-lista");
+    if (!mesaj || !lista) return;
+
+    lista.innerHTML = `<div class="mesaj-catalog"><p>Se încarcă produsele...</p></div>`;
+    try {
+        const raspuns = await fetch(PRODUCT_ADMIN_ENDPOINT, {
+            headers: adminAuthProduse(),
+        });
+        const rezultat = await raspuns.json().catch(() => ({}));
+        if (!raspuns.ok || !rezultat.ok) {
+            throw new Error(raspuns.status === 401 ? "Tokenul pentru produse nu este corect." : "Produsele nu au putut fi încărcate.");
+        }
+        adminProduseCatalog = normalizeazaCatalogAdmin(rezultat);
+        completeazaSelectColectii();
+        renderAdminProduseLista();
+        mesaj.textContent = "";
+    } catch (error) {
+        logFetchError("Încărcarea produselor în admin", PRODUCT_ADMIN_ENDPOINT, error);
+        lista.innerHTML = "";
+        mesaj.textContent = error.message || "Produsele nu au putut fi încărcate.";
+    }
+}
+
+async function salveazaProdusAdmin(event) {
+    event.preventDefault();
+    const mesaj = document.getElementById("mesaj-admin-produse");
+    const buton = event.currentTarget.querySelector('button[type="submit"]');
+    const textInitial = buton?.textContent || "";
+    if (buton) {
+        buton.disabled = true;
+        buton.textContent = "Se salvează...";
+    }
+
+    try {
+        await incarcaImaginiProdusAdmin();
+        const produs = produsDinFormAdmin();
+        const raspuns = await fetch(PRODUCT_ADMIN_ENDPOINT, {
+            method: "POST",
+            headers: {
+                ...adminAuthProduse(),
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ action: "save", product: produs }),
+        });
+        const rezultat = await raspuns.json().catch(() => ({}));
+        if (!raspuns.ok || !rezultat.ok) {
+            throw new Error("Produsul nu a putut fi salvat. Verifică numele, prețul, descrierea și imaginile.");
+        }
+        mesaj.textContent = "Produsul a fost salvat.";
+        await incarcaAdminProduse();
+        editeazaProdusAdmin(rezultat.product.id);
+    } catch (error) {
+        logFetchError("Salvarea produsului", PRODUCT_ADMIN_ENDPOINT, error);
+        mesaj.textContent = error.message || "Produsul nu a putut fi salvat.";
+    } finally {
+        if (buton) {
+            buton.disabled = false;
+            buton.textContent = textInitial;
+        }
+    }
+}
+
+async function toggleProdusAdmin(id) {
+    const produs = adminProduseCatalog.produse.find((item) => item.id === id);
+    if (!produs) return;
+    const ascuns = !(produs.ascuns || produs.status === "hidden");
+    await actiuneProdusAdmin({ action: "toggle", id, ascuns }, ascuns ? "Produsul a fost ascuns." : "Produsul a fost publicat.");
+}
+
+async function stergeProdusAdmin(id) {
+    if (!confirm("Sigur vrei să ștergi acest produs? Imaginile încărcate prin admin vor fi șterse și din Cloudinary.")) return;
+    await actiuneProdusAdmin({ action: "delete", id }, "Produsul a fost șters.");
+    resetFormProdusAdmin();
+}
+
+async function actiuneProdusAdmin(payload, mesajSucces) {
+    const mesaj = document.getElementById("mesaj-admin-produse");
+    try {
+        const raspuns = await fetch(PRODUCT_ADMIN_ENDPOINT, {
+            method: "POST",
+            headers: {
+                ...adminAuthProduse(),
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+        });
+        const rezultat = await raspuns.json().catch(() => ({}));
+        if (!raspuns.ok || !rezultat.ok) {
+            throw new Error("Acțiunea nu a putut fi salvată.");
+        }
+        if (mesaj) mesaj.textContent = mesajSucces;
+        await incarcaAdminProduse();
+    } catch (error) {
+        logFetchError("Administrarea produsului", PRODUCT_ADMIN_ENDPOINT, error, payload);
+        if (mesaj) mesaj.textContent = error.message || "Acțiunea nu a putut fi salvată.";
+    }
+}
+
+function initAdminProduse() {
+    const formularToken = document.getElementById("formular-admin-produse-token");
+    const inputToken = document.getElementById("admin-produse-token");
+    const uitaToken = document.getElementById("uita-token-produse");
+    const formularProdus = document.getElementById("formular-admin-produs");
+    const produsNou = document.getElementById("produs-nou");
+    const produsAnuleaza = document.getElementById("produs-anuleaza");
+    const imaginiTextarea = document.getElementById("admin-produs-imagini");
+    const uploadInput = document.getElementById("admin-produs-upload");
+    if (!formularToken || !inputToken || !formularProdus) return;
+
+    inputToken.value = tokenAdminProduse();
+    completeazaSelectColectii();
+    actualizeazaPreviewImaginiAdmin();
+
+    formularToken.addEventListener("submit", (event) => {
+        event.preventDefault();
+        seteazaTokenAdminProduse(inputToken.value.trim());
+        incarcaAdminProduse();
+    });
+    uitaToken?.addEventListener("click", () => {
+        seteazaTokenAdminProduse("");
+        inputToken.value = "";
+        adminProduseCatalog = { colectii: [], produse: [] };
+        renderAdminProduseLista();
+    });
+    formularProdus.addEventListener("submit", salveazaProdusAdmin);
+    produsNou?.addEventListener("click", resetFormProdusAdmin);
+    produsAnuleaza?.addEventListener("click", resetFormProdusAdmin);
+    imaginiTextarea?.addEventListener("input", actualizeazaPreviewImaginiAdmin);
+    uploadInput?.addEventListener("change", () => incarcaImaginiProdusAdmin().catch((error) => {
+        const mesaj = document.getElementById("mesaj-admin-produse");
+        logFetchError("Upload imagini produs", PRODUCT_UPLOAD_SIGNATURE_ENDPOINT, error);
+        if (mesaj) mesaj.textContent = error.message || "Imaginile nu au putut fi încărcate.";
+    }));
+
+    if (inputToken.value) incarcaAdminProduse();
 }
 
 function pozitioneazaFlori() {

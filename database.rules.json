@@ -1,6 +1,14 @@
 {
   "rules": {
-    ".read": true,
-    ".write": false
+    ".read": false,
+    ".write": false,
+    "colectii": {
+      ".read": true,
+      ".write": false
+    },
+    "produse": {
+      ".read": true,
+      ".write": false
+    }
   }
 }

@@ -50,7 +50,7 @@ nav {
     z-index: 100;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 12px;
     padding: 12px 14px;
     background: linear-gradient(180deg, #d3e29c, var(--leaf));
@@ -1343,14 +1343,14 @@ footer p {
     }
 
     nav {
-        flex-wrap: wrap;
-        gap: 8px;
-        padding: 8px 10px;
+        gap: 6px;
+        padding: 8px 6px;
     }
 
     nav button {
         min-height: 36px;
-        padding: 7px 12px;
+        padding: 7px 10px;
+        white-space: nowrap;
     }
 
     .hero-site {
@@ -1524,9 +1524,15 @@ footer p {
 }
 
 @media (max-width: 420px) {
+    nav {
+        gap: 4px;
+        padding: 7px 4px;
+    }
+
     nav button {
-        padding: 6px 10px;
-        font-size: 0.95rem;
+        min-height: 34px;
+        padding: 6px 7px;
+        font-size: clamp(0.76rem, 3.2vw, 0.9rem);
     }
 
     .hero-site {

@@ -22,6 +22,8 @@
 
 html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
@@ -31,7 +33,7 @@ body {
     margin: 0;
     color: var(--ink);
     font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-    font-size: 17px;
+    font-size: 16px;
     background: linear-gradient(180deg, var(--peach), var(--cream));
     overflow-x: hidden;
 }
@@ -51,8 +53,8 @@ nav {
     display: flex;
     justify-content: center;
     flex-wrap: nowrap;
-    gap: 12px;
-    padding: 12px 14px;
+    gap: 10px;
+    padding: 10px 12px;
     overflow: hidden;
     background: linear-gradient(180deg, #d3e29c, var(--leaf));
     border-bottom: 2px solid var(--ink);
@@ -64,10 +66,10 @@ nav {
 button,
 nav button {
     flex: 0 1 auto;
-    min-height: 40px;
+    min-height: 38px;
     border: 1px solid rgba(255, 255, 255, 0.65);
     border-radius: 999px;
-    padding: 8px 16px;
+    padding: 7px 14px;
     color: var(--ink);
     background: linear-gradient(180deg, #faefc3, var(--sun));
     font: inherit;
@@ -102,15 +104,15 @@ nav button.activ {
 .hero-site {
     display: grid;
     place-items: center;
-    min-height: 118px;
-    padding: 18px 16px 8px;
+    min-height: 108px;
+    padding: 16px 14px 6px;
     text-align: center;
 }
 
 .hero-site h1 {
     max-width: 900px;
     margin: 4px 0 10px;
-    font-size: clamp(2rem, 5vw, 4.1rem);
+    font-size: clamp(1.85rem, 4.6vw, 3.55rem);
     line-height: 1;
     letter-spacing: 0;
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.12);
@@ -148,8 +150,8 @@ nav button.activ {
 
 main {
     flex: 1 0 auto;
-    width: min(1040px, calc(100% - 22px));
-    margin: 14px auto 28px;
+    width: min(1000px, calc(100% - 22px));
+    margin: 12px auto 24px;
     padding: 0;
     border: 0;
     border-radius: 0;
@@ -165,8 +167,8 @@ main:focus-visible {
 }
 
 section {
-    margin: 0 0 16px;
-    padding: 18px;
+    margin: 0 0 14px;
+    padding: 16px;
     border: 2px solid var(--line);
     border-radius: 18px;
     background: linear-gradient(180deg, #fff7fb, #fff1f6);
@@ -185,7 +187,7 @@ p {
 h2 {
     text-align: center;
     margin: 0 0 12px;
-    font-size: clamp(1.65rem, 3.3vw, 2.65rem);
+    font-size: clamp(1.5rem, 2.8vw, 2.25rem);
     line-height: 1.06;
     letter-spacing: 0;
 }
@@ -205,18 +207,18 @@ h2::after {
 h3 {
     display: inline-block;
     margin: 0 0 12px;
-    padding: 8px 16px;
+    padding: 7px 14px;
     border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 999px;
     background: linear-gradient(135deg, #f8cddd, #f3e5a8);
     box-shadow: 0 6px 14px rgba(102, 78, 76, 0.10);
-    font-size: clamp(1.15rem, 2.4vw, 1.65rem);
+    font-size: clamp(1.05rem, 2vw, 1.45rem);
     letter-spacing: 0;
 }
 
 h4 {
     margin: 8px 0 6px;
-    font-size: 1.08rem;
+    font-size: 1rem;
 }
 
 p {
@@ -1349,7 +1351,7 @@ footer p {
 
 @media (max-width: 850px) {
     body {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     nav {
@@ -1366,13 +1368,13 @@ footer p {
     }
 
     .hero-site {
-        min-height: 92px;
-        padding: 14px 10px 6px;
+        min-height: 84px;
+        padding: 12px 10px 5px;
     }
 
     .hero-site h1 {
         white-space: nowrap;
-        font-size: clamp(1.9rem, 7.5vw, 2.35rem);
+        font-size: clamp(1.65rem, 6.8vw, 2.1rem);
     }
 
     main {
@@ -1384,7 +1386,7 @@ footer p {
 
     section {
         margin-bottom: 12px;
-        padding: 12px;
+        padding: 11px;
         border-radius: 16px;
     }
 
@@ -1558,7 +1560,7 @@ footer p {
     }
 
     .hero-site {
-        min-height: 84px;
+        min-height: 78px;
     }
 
     .hero-site h1::before,
@@ -1567,7 +1569,7 @@ footer p {
     }
 
     .hero-site h1 {
-        font-size: clamp(1.65rem, 7.2vw, 2rem);
+        font-size: clamp(1.45rem, 6.8vw, 1.82rem);
     }
 
     main {
@@ -1580,11 +1582,11 @@ footer p {
     }
 
     h2 {
-        font-size: clamp(1.45rem, 8vw, 2rem);
+        font-size: clamp(1.32rem, 7vw, 1.75rem);
     }
 
     h3 {
-        font-size: 1.12rem;
+        font-size: 1rem;
     }
 
     .pas-grid {

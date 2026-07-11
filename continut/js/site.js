@@ -60,15 +60,35 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function incarcaCatalog() {
     const catalogUrl = await citesteCatalogUrl();
-    const raspuns = await fetch(catalogUrl);
+    const catalog = await fetchCatalog(catalogUrl);
+    produse = sorteazaProduse(Array.isArray(catalog.produse) ? catalog.produse : []);
+    colectii = sorteazaColectii(Array.isArray(catalog.colectii) ? catalog.colectii : []);
+    catalogIncarcat = true;
+}
+
+async function fetchCatalog(catalogUrl) {
+    const url = String(catalogUrl || "resurse/catalog-produse.json");
+    if (/firebasedatabase\.app\/\.json$/i.test(url)) {
+        const baza = url.replace(/\/\.json$/i, "");
+        const [colectiiRaspuns, produseRaspuns] = await Promise.all([
+            fetch(`${baza}/colectii.json`),
+            fetch(`${baza}/produse.json`),
+        ]);
+        if (!colectiiRaspuns.ok || !produseRaspuns.ok) {
+            throw new Error("Catalogul de produse nu a putut fi încărcat.");
+        }
+        return normalizeazaCatalog({
+            colectii: await colectiiRaspuns.json(),
+            produse: await produseRaspuns.json(),
+        });
+    }
+
+    const raspuns = await fetch(url);
     if (!raspuns.ok) {
         throw new Error("Catalogul de produse nu a putut fi încărcat. Rulează generatorul: ./genereaza_catalog.sh");
     }
 
-    const catalog = normalizeazaCatalog(await raspuns.json());
-    produse = sorteazaProduse(Array.isArray(catalog.produse) ? catalog.produse : []);
-    colectii = sorteazaColectii(Array.isArray(catalog.colectii) ? catalog.colectii : []);
-    catalogIncarcat = true;
+    return normalizeazaCatalog(await raspuns.json());
 }
 
 async function citesteCatalogUrl() {

@@ -1,5 +1,6 @@
 {
   "buildCommand": "python3 scripts/genereaza_catalog.py",
+  "outputDirectory": "continut",
   "headers": [
     {
       "source": "/(.*)",
@@ -26,39 +27,35 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/continut/index.html"
+      "destination": "/index.html"
     },
     {
       "source": "/produse",
-      "destination": "/continut/index.html"
+      "destination": "/index.html"
     },
     {
       "source": "/produse/:produs",
-      "destination": "/continut/index.html"
+      "destination": "/index.html"
     },
     {
       "source": "/comanda",
-      "destination": "/continut/index.html"
+      "destination": "/index.html"
     },
     {
       "source": "/review-uri",
-      "destination": "/continut/index.html"
+      "destination": "/index.html"
     },
     {
       "source": "/despre",
-      "destination": "/continut/index.html"
+      "destination": "/index.html"
     },
     {
       "source": "/admin-produse",
-      "destination": "/continut/index.html"
+      "destination": "/index.html"
     },
     {
       "source": "/admin-review-uri",
-      "destination": "/continut/index.html"
-    },
-    {
-      "source": "/:path*",
-      "destination": "/continut/:path*"
+      "destination": "/index.html"
     }
   ]
 }

@@ -30,6 +30,7 @@ let schimbareGalerieSolicitata = 0;
 let produsCurent = null;
 let colectieCurenta = "";
 let filtruCurent = "toate";
+let sortareProduseCurenta = "ordine";
 let previzualizareProdusCurent = null;
 const cacheImaginiGalerie = new Map();
 const REVIEW_CACHE_KEY = "reviewuriAprobateCache";
@@ -396,8 +397,9 @@ function afiseazaProduseColectie(colectieId) {
     const descriere = document.getElementById("descriere-colectie");
     const listaProduse = document.getElementById("produse-lista");
     const selectFiltru = document.getElementById("filtru-produse-select");
+    const selectSortare = document.getElementById("sortare-produse-select");
 
-    if (!colectie || !sectiuneProduse || !titlu || !descriere || !listaProduse || !selectFiltru) return;
+    if (!colectie || !sectiuneProduse || !titlu || !descriere || !listaProduse || !selectFiltru || !selectSortare) return;
 
     const produseColectie = sorteazaProduse(produse.filter((produs) => produs.colectie === colectie.id));
     colectieCurenta = colectie.id;
@@ -413,6 +415,11 @@ function afiseazaProduseColectie(colectieId) {
 
     selectFiltru.onchange = () => {
         filtruCurent = selectFiltru.value;
+        renderProduseFiltrate(produseColectie, colectie, listaProduse);
+    };
+    selectSortare.value = sortareProduseCurenta;
+    selectSortare.onchange = () => {
+        sortareProduseCurenta = selectSortare.value;
         renderProduseFiltrate(produseColectie, colectie, listaProduse);
     };
 
@@ -476,7 +483,7 @@ function renderProduseFiltrate(produseColectie, colectie, listaProduse) {
     const produseFiltrate = filtruCurent === "toate"
         ? produseColectie
         : produseColectie.filter((produs) => (produs.filtre || []).some((filtru) => normalizareFiltru(filtru) === filtruCurent));
-    const produseAfisate = sorteazaProduse(produseFiltrate);
+    const produseAfisate = sorteazaProduseAfisate(produseFiltrate);
 
     if (!produseFiltrate.length) {
         listaProduse.innerHTML = `
@@ -490,6 +497,19 @@ function renderProduseFiltrate(produseColectie, colectie, listaProduse) {
 
     leagaCarduriProduse(listaProduse);
     activeazaPreincarcareProduse(listaProduse);
+}
+
+function sorteazaProduseAfisate(lista) {
+    if (sortareProduseCurenta === "pret-crescator") {
+        return [...lista].sort((a, b) => pretNumeric(a) - pretNumeric(b) || String(a.nume || "").localeCompare(String(b.nume || ""), "ro"));
+    }
+    if (sortareProduseCurenta === "pret-descrescator") {
+        return [...lista].sort((a, b) => pretNumeric(b) - pretNumeric(a) || String(a.nume || "").localeCompare(String(b.nume || ""), "ro"));
+    }
+    if (sortareProduseCurenta === "alfabetic") {
+        return [...lista].sort((a, b) => String(a.nume || "").localeCompare(String(b.nume || ""), "ro"));
+    }
+    return sorteazaProduse(lista);
 }
 
 function cardProdusHtml(produs) {

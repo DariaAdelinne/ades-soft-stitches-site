@@ -14,9 +14,20 @@
             <h3 id="titlu-colectie"></h3>
             <p id="descriere-colectie" class="descriere-colectie"></p>
         </div>
-        <div class="filtru-produse">
-            <label for="filtru-produse-select">Filtrează produsele</label>
-            <select id="filtru-produse-select"></select>
+        <div class="controale-produse">
+            <div class="filtru-produse">
+                <label for="filtru-produse-select">Filtrează</label>
+                <select id="filtru-produse-select"></select>
+            </div>
+            <div class="filtru-produse">
+                <label for="sortare-produse-select">Sortează</label>
+                <select id="sortare-produse-select">
+                    <option value="ordine">Ordinea catalogului</option>
+                    <option value="pret-crescator">Preț crescător</option>
+                    <option value="pret-descrescator">Preț descrescător</option>
+                    <option value="alfabetic">Alfabetic</option>
+                </select>
+            </div>
         </div>
     </div>
     <div id="produse-lista" class="produse-grid"></div>

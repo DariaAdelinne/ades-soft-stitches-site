@@ -421,8 +421,8 @@ main .eyebrow {
 }
 
 .controale-produse {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 185px));
     justify-content: flex-end;
     gap: 10px;
 }
@@ -439,6 +439,7 @@ main .eyebrow {
     border-radius: 16px;
     background: linear-gradient(180deg, #fffaf0, #fff3e6);
     box-shadow: var(--shadow-soft);
+    min-width: 0;
 }
 
 .filtru-produse label {
@@ -1476,11 +1477,15 @@ footer p {
     }
 
     .filtru-produse select {
-        width: min(42vw, 190px);
+        width: 100%;
+        min-width: 0;
+        padding: 8px 8px;
     }
 
     .controale-produse {
-        justify-content: flex-start;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        justify-content: stretch;
+        width: 100%;
         gap: 8px;
     }
 

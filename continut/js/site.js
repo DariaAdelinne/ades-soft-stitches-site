@@ -68,7 +68,7 @@ async function incarcaCatalog() {
 }
 
 async function fetchCatalog(catalogUrl) {
-    const url = String(catalogUrl || "resurse/catalog-produse.json");
+    const url = String(catalogUrl || "/resurse/catalog-produse.json");
     if (/firebasedatabase\.app\/\.json$/i.test(url)) {
         const baza = url.replace(/\/\.json$/i, "");
         const [colectiiRaspuns, produseRaspuns] = await Promise.all([
@@ -94,13 +94,13 @@ async function fetchCatalog(catalogUrl) {
 
 async function citesteCatalogUrl() {
     try {
-        const raspuns = await fetch("resurse/catalog-config.json", { cache: "no-store" });
-        if (!raspuns.ok) return "resurse/catalog-produse.json";
+        const raspuns = await fetch("/resurse/catalog-config.json", { cache: "no-store" });
+        if (!raspuns.ok) return "/resurse/catalog-produse.json";
 
         const config = await raspuns.json();
-        return config.catalogUrl || "resurse/catalog-produse.json";
+        return config.catalogUrl || "/resurse/catalog-produse.json";
     } catch {
-        return "resurse/catalog-produse.json";
+        return "/resurse/catalog-produse.json";
     }
 }
 
@@ -145,9 +145,29 @@ function sorteazaColectii(lista) {
 
 function incarcaDinUrl() {
     const params = new URLSearchParams(window.location.search);
-    const produsId = params.get("produs");
-    const pagina = params.get("pagina") || (produsId ? "produs" : "acasa");
+    const path = window.location.pathname.replace(/^\/+|\/+$/g, "");
+    const segmente = path.split("/").filter(Boolean);
+    let produsId = params.get("produs");
+    let pagina = params.get("pagina") || (produsId ? "produs" : "acasa");
+
+    if (!params.has("pagina") && !params.has("produs")) {
+        if (!path || path === "index.html") {
+            pagina = "acasa";
+        } else if (segmente[0] === "produse" && segmente[1]) {
+            pagina = "produs";
+            produsId = decodeURIComponent(segmente[1]);
+        } else if (["produse", "comanda", "review-uri", "despre", "admin-produse", "admin-review-uri"].includes(segmente[0])) {
+            pagina = segmente[0];
+        }
+    }
+
     schimbaPagina(pagina, { produsId, updateUrl: false });
+}
+
+function urlPentruPagina(pagina, optiuni = {}) {
+    if (pagina === "acasa") return "/";
+    if (pagina === "produs") return `/produse/${encodeURIComponent(optiuni.produsId || "")}`;
+    return `/${pagina}`;
 }
 
 async function schimbaPagina(pagina, optiuni = {}) {
@@ -156,7 +176,7 @@ async function schimbaPagina(pagina, optiuni = {}) {
     const continut = document.getElementById("continut");
 
     try {
-        const raspuns = await fetch(`${pagina}.html`);
+        const raspuns = await fetch(`/${pagina}.html`);
         if (!raspuns.ok) {
             throw new Error("Pagina nu a putut fi încărcată.");
         }
@@ -169,8 +189,7 @@ async function schimbaPagina(pagina, optiuni = {}) {
         window.scrollTo({ top: 0, behavior: "smooth" });
 
         if (optiuni.updateUrl !== false) {
-            const url = pagina === "acasa" ? "index.html" : `index.html?pagina=${pagina}`;
-            history.pushState({}, "", url);
+            history.pushState({}, "", urlPentruPagina(pagina, optiuni));
         }
     } catch (error) {
         continut.innerHTML = "<section><h2>Eroare</h2><p>Pagina nu a putut fi încărcată momentan.</p></section>";
@@ -618,7 +637,7 @@ function deschideProdus(produsId, imaginePrevizualizare = "") {
         produsId,
         src: imaginePrevizualizare,
     };
-    history.pushState({}, "", `index.html?pagina=produs&produs=${encodeURIComponent(produsId)}`);
+    history.pushState({}, "", urlPentruPagina("produs", { produsId }));
     schimbaPagina("produs", { produsId, updateUrl: false });
 }
 
@@ -684,7 +703,7 @@ function renderProdus(produsId) {
 
     document.querySelector(".link-inapoi").addEventListener("click", () => schimbaPagina("produse"));
     document.getElementById("comanda-produs").addEventListener("click", () => {
-        history.pushState({}, "", `index.html?pagina=comanda&produs=${encodeURIComponent(produsCurent.id)}`);
+        history.pushState({}, "", `/comanda?produs=${encodeURIComponent(produsCurent.id)}`);
         schimbaPagina("comanda", { produsId: produsCurent.id, updateUrl: false });
     });
 

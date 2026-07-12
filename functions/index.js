@@ -22,7 +22,7 @@ const DEFAULT_OWNER_EMAIL = "ades.soft.stitches@gmail.com";
 const MAX_FILES = 5;
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const MAX_TOTAL_FILE_SIZE = 12 * 1024 * 1024;
-const MAX_REVIEW_IMAGE_SIZE = 5 * 1024 * 1024;
+const MAX_REVIEW_IMAGE_SIZE = 10 * 1024 * 1024;
 const MAX_REVIEW_MESSAGE_LENGTH = 350;
 const CLOUDINARY_REVIEW_FOLDER = "ades-soft-stitches/reviews";
 const CLOUDINARY_PRODUCT_FOLDER = "ades-soft-stitches/products";
@@ -485,6 +485,17 @@ function emailSender() {
   return `${name} <${user}>`;
 }
 
+function withTimeout(promise, timeoutMs, label) {
+  let timer;
+  const timeout = new Promise((resolve) => {
+    timer = setTimeout(() => resolve({timedOut: true, label}), timeoutMs);
+  });
+  return Promise.race([
+    promise.finally(() => clearTimeout(timer)),
+    timeout,
+  ]);
+}
+
 async function uploadOrderAttachments(orderId, attachments) {
   if (!attachments.length) return [];
 
@@ -614,7 +625,7 @@ exports.trimiteComanda = onRequest({
       const sender = emailSender();
       const ownerEmail = cleanText(gmailUser.value() || DEFAULT_OWNER_EMAIL, 254).toLowerCase();
 
-      const results = await Promise.allSettled([
+      const results = await withTimeout(Promise.allSettled([
         transporter.sendMail({
           from: sender,
           to: ownerEmail,
@@ -630,9 +641,14 @@ exports.trimiteComanda = onRequest({
           subject: "Mesajul tău a ajuns la mine 💌",
           text: clientText,
         }),
-      ]);
+      ]), 6000, "order-email");
 
-      if (results.some((result) => result.status === "rejected")) {
+      if (results.timedOut) {
+        emailStatus = "pending";
+        console.warn("Comanda a fost salvată, dar trimiterea emailului încă nu a răspuns.", {
+          orderId: orderRef.id,
+        });
+      } else if (results.some((result) => result.status === "rejected")) {
         emailStatus = "failed";
         console.error("Comanda a fost salvată, dar trimiterea emailului a eșuat.", {
           orderId: orderRef.id,
@@ -755,7 +771,7 @@ exports.trimiteReview = onRequest({
       const ownerEmail = cleanText(gmailUser.value() || DEFAULT_OWNER_EMAIL, 254).toLowerCase();
       const ownerContent = reviewOwnerEmailContent({...reviewData, reviewId: reviewRef.id});
       const sender = emailSender();
-      const results = await Promise.allSettled([
+      const results = await withTimeout(Promise.allSettled([
         transporter.sendMail({
           from: sender,
           to: ownerEmail,
@@ -771,9 +787,14 @@ exports.trimiteReview = onRequest({
           subject: "Mulțumesc pentru review 💕",
           text: reviewClientText,
         }),
-      ]);
+      ]), 6000, "review-email");
 
-      if (results.some((result) => result.status === "rejected")) {
+      if (results.timedOut) {
+        emailStatus = "pending";
+        console.warn("Review-ul a fost salvat, dar trimiterea emailului încă nu a răspuns.", {
+          reviewId: reviewRef.id,
+        });
+      } else if (results.some((result) => result.status === "rejected")) {
         emailStatus = "failed";
         console.error("Review-ul a fost salvat, dar trimiterea emailului a eșuat.", {
           reviewId: reviewRef.id,

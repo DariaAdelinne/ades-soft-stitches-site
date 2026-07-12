@@ -1253,6 +1253,24 @@ function fisierCuTipInferat(fisier) {
     });
 }
 
+function pregatesteImagineReviewPentruUpload(fisier) {
+    if (!fisier) return null;
+
+    const fisierPregatit = fisierCuTipInferat(fisier);
+    const tip = tipImagineFisier(fisierPregatit);
+    const tipuriAcceptate = ["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"];
+
+    if (!tipuriAcceptate.includes(tip)) {
+        throw new Error("Poza trebuie să fie jpg, png, webp, heic sau heif.");
+    }
+
+    if (fisierPregatit.size > 10 * 1024 * 1024) {
+        throw new Error("Poza trebuie să aibă maximum 10 MB.");
+    }
+
+    return fisierPregatit;
+}
+
 function comprimaImagineReview(fisier) {
     return new Promise((resolve, reject) => {
         if (!fisier) {
@@ -1458,10 +1476,10 @@ function initFormularReview() {
                 throw new Error("Review-ul poate avea maximum 350 de caractere.");
             }
             const formData = new FormData(formular);
-            const pozaComprimata = await comprimaImagineReview(inputPoza?.files?.[0]);
+            const pozaPregatita = pregatesteImagineReviewPentruUpload(inputPoza?.files?.[0]);
             formData.delete("review_image");
-            if (pozaComprimata) {
-                const pozaCloudinary = await uploadImagineReviewCloudinary(pozaComprimata);
+            if (pozaPregatita) {
+                const pozaCloudinary = await uploadImagineReviewCloudinary(pozaPregatita);
                 formData.append("imageUrl", pozaCloudinary.imageUrl);
                 formData.append("imagePublicId", pozaCloudinary.imagePublicId);
                 formData.append("imageProvider", pozaCloudinary.imageProvider);

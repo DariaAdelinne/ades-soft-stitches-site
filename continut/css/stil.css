@@ -1525,12 +1525,24 @@ footer p {
         grid-template-columns: 1fr;
     }
 
+    .review-card {
+        align-items: start;
+    }
+
+    .review-card-body {
+        padding: 16px;
+    }
+
     .review-media {
-        min-height: 190px;
-        height: 190px;
-        width: 100%;
+        justify-self: center;
+        width: min(62vw, 230px);
+        min-height: 0;
+        height: 150px;
+        margin: 0 16px 16px;
+        border: 2px solid #f3dd9b;
+        border-radius: 14px;
         border-left: 0;
-        border-bottom: 3px solid #f3dd9b;
+        border-bottom: 2px solid #f3dd9b;
     }
 
     .review-card-cu-poza {
@@ -1642,9 +1654,10 @@ footer p {
     }
 
     .review-media {
-        min-height: 180px;
-        height: 180px;
-        width: 100%;
+        width: min(66vw, 210px);
+        min-height: 0;
+        height: 140px;
+        margin: 0 14px 14px;
     }
 
     .sortare-reviewuri {

@@ -641,7 +641,7 @@ exports.trimiteComanda = onRequest({
           subject: "Mesajul tău a ajuns la mine 💌",
           text: clientText,
         }),
-      ]), 6000, "order-email");
+      ]), 2000, "order-email");
 
       if (results.timedOut) {
         emailStatus = "pending";
@@ -787,7 +787,7 @@ exports.trimiteReview = onRequest({
           subject: "Mulțumesc pentru review 💕",
           text: reviewClientText,
         }),
-      ]), 6000, "review-email");
+      ]), 2000, "review-email");
 
       if (results.timedOut) {
         emailStatus = "pending";

@@ -1018,6 +1018,17 @@ function marcheazaReviewApreciat(id) {
     }
 }
 
+function demarcheazaReviewApreciat(id) {
+    const reviewId = String(id || "");
+    try {
+        const aprecieri = JSON.parse(localStorage.getItem("reviewLikes") || "[]");
+        const lista = Array.isArray(aprecieri) ? aprecieri.map(String).filter((item) => item !== reviewId) : [];
+        localStorage.setItem("reviewLikes", JSON.stringify(lista));
+    } catch {
+        localStorage.setItem("reviewLikes", "[]");
+    }
+}
+
 function normalizeazaReviewPublic(review) {
     return {
         id: String(review.id || ""),
@@ -1183,14 +1194,14 @@ function actualizeazaLikeReviewInCache(id, likesCount) {
     }
 }
 
-function actualizeazaButoaneLike(id, likesCount) {
+function actualizeazaButoaneLike(id, likesCount, apreciat = true) {
     const reviewId = String(id || "");
     document.querySelectorAll("[data-review-like]").forEach((buton) => {
         if (String(buton.dataset.reviewLike || "") !== reviewId) return;
-        buton.disabled = true;
+        buton.disabled = apreciat;
         const spans = buton.querySelectorAll("span");
-        if (spans[0]) spans[0].textContent = "♥";
-        if (spans[1]) spans[1].textContent = String(Number(likesCount) || 1);
+        if (spans[0]) spans[0].textContent = apreciat ? "♥" : "♡";
+        if (spans[1]) spans[1].textContent = String(Math.max(0, Number(likesCount) || 0));
     });
 }
 
@@ -1208,7 +1219,13 @@ async function apreciazaReview(buton) {
     const id = String(buton.dataset.reviewLike || "");
     if (!id || reviewApreciat(id)) return;
 
-    buton.disabled = true;
+    const spans = buton.querySelectorAll("span");
+    const likesInitial = Math.max(0, Number(spans[1]?.textContent) || 0);
+    const likesOptimist = likesInitial + 1;
+
+    marcheazaReviewApreciat(id);
+    actualizeazaLikeReviewInCache(id, likesOptimist);
+    actualizeazaButoaneLike(id, likesOptimist, true);
 
     try {
         const raspuns = await fetch(REVIEW_LIKE_ENDPOINT, {
@@ -1222,12 +1239,13 @@ async function apreciazaReview(buton) {
             throw new Error("Like-ul nu a putut fi salvat.");
         }
 
-        marcheazaReviewApreciat(id);
-        const likesCount = Number(rezultat.likesCount) || 1;
+        const likesCount = Math.max(likesOptimist, Number(rezultat.likesCount) || likesOptimist);
         actualizeazaLikeReviewInCache(id, likesCount);
-        actualizeazaButoaneLike(id, likesCount);
+        actualizeazaButoaneLike(id, likesCount, true);
     } catch (error) {
-        buton.disabled = false;
+        demarcheazaReviewApreciat(id);
+        actualizeazaLikeReviewInCache(id, likesInitial);
+        actualizeazaButoaneLike(id, likesInitial, false);
         logFetchError("Aprecierea review-ului", REVIEW_LIKE_ENDPOINT, error, { id });
     }
 }

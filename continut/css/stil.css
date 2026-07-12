@@ -1529,24 +1529,24 @@ footer p {
         align-items: start;
     }
 
+    .review-card-cu-poza {
+        grid-template-columns: minmax(0, 1fr) clamp(118px, 34vw, 150px);
+    }
+
     .review-card-body {
         padding: 16px;
     }
 
     .review-media {
-        justify-self: center;
-        width: min(62vw, 230px);
+        justify-self: stretch;
+        align-self: stretch;
+        width: auto;
         min-height: 0;
-        height: 150px;
-        margin: 0 16px 16px;
-        border: 2px solid #f3dd9b;
-        border-radius: 14px;
-        border-left: 0;
-        border-bottom: 2px solid #f3dd9b;
-    }
-
-    .review-card-cu-poza {
-        grid-template-columns: 1fr;
+        height: 100%;
+        margin: 0;
+        border: 0;
+        border-left: 3px solid #f3dd9b;
+        border-radius: 0;
     }
 
     .pas-grid {
@@ -1653,11 +1653,15 @@ footer p {
         grid-template-columns: 1fr;
     }
 
+    .review-card-cu-poza {
+        grid-template-columns: minmax(0, 1fr) 116px;
+    }
+
     .review-media {
-        width: min(66vw, 210px);
+        width: auto;
         min-height: 0;
-        height: 140px;
-        margin: 0 14px 14px;
+        height: 100%;
+        margin: 0;
     }
 
     .sortare-reviewuri {

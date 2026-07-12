@@ -27,8 +27,8 @@ const MAX_REVIEW_MESSAGE_LENGTH = 350;
 const CLOUDINARY_REVIEW_FOLDER = "ades-soft-stitches/reviews";
 const CLOUDINARY_PRODUCT_FOLDER = "ades-soft-stitches/products";
 const REVIEW_STATUSES = new Set(["pending", "approved", "rejected"]);
-const REVIEW_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
-const PRODUCT_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
+const REVIEW_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"]);
+const PRODUCT_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"]);
 const ALLOWED_ORIGINS = new Set([
   "https://adessoftstitches.vercel.app",
   "https://ades-soft-stitches-site.vercel.app",
@@ -622,7 +622,6 @@ exports.trimiteComanda = onRequest({
           subject: `Comandă nouă de la ${data.nume}`,
           text: ownerContent.text,
           html: ownerContent.html,
-          attachments,
         }),
         transporter.sendMail({
           from: sender,

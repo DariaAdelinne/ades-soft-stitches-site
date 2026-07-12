@@ -20,6 +20,57 @@ function esteEroareRetea(error) {
     return error instanceof TypeError || /load failed|failed to fetch|network/i.test(String(error?.message || ""));
 }
 
+function marcheazaCampInvalid(camp) {
+    if (!camp) return;
+    camp.classList.add("camp-invalid");
+    const container = camp.closest(".check, .rating-field, .camp-formular");
+    container?.classList.add("camp-invalid-grup");
+
+    const curata = () => {
+        camp.classList.remove("camp-invalid");
+        container?.classList.remove("camp-invalid-grup");
+    };
+
+    camp.addEventListener("input", curata, { once: true });
+    camp.addEventListener("change", curata, { once: true });
+}
+
+function duLaPrimulCampInvalid(formular, mesaj) {
+    const camp = formular.querySelector(":invalid");
+    if (!camp) return false;
+
+    const text = camp.validationMessage || "Te rog completează câmpurile obligatorii.";
+    if (mesaj) {
+        mesaj.textContent = text;
+    }
+    marcheazaCampInvalid(camp);
+
+    const tinta = camp.closest(".check, .rating-field, .camp-formular") || camp;
+    tinta.scrollIntoView({ behavior: "smooth", block: "center" });
+    window.setTimeout(() => {
+        try {
+            camp.focus({ preventScroll: true });
+        } catch {
+            camp.focus();
+        }
+    }, 180);
+
+    return true;
+}
+
+function activeazaValidareVizuala(formular, mesaj) {
+    let invalidProgramat = false;
+    formular.addEventListener("invalid", (event) => {
+        event.preventDefault();
+        if (invalidProgramat) return;
+        invalidProgramat = true;
+        window.requestAnimationFrame(() => {
+            invalidProgramat = false;
+            duLaPrimulCampInvalid(formular, mesaj);
+        });
+    }, true);
+}
+
 let colectii = [];
 let produse = [];
 let catalogIncarcat = false;
@@ -818,8 +869,15 @@ function initFormularComanda(produsId) {
         mesaj.textContent = eroareCatalog;
     }
 
+    activeazaValidareVizuala(formular, mesaj);
+
     formular.addEventListener("submit", async (event) => {
         event.preventDefault();
+
+        if (!formular.checkValidity()) {
+            duLaPrimulCampInvalid(formular, mesaj);
+            return;
+        }
 
         const butonSubmit = formular.querySelector('button[type="submit"]');
         const textInitialButon = butonSubmit ? butonSubmit.textContent : "";
@@ -1174,6 +1232,27 @@ async function apreciazaReview(buton) {
     }
 }
 
+function tipImagineFisier(fisier) {
+    const tip = String(fisier?.type || "").toLowerCase();
+    if (tip) return tip;
+    const nume = String(fisier?.name || "").toLowerCase();
+    if (/\.(jpe?g)$/.test(nume)) return "image/jpeg";
+    if (/\.png$/.test(nume)) return "image/png";
+    if (/\.webp$/.test(nume)) return "image/webp";
+    if (/\.heic$/.test(nume)) return "image/heic";
+    if (/\.heif$/.test(nume)) return "image/heif";
+    return "";
+}
+
+function fisierCuTipInferat(fisier) {
+    const tip = tipImagineFisier(fisier);
+    if (!tip || fisier.type === tip) return fisier;
+    return new File([fisier], fisier.name || "review-image", {
+        type: tip,
+        lastModified: fisier.lastModified || Date.now(),
+    });
+}
+
 function comprimaImagineReview(fisier) {
     return new Promise((resolve, reject) => {
         if (!fisier) {
@@ -1181,8 +1260,13 @@ function comprimaImagineReview(fisier) {
             return;
         }
 
-        if (!["image/jpeg", "image/png", "image/webp"].includes(fisier.type)) {
-            reject(new Error("Poza trebuie să fie jpg, png sau webp."));
+        const fisierPregatit = fisierCuTipInferat(fisier);
+        const tip = tipImagineFisier(fisierPregatit);
+        const tipuriAcceptate = ["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"];
+        const esteHeic = tip === "image/heic" || tip === "image/heif";
+
+        if (!tipuriAcceptate.includes(tip)) {
+            reject(new Error("Poza trebuie să fie jpg, png, webp, heic sau heif."));
             return;
         }
 
@@ -1191,8 +1275,13 @@ function comprimaImagineReview(fisier) {
             return;
         }
 
+        if (esteHeic) {
+            resolve(fisierPregatit);
+            return;
+        }
+
         const imagine = new Image();
-        const url = URL.createObjectURL(fisier);
+        const url = URL.createObjectURL(fisierPregatit);
 
         imagine.onload = () => {
             URL.revokeObjectURL(url);
@@ -1209,7 +1298,8 @@ function comprimaImagineReview(fisier) {
             const incearcaCompresie = (index = 0) => {
                 canvas.toBlob((blob) => {
                     if (!blob) {
-                        reject(new Error("Poza nu a putut fi pregătită."));
+                        console.warn("[Ade's Soft Stitches] Poza nu a putut fi comprimată local. Se încearcă uploadul original.");
+                        resolve(fisierPregatit);
                         return;
                     }
 
@@ -1227,7 +1317,12 @@ function comprimaImagineReview(fisier) {
 
         imagine.onerror = () => {
             URL.revokeObjectURL(url);
-            reject(new Error("Poza nu poate fi citită."));
+            console.warn("[Ade's Soft Stitches] Browserul nu a putut decoda poza local. Se încearcă uploadul original.", {
+                name: fisierPregatit.name,
+                type: fisierPregatit.type,
+                size: fisierPregatit.size,
+            });
+            resolve(fisierPregatit);
         };
 
         imagine.src = url;
@@ -1339,8 +1434,15 @@ function initFormularReview() {
     mesajReview?.addEventListener("input", actualizeazaCounter);
     actualizeazaCounter();
 
+    activeazaValidareVizuala(formular, mesaj);
+
     formular.addEventListener("submit", async (event) => {
         event.preventDefault();
+
+        if (!formular.checkValidity()) {
+            duLaPrimulCampInvalid(formular, mesaj);
+            return;
+        }
 
         const butonSubmit = formular.querySelector('button[type="submit"]');
         const textInitialButon = butonSubmit ? butonSubmit.textContent : "";

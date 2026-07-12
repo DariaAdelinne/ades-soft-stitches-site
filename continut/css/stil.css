@@ -774,6 +774,19 @@ body[data-page="confirmare"] footer {
     line-height: 1.45;
 }
 
+input.camp-invalid,
+textarea.camp-invalid,
+select.camp-invalid {
+    border-color: #d85c82;
+    box-shadow: 0 0 0 4px rgba(216, 92, 130, 0.18);
+}
+
+.camp-invalid-grup {
+    border-radius: 14px;
+    outline: 3px solid rgba(216, 92, 130, 0.28);
+    outline-offset: 6px;
+}
+
 .comanda-page form button,
 .comanda-page .mesaj-formular {
     justify-self: center;
